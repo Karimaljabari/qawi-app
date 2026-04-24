@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#09090f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="QAWI">
+<meta name="description" content="Strong in body. Strong in salah. Strong in brotherhood.">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/icon-192.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>QAWI — قوي</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #09090f; overflow: hidden;
+    height: 100%; font-family: 'DM Sans', system-ui, sans-serif; }
+  * { box-sizing: border-box; }
+  body::-webkit-scrollbar { display: none; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  input { font-family: inherit; }
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+  /* Full-screen mobile app container */
+  #root {
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #09090f;
+    overflow: hidden;
+  }
+
+  /* On desktop: show centered phone frame */
+  @media (min-width: 500px) {
+    #root { background: #050508; }
+    #app-shell {
+      width: 390px;
+      height: 844px;
+      border-radius: 44px;
+      overflow: hidden;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(201,168,76,0.1);
+      position: relative;
+    }
+  }
+
+  /* Mobile: full screen */
+  @media (max-width: 499px) {
+    #app-shell {
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      position: relative;
+    }
+  }
+
+  .app-inner {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .app-inner::-webkit-scrollbar { display: none; }
+
+  /* Safe area padding for notched iPhones */
+  .app-inner > * { padding-top: env(safe-area-inset-top, 0px); }
+</style>
+</head>
+<body>
+<div id="root">
+  <div id="app-shell">
+    <div class="app-inner" id="app-inner"></div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-odXZNR4XuMRaFkEPZSmMSvNfFxikjKcI7UHbJNBgMEQAv07gf5EKoNlMg0SU21W" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-aaJqc5jEnXmUwB5EjS0fWFkBSO0wLUTEPBvUf1gxmQBLMYpYD0SU21WALn0mMiV" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="qawi-tokens.jsx"></script>
+<script type="text/babel" src="qawi-countries.jsx"></script>
+<script type="text/babel" src="qawi-ornaments.jsx"></script>
+<script type="text/babel" src="qawi-food-db.jsx"></script>
+<script type="text/babel" src="qawi-workouts.jsx"></script>
+<script type="text/babel" src="qawi-progress-photos.jsx"></script>
+<script type="text/babel" src="qawi-meals.jsx"></script>
+<script type="text/babel" src="qawi-notebook.jsx"></script>
+<script type="text/babel" src="qawi-bell.jsx"></script>
+<script type="text/babel" src="qawi-dashboard.jsx"></script>
+<script type="text/babel" src="qawi-landing.jsx"></script>
+<script type="text/babel" src="qawi-prayer.jsx"></script>
+<script type="text/babel" src="qawi-squad.jsx"></script>
+<script type="text/babel" src="qawi-finders.jsx"></script>
+<script type="text/babel" src="qawi-onboard.jsx"></script>
+<script type="text/babel" src="qawi-manager.jsx"></script>
+<script type="text/babel" src="qawi-athkar.jsx"></script>
+<script type="text/babel" src="qawi-personalize.jsx"></script>
+
+<script type="text/babel">
+const DEFAULTS = { variant: 'obsidian' };
+
+function App() {
+  const [variant, setVariant] = React.useState(
+    () => localStorage.getItem('qawi-variant') || DEFAULTS.variant
+  );
+  const [screen, setScreen] = React.useState('landing');
+  const [state, setState] = React.useState({
+    streak: 0,
+    steps: 0,
+    stepsGoal: 10000,
+    gymDays: new Set(),
+    gymTarget: 16,
+    prayed: 0,
+    todayPrayed: 0,
+    today: new Date().getDate(),
+    journal: {},
+  });
+  const [profile, setProfile] = React.useState(() => {
+    try {
+      const saved = localStorage.getItem('qawi-profile');
+      return saved ? JSON.parse(saved) : null;
+    } catch { return null; }
+  });
+  const [broadcasts, setBroadcasts] = React.useState([]);
+
+  const DEFAULT_PREFS = {
+    tabs: [
+      { id: 'dash',    visible: true },
+      { id: 'salah',   visible: true },
+      { id: 'athkar',  visible: true },
+      { id: 'squad',   visible: true },
+      { id: 'manager', visible: false },
+    ],
+    hero: 'prayer',
+  };
+  const [prefs, setPrefs] = React.useState(() => {
+    try {
+      const saved = localStorage.getItem('qawi-prefs');
+      if (!saved) return DEFAULT_PREFS;
+      const parsed = JSON.parse(saved);
+      const knownIds = new Set(parsed.tabs?.map(x => x.id));
+      const missing = DEFAULT_PREFS.tabs.filter(x => !knownIds.has(x.id));
+      return { ...DEFAULT_PREFS, ...parsed, tabs: [...(parsed.tabs || []), ...missing] };
+    } catch { return DEFAULT_PREFS; }
+  });
+
+  const DEFAULT_CHANNELS = {
+    prayer: { on: true, label: 'PRAYER', labelAr: 'الصلاة', icon: '◐', color: 'gold', desc: 'Azan reminders for all 5 daily prayers', leadMins: 10, quietHours: true, templates: { upcoming: 'Fajr in {mins} minutes · {time}', now: '{prayer} · {time}', missed: 'You missed {prayer}. Make it up when you can.' } },
+    gym:    { on: true, label: 'GYM',    labelAr: 'صالة',  icon: '⛌', color: 'amber', desc: 'Workout reminders + streak protection', time: '17:30', streakProtect: true, templates: { scheduled: 'Push day scheduled · chest / shoulders / tris', streakRisk: '{days}-day gym streak at risk. Go today.', logged: 'Session logged. {streak} day streak.' } },
+    meals:  { on: true, label: 'MEALS',  labelAr: 'وجبات', icon: '◊', color: 'green', desc: 'Calorie + macro nudges at meal times', times: ['09:00','13:00','19:30'], templates: { reminder: '{remaining} / {goal} kcal left · log {meal}', macroLow: 'Low on protein today · {grams}g left' } },
+    journal:{ on: true, label: 'JOURNAL',labelAr: 'اليومي',icon: '✎', color: 'bronze', desc: 'Evening close-out nudge at Maghrib', triggerAt: 'maghrib', templates: { close: 'Close out your day · {fields} fields left' } },
+    squad:  { on: true, label: 'SQUAD',  labelAr: 'الإخوة',icon: '◈', color: 'blue',  desc: 'Brothers/Sisters activity + manager broadcasts', genderFiltered: true, templates: { activity: '{name} just hit the gym · {count} sessions', broadcast: '{managerName}: {msg}' } },
+    motivation: { on: true, label: 'MOTIVATION', labelAr: 'تذكير', icon: '✧', color: 'purple', desc: 'Streak milestones, hadith, duas', frequency: 'daily', templates: { milestone: '{days} days without missing Fajr. Alhamdulillah.', hadith: 'The Prophet ﷺ said: "{quote}"' } },
+  };
+  const [channels, setChannels] = React.useState(() => {
+    try { const s = localStorage.getItem('qawi-channels'); return s ? { ...DEFAULT_CHANNELS, ...JSON.parse(s) } : DEFAULT_CHANNELS; }
+    catch { return DEFAULT_CHANNELS; }
+  });
+
+  React.useEffect(() => { localStorage.setItem('qawi-prefs', JSON.stringify(prefs)); }, [prefs]);
+  React.useEffect(() => { localStorage.setItem('qawi-channels', JSON.stringify(channels)); }, [channels]);
+  React.useEffect(() => { if (profile) localStorage.setItem('qawi-profile', JSON.stringify(profile)); }, [profile]);
+  React.useEffect(() => { localStorage.setItem('qawi-variant', variant); }, [variant]);
+
+  const t = window.QAWI_VARIANTS[variant];
+  const onNav = (id) => setScreen(id);
+  const onBack = () => setScreen('landing');
+  React.useEffect(() => { window.__qawiNav = onNav; }, []);
+
+  const [bellOpen, setBellOpen] = React.useState(false);
+
+  let body;
+  if (!profile)
+    body = <OnboardScreen t={t} onDone={(p) => { setProfile(p); setScreen('landing'); }} />;
+  else if (screen === 'landing')
+    body = <LandingScreen t={t} onNav={onNav} onBell={() => setBellOpen(true)} onPersonalize={() => setScreen('personalize')} profile={profile} prefs={prefs} />;
+  else if (screen === 'personalize')
+    body = <PersonalizeScreen t={t} onBack={onBack} prefs={prefs} setPrefs={setPrefs} variant={variant} setVariant={setVariant} />;
+  else if (screen === 'dash')
+    body = <DashboardScreen t={t} state={state} setState={setState} onBack={onBack} profile={profile} />;
+  else if (screen === 'salah' || screen === 'prayer')
+    body = <PrayerScreen t={t} state={state} setState={setState} onBack={onBack} profile={profile} setProfile={setProfile} />;
+  else if (screen === 'squad')
+    body = <SquadScreen t={t} state={state} setState={setState} onBack={onBack} profile={profile} />;
+  else if (screen === 'sujood')
+    body = <FinderScreen t={t} kind="sujood" onBack={onBack} />;
+  else if (screen === 'manager')
+    body = <ManagerScreen t={t} onBack={onBack} gender={profile?.gender} broadcasts={broadcasts} setBroadcasts={setBroadcasts} channels={channels} setChannels={setChannels} />;
+  else if (screen === 'athkar')
+    body = <AthkarScreen t={t} onBack={onBack} profile={profile} />;
+
+  return (
+    <>
+      {body}
+      {bellOpen && <BellSheet t={t} onClose={() => setBellOpen(false)} />}
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('app-inner')).render(<App />);
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
