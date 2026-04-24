@@ -1,0 +1,120 @@
+{
+  "users": {
+    "karimaljabari": {
+      "id": "karimaljabari",
+      "username": "karimaljabari",
+      "displayName": "KarimAljabari",
+      "passwordHash": "23f4c9e5e373a426d7662a5c370ba943389c3f754ddd9f3b792533d7f302c8fe",
+      "email": "",
+      "color": "#E88C30",
+      "initials": "KA",
+      "profile": {
+        "goal": "weight_loss",
+        "targetWeight": "82",
+        "gymDaysPerWeek": 5
+      },
+      "pushSubscriptions": [],
+      "createdAt": 1776512850285,
+      "isAdmin": false
+    },
+    "karimajabari": {
+      "id": "karimajabari",
+      "username": "karimajabari",
+      "displayName": "KARIMAJABARI",
+      "passwordHash": "d0ef3a82d1dc6d66a0701ffd29fdb3550d6168a49392c1aaf87f19d1656e1bd3",
+      "email": "",
+      "gender": "male",
+      "color": "#4CAF7D",
+      "initials": "KA",
+      "profile": {
+        "goal": "weight_loss",
+        "targetWeight": "82",
+        "gymDaysPerWeek": 4
+      },
+      "pushSubscriptions": [],
+      "theme": "light",
+      "language": "en",
+      "city": null,
+      "lat": null,
+      "lng": null,
+      "createdAt": 1776518878370,
+      "isAdmin": false
+    },
+    "karimaljabari1": {
+      "id": "karimaljabari1",
+      "username": "karimaljabari1",
+      "displayName": "KarimAljabari1",
+      "passwordHash": "d0ef3a82d1dc6d66a0701ffd29fdb3550d6168a49392c1aaf87f19d1656e1bd3",
+      "email": "",
+      "gender": "male",
+      "color": "#5B8DD9",
+      "initials": "KA",
+      "profile": {
+        "goal": "weight_loss",
+        "targetWeight": "82",
+        "gymDaysPerWeek": 4
+      },
+      "pushSubscriptions": [],
+      "theme": "dark",
+      "language": "en",
+      "city": "Dubai",
+      "lat": null,
+      "lng": null,
+      "createdAt": 1776604870363,
+      "isAdmin": false
+    }
+  },
+  "monthData": {
+    "karimaljabari_2026_3": {
+      "weight": "91",
+      "note": "",
+      "steps": {}
+    }
+  },
+  "gymTicks": {
+    "karimaljabari_2026_3": {
+      "17": true
+    }
+  },
+  "photos": {},
+  "adminQuote": null,
+  "leaderboard": {},
+  "squads": {},
+  "challenges": {},
+  "notebook": {
+    "karimaljabari1_2026-04-19": {
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        },
+        {
+          "name": "Bench Press",
+          "sets": [
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            },
+            {
+              "weight": "",
+              "reps": "",
+              "done": false
+            }
+          ]
+        }
+      ],
+      "notes": "",
+      "workoutName": "",
+      "date": "2026-04-19",
+      "username": "karimaljabari1",
+      "updatedAt": 1776605247327
+    }
+  }
+}

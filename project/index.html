@@ -1,0 +1,1064 @@
+<div class="hadith-banner" style="text-align:center;padding:16px 20px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(201,168,76,0.06) 0%,transparent 100%)"><div style="font-size:clamp(11px,4vw,16px);font-weight:700;letter-spacing:1px;color:var(--gold);margin-bottom:8px;line-height:1.5;word-wrap:break-word">"A strong believer is better and more lovable to Allah than a weak believer"</div><div style="font-size:clamp(14px,4.5vw,20px);color:var(--gold);direction:rtl;font-family:Georgia,serif;opacity:0.85;line-height:1.9;word-wrap:break-word;padding:0 4px"></div></div><!DOCTYPE html>
+<html lang="en" dir="ltr" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#09090f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="QAWI">
+<title>QAWI — قوي</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/qawi-icon.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/css/style.css">
+<style>
+.hero-icons{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:24px;opacity:0;animation:up .8s .8s forwards}
+.hero-icon-btn{display:flex;flex-direction:column;align-items:center;cursor:pointer;text-decoration:none;transition:all .3s;border:none;background:none;padding:0}
+.hero-icon-btn:hover{transform:translateY(-4px)}
+.hero-icon-img{width:150px;height:150px;border-radius:24px;object-fit:cover;border:2px solid var(--border);transition:all .3s;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.hero-icon-btn:hover .hero-icon-img{border-color:var(--gold);box-shadow:0 12px 40px rgba(201,168,76,.2)}
+.hero-icon-lbl{font-family:var(--font-d);font-size:15px;font-weight:700;letter-spacing:3px;color:var(--text2);margin-top:10px;transition:color .3s}
+.hero-icon-btn:hover .hero-icon-lbl{color:var(--gold)}
+.hadith-banner{text-align:center;padding:14px 12px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(201,168,76,0.06) 0%,transparent 100%)}
+.hadith-en{font-family:var(--font-d);font-size:clamp(12px,3.5vw,17px);font-weight:700;letter-spacing:1px;color:var(--gold);margin-bottom:7px;line-height:1.5}
+.hadith-ar{font-size:clamp(13px,3.8vw,19px);color:var(--gold);direction:rtl;font-family:Georgia,serif;opacity:0.8;line-height:1.8}
+.auth-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;background:var(--bg)}
+.auth-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:26px;width:100%;max-width:380px}
+.auth-title{font-family:var(--font-d);font-size:26px;font-weight:800;letter-spacing:2px;color:var(--gold);margin-bottom:5px}
+.auth-sub{font-size:12px;color:var(--text3);margin-bottom:20px}
+.auth-err{color:var(--red);font-size:12px;margin-bottom:8px;min-height:15px;font-family:var(--mono)}
+.auth-switch{text-align:center;margin-top:14px;font-size:12px;color:var(--text3)}
+.auth-switch span{color:var(--gold);cursor:pointer;font-weight:600}
+.gender-btns{display:flex;gap:7px}
+.gender-btn{flex:1;padding:9px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);font-size:12px;font-weight:600;cursor:pointer;color:var(--text2);transition:all .2s;font-family:var(--font)}
+.gender-btn.sel{border-color:var(--gold);color:var(--gold);background:var(--gold-glow)}
+.lb-tabs{display:flex;gap:5px;margin-bottom:14px;background:var(--bg3);border-radius:var(--r-sm);padding:4px}
+.lb-tab{flex:1;padding:7px;background:none;border:none;border-radius:6px;font-size:11px;cursor:pointer;color:var(--text3);transition:all .15s;font-family:var(--mono)}
+.lb-tab.active{background:var(--bg2);color:var(--gold);font-weight:600;border:1px solid var(--border)}
+.lb-row{display:flex;align-items:center;gap:10px;padding:11px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:7px}
+.lb-row:first-child{border-color:var(--gold);background:var(--gold-glow)}
+.lb-rank{font-family:var(--font-d);font-size:20px;font-weight:800;color:var(--text3);width:28px;text-align:center}
+.lb-row:first-child .lb-rank{color:var(--gold)}
+.lb-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:var(--mono);flex-shrink:0}
+.lb-info{flex:1}.lb-name{font-size:13px;font-weight:600;color:var(--text)}.lb-detail{font-size:10px;color:var(--text3);font-family:var(--mono);margin-top:2px}
+.lb-score{font-family:var(--font-d);font-size:26px;font-weight:800;color:var(--gold)}.lb-score-lbl{font-size:9px;color:var(--text3);font-family:var(--mono)}
+.lb-bar-track{background:var(--bg3);border-radius:20px;height:4px;overflow:hidden;margin-top:4px}.lb-bar-fill{height:100%;border-radius:20px;background:var(--gold);transition:width .6s}
+.squad-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.squad-name{font-family:var(--font-d);font-size:20px;font-weight:700;letter-spacing:1px;color:var(--gold);margin-bottom:4px}
+.squad-code{font-family:var(--mono);font-size:13px;color:var(--text3);background:var(--bg3);padding:4px 10px;border-radius:20px;display:inline-block}
+.cal-result{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px;margin-top:12px}
+.cal-result-main{font-family:var(--font-d);font-size:38px;font-weight:800;color:var(--gold)}
+.cal-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:12px}
+.cal-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px;text-align:center}
+.cal-box-num{font-family:var(--font-d);font-size:20px;font-weight:700;color:var(--text)}.cal-box-lbl{font-size:9px;color:var(--text3);font-family:var(--mono);margin-top:2px}
+.food-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg3);border-radius:var(--r-sm);border:1px solid var(--border);margin-bottom:6px}
+.food-halal{font-size:10px;font-family:var(--mono);padding:2px 7px;border-radius:20px;border:1px solid}
+.prayer-hero{background:var(--bg2);border-bottom:1px solid var(--border);padding:22px;text-align:center}
+.prayer-big-icon{font-size:48px;margin-bottom:8px;line-height:1}
+.prayer-next-lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;font-family:var(--mono)}
+.prayer-next-name{font-family:var(--font-d);font-size:32px;font-weight:800;letter-spacing:2px;color:var(--gold);margin-bottom:5px}
+.prayer-countdown{font-family:var(--mono);font-size:30px;color:var(--text);letter-spacing:4px}
+.prayer-today-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px;max-width:520px;margin:0 auto}
+.prayer-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px 8px;text-align:center}
+.prayer-card.current{border-color:var(--gold);background:var(--gold-glow)}
+.prayer-icon{font-size:20px;margin-bottom:4px}.prayer-name-lbl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;font-family:var(--mono)}
+.prayer-time-val{font-family:var(--font-d);font-size:18px;font-weight:700;color:var(--text)}.prayer-card.current .prayer-time-val{color:var(--gold)}
+.prayer-now-badge{font-size:8px;color:var(--gold);font-family:var(--mono);margin-top:2px}
+.prayer-month-title{font-family:var(--font-d);font-size:16px;font-weight:700;letter-spacing:1px;color:var(--gold-dim);padding:12px 14px 6px}
+.prayer-month-table{width:100%;border-collapse:separate;border-spacing:0;font-size:11px}
+.prayer-month-table th{background:var(--bg3);color:var(--gold);padding:10px 6px;text-align:center;font-family:var(--mono);font-weight:600;font-size:10px;border-bottom:2px solid var(--gold-dim)}
+.prayer-month-table td{padding:9px 6px;text-align:center;color:var(--text2);border-bottom:1px solid var(--border);font-family:var(--mono)}
+.prayer-month-table tbody tr:hover td{background:var(--bg3)}
+.prayer-month-table tr.today-row td{background:var(--gold-glow);color:var(--gold);font-weight:600}
+.prayer-month-table tr.today-row td:first-child{border-left:3px solid var(--gold)}
+
+
+
+
+
+
+
+
+.admin-panel{background:var(--bg2);border:1px solid var(--gold);border-radius:var(--r);padding:16px;margin-bottom:10px}
+.admin-quote-banner{background:var(--bg2);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:11px 14px;margin:0 0 12px;display:none}
+.admin-quote-text{font-size:13px;color:var(--text);line-height:1.7;font-style:italic}
+.admin-quote-author{font-size:10px;color:var(--gold);margin-top:4px;font-family:var(--mono)}
+.today-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px}
+.today-date{font-family:var(--font-d);font-size:11px;letter-spacing:2px;color:var(--text3);margin-bottom:12px;text-transform:uppercase}
+.today-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.today-box{background:var(--bg3);border-radius:var(--r-sm);padding:12px;border:1px solid var(--border);text-align:center}
+.today-box-lbl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:9px;font-family:var(--mono)}
+.gym-big-btn{width:64px;height:64px;border-radius:50%;border:2px solid var(--border2);background:var(--bg4);cursor:pointer;font-size:24px;display:flex;align-items:center;justify-content:center;margin:0 auto;transition:all .2s}
+.gym-big-btn.done{background:var(--gold);border-color:var(--gold);color:#000}.gym-big-btn:hover{border-color:var(--gold)}
+.gym-big-sub{font-size:10px;color:var(--text3);margin-top:6px;font-family:var(--mono)}
+.steps-today-inp{width:100%;background:var(--bg4);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-family:var(--font-d);font-size:28px;text-align:center;padding:8px;outline:none}
+.steps-today-inp:focus{border-color:var(--gold)}
+.steps-bar-track{background:var(--bg4);border-radius:20px;height:5px;overflow:hidden;margin:5px 0}
+.steps-bar-fill{height:100%;border-radius:20px;background:var(--gold);transition:width .4s}
+.steps-bar-lbl{display:flex;justify-content:space-between;font-size:9px;color:var(--text3);font-family:var(--mono)}
+.month-view-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.month-day{text-align:center;padding:2px 0}.month-day-num{font-size:8px;color:var(--text3);font-family:var(--mono);margin-bottom:2px}
+.month-day-gym{width:100%;aspect-ratio:1;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:10px;background:var(--bg3);border:1px solid var(--border)}
+.month-day-gym.done{background:var(--gold);color:#000;border-color:var(--gold)}.month-day-gym.today{border-color:var(--border3)}
+.gym-summary{display:flex;align-items:center;justify-content:space-between;margin-top:9px;padding:9px 12px;background:var(--bg3);border-radius:var(--r-sm);border:1px solid var(--border)}
+.gym-total{font-family:var(--font-d);font-size:24px;font-weight:700;color:var(--gold)}
+.steps-totals-box{background:var(--bg3);border-radius:var(--r-sm);padding:12px;margin-top:9px;border:1px solid var(--border)}
+.view-btn{flex:1;padding:6px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);font-size:10px;color:var(--text3);cursor:pointer;text-align:center;transition:all .2s;font-family:var(--mono)}
+.view-btn.active{background:var(--gold-glow);border-color:var(--gold);color:var(--gold)}
+.target-bar-track{background:var(--bg3);border-radius:20px;height:6px;overflow:hidden;margin:5px 0}
+.target-bar-fill{height:100%;border-radius:20px;transition:width .5s}.target-lbl{font-size:10px;color:var(--text3);font-family:var(--mono)}
+.photo-tab-bar{display:flex;gap:5px;margin-bottom:10px}
+.photo-tab{flex:1;padding:7px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);font-size:11px;color:var(--text3);cursor:pointer;text-align:center;transition:all .2s;font-family:var(--mono)}
+.photo-tab.active{background:var(--gold-glow);border-color:var(--gold);color:var(--gold)}
+.photo-timeline{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px}
+.photo-month{flex-shrink:0;width:120px}.photo-month-lbl{font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:1px;color:var(--gold-dim);margin-bottom:4px;text-align:center}
+.photo-empty{width:120px;height:160px;border:1px dashed var(--border2);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-direction:column;gap:4px}
+.photo-empty:hover{border-color:var(--gold)}.photo-cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.photo-cmp-lbl{font-size:10px;color:var(--gold-dim);margin-bottom:5px;font-family:var(--mono);text-align:center}
+.t-row{display:flex;align-items:center;gap:7px;margin-bottom:6px}.t-lbl{font-size:9px;color:var(--text3);width:32px;font-family:var(--mono)}
+.t-track{flex:1;background:var(--bg3);border-radius:20px;height:18px;overflow:hidden}
+.t-bar{height:100%;border-radius:20px;display:flex;align-items:center;padding:0 7px;font-size:10px;font-weight:700;color:#000;transition:width .5s}
+.t-out{font-size:9px;color:var(--text2);width:44px;text-align:right;font-family:var(--mono)}
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.m-box{background:var(--bg3);border-radius:var(--r-sm);padding:11px;border:1px solid var(--border)}
+.m-lbl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;font-family:var(--mono)}
+.m-val{font-family:var(--font-d);font-size:24px;font-weight:700;letter-spacing:1px;line-height:1;color:var(--gold)}
+.m-unit{font-size:11px;color:var(--text2);font-family:var(--font);font-weight:400}
+.upload-zone{border:1px dashed var(--border2);border-radius:var(--r-sm);padding:20px;text-align:center;cursor:pointer;color:var(--text3);font-size:12px;transition:all .2s}
+.upload-zone:hover{border-color:var(--gold);color:var(--gold)}
+.notify-btn{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 14px;cursor:pointer;color:var(--text2);font-size:12px;transition:all .2s;font-family:var(--font);text-align:left;width:100%}
+.notify-btn.on{border-color:var(--gold);color:var(--gold);background:var(--gold-glow)}
+[dir="rtl"] .admin-quote-banner{border-left:none;border-right:3px solid var(--gold)}
+[dir="rtl"] .land-nav{flex-direction:row-reverse}
+</style>
+</head>
+<body>
+<div class="modal" id="photo-modal" onclick="closeModal()"><button class="modal-close">✕</button><img id="modal-img" src="" alt=""></div>
+<div id="install-banner" style="display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--gold);border-radius:var(--r);padding:14px 18px;z-index:200;text-align:center;width:90%;max-width:400px"><div style="font-family:var(--font-d);font-size:16px;letter-spacing:2px;color:var(--gold);margin-bottom:5px">ADD TO HOME SCREEN</div><div style="font-size:11px;color:var(--text3);margin-bottom:10px">Install QAWI as an app</div><div style="display:flex;gap:7px;justify-content:center"><button onclick="installApp()" style="background:var(--gold);color:#000;border:none;border-radius:var(--r-sm);padding:8px 18px;font-weight:700;cursor:pointer">INSTALL</button><button onclick="document.getElementById('install-banner').style.display='none'" style="background:none;border:1px solid var(--border2);color:var(--text2);border-radius:var(--r-sm);padding:8px 14px;cursor:pointer">Later</button></div></div>
+
+<!-- LANDING -->
+<div class="page active" id="page-landing" style="min-height:100vh;overflow:hidden">
+<div class="land-glow"></div>
+<div class="land-inner">
+<nav class="land-nav">
+  <div onclick="nav('/')" style="cursor:pointer"><div class="land-logo">QAWI</div><div class="land-logo-ar">قوي</div></div>
+  <div class="nav-controls">
+    <div class="lang-toggle"><button class="lang-btn active" onclick="setLang('en')" id="land-btn-en">EN</button><button class="lang-btn" onclick="setLang('ar')" id="land-btn-ar">ع</button></div>
+    <div class="theme-toggle" id="land-theme" onclick="toggleTheme()"></div>
+  </div>
+</nav>
+<div class="hadith-banner" style="padding:14px 16px;">
+  <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:8px;line-height:1.5;padding:0 8px;display:block;text-align:center">"A strong believer is better and more lovable to Allah than a weak believer"</div>
+  <div style="font-size:16px;color:var(--gold);direction:rtl;font-family:Georgia,serif;opacity:0.85;line-height:1.9;padding:0 12px;word-break:break-word;display:block;text-align:center" style="word-break:break-word;padding:0 8px">الْمُؤْمِنُ الْقَوِيُّ خَيْرٌ وَأَحَبُّ إِلَى اللَّهِ مِنَ الْمُؤْمِنِ الضَّعِيفِ</div>
+</div>
+<div class="hero">
+  <div class="hero-tag" id="hero-tag">TODAY'S MOTIVATION</div>
+  <div class="hero-quote" id="hero-q">...</div>
+  <div class="hero-author" id="hero-a"></div>
+  <div class="admin-quote-banner" id="land-admin-quote" style="max-width:720px;width:100%;margin:0 0 18px"><div class="admin-quote-text" id="land-admin-text"></div><div class="admin-quote-author">— Karim</div></div>
+  <div class="hero-icons">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+      <div class="hero-icon-btn" onclick="nav('/fitness')" style="cursor:pointer">
+        <img class="hero-icon-img" src="/fitness-icon.png" alt="FITNESS" onerror="this.style.display='none'">
+        <div class="hero-icon-lbl" id="lbl-fitness">FITNESS</div>
+      </div>
+      <div onclick="openGymFinder()" style="background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);padding:10px 14px;display:flex;align-items:center;gap:8px;cursor:pointer;width:150px;transition:all .2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border2)'">
+        <img src="/gym-finder-icon.png" style="width:28px;height:28px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">
+        <div style="text-align:left"><div style="font-size:11px;font-weight:600;color:var(--text)">Find a Gym</div><div style="font-size:9px;color:var(--text3)">Nearby · UAE</div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+      <div class="hero-icon-btn" onclick="nav('/prayer')" style="cursor:pointer">
+        <img class="hero-icon-img" src="/prayer-icon.png" alt="PRAYER" onerror="this.style.display='none'">
+        <div class="hero-icon-lbl" id="lbl-prayer">PRAYER</div>
+      </div>
+      <div onclick="openMasjidFinder()" style="background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);padding:10px 14px;display:flex;align-items:center;gap:8px;cursor:pointer;width:150px;transition:all .2s" onmouseover="this.style.borderColor='#4CAF7D'" onmouseout="this.style.borderColor='var(--border2)'">
+        <img src="/masjid-finder-icon.png" style="width:28px;height:28px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">
+        <div style="text-align:left"><div style="font-size:11px;font-weight:600;color:var(--text)">Find a Masjid</div><div style="font-size:9px;color:var(--text3)">Nearest · UAE</div></div>
+      </div>
+    </div>
+  </div></div>
+</div>
+<div class="ticker" id="ticker"></div>
+</div>
+</div>
+
+<!-- AUTH -->
+<div class="page" id="page-auth">
+<div class="auth-wrap">
+<div class="land-glow"></div>
+<div style="margin-bottom:24px;text-align:center;position:relative;z-index:1;cursor:pointer" onclick="nav('/')">
+  <div style="font-family:var(--font-d);font-size:32px;font-weight:900;letter-spacing:5px;color:var(--gold)">QAWI</div>
+  <div style="font-size:12px;color:var(--gold-dim);direction:rtl;font-family:Georgia,serif">قوي</div>
+</div>
+<div class="auth-card" style="position:relative;z-index:1">
+  <div id="auth-login">
+    <div class="auth-title">WELCOME BACK</div>
+    <div class="auth-sub">Sign in to your account</div>
+    <div class="auth-err" id="login-err"></div>
+    <div class="field"><label>USERNAME</label><input type="text" id="login-user" placeholder="your_username" autocomplete="username" autocapitalize="none"></div>
+    <div class="field"><label>PASSWORD</label><input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password"></div>
+    <button class="btn btn-p btn-full" onclick="doLogin()">SIGN IN</button>
+    <div class="auth-switch">Don't have an account? <span onclick="showSignup()">Sign up free</span></div>
+  </div>
+  <div id="auth-signup" style="display:none">
+    <div class="auth-title">JOIN QAWI</div>
+    <div class="auth-sub">Create your free account</div>
+    <div class="auth-err" id="signup-err"></div>
+    <div class="field"><label>USERNAME</label><input type="text" id="signup-user" placeholder="choose_username" autocomplete="username" autocapitalize="none"></div>
+    <div class="field"><label>PASSWORD</label><input type="password" id="signup-pass" placeholder="Min 6 characters" autocomplete="new-password"></div>
+    <div class="field"><label>EMAIL <span style="font-size:9px;color:var(--text3)">(OPTIONAL)</span></label><input type="email" id="signup-email" placeholder="you@example.com"></div>
+    <div class="field"><label>GENDER</label>
+      <div class="gender-btns">
+        <button class="gender-btn sel" onclick="selGenderSignup('male',this)" id="sbtn-male">Male</button>
+        <button class="gender-btn" onclick="selGenderSignup('female',this)" id="sbtn-female">Female</button>
+      </div>
+    </div>
+    <button class="btn btn-p btn-full" onclick="doSignup()">CREATE ACCOUNT</button>
+    <div class="auth-switch">Already have an account? <span onclick="showLogin()">Sign in</span></div>
+  </div>
+</div>
+<button class="btn btn-o btn-sm" onclick="nav('/')" style="margin-top:14px;position:relative;z-index:1">← Back to home</button>
+</div>
+</div>
+
+<!-- GOAL SETUP -->
+<div class="page" id="page-goal">
+<div class="topbar">
+  <div onclick="nav('/')" style="cursor:pointer"><div class="tb-logo">QAWI</div><div class="tb-logo-ar">قوي</div></div>
+  <div class="tb-sep"></div><div class="tb-name" id="goal-uname"></div>
+</div>
+<div class="setup-wrap">
+  <div class="setup-h">SET YOUR GOAL</div>
+  <div class="setup-sub">Personalise your tracker and leaderboard ranking</div>
+  <div class="card" style="margin-bottom:10px"><div class="card-h">PRIMARY GOAL</div><div class="goal-grid" id="goal-grid-setup"></div></div>
+  <div class="card" style="margin-bottom:10px">
+    <div class="card-h">GYM DAYS PER WEEK</div>
+    <div class="gym-week-opts" id="week-opts-setup">
+      <div class="week-opt" onclick="selWeek(2,this)">2x</div><div class="week-opt" onclick="selWeek(3,this)">3x</div>
+      <div class="week-opt" onclick="selWeek(4,this)">4x</div><div class="week-opt" onclick="selWeek(5,this)">5x</div>
+      <div class="week-opt" onclick="selWeek(6,this)">6x</div><div class="week-opt" onclick="selWeek(7,this)">7x</div>
+    </div>
+    <div style="font-size:10px;color:var(--text3);margin-top:7px;font-family:var(--mono)" id="week-calc"></div>
+  </div>
+  <div class="card" style="margin-bottom:10px"><div class="card-h">TARGET WEIGHT <span style="font-size:10px;font-weight:400;color:var(--text3)">(OPTIONAL)</span></div><div class="field"><input type="number" id="goal-target" placeholder="e.g. 78 kg" step="0.5"></div></div>
+  <button class="btn btn-p btn-full" onclick="saveGoalSetup()">START →</button>
+</div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="page" id="page-dash">
+<div class="topbar">
+  <div onclick="nav('/')" style="cursor:pointer"><div class="tb-logo">QAWI</div><div class="tb-logo-ar">قوي</div></div>
+  <div class="tb-sep"></div><div class="tb-name" id="dash-uname"></div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:6px">
+    <div class="lang-toggle"><button class="lang-btn active" onclick="setLang('en')" id="dash-btn-en">EN</button><button class="lang-btn" onclick="setLang('ar')" id="dash-btn-ar">ع</button></div>
+    <div class="theme-toggle" id="dash-theme" onclick="toggleTheme()"></div>
+    <button class="tb-btn" onclick="nav('/')">🏠</button>
+    <button class="tb-btn" onclick="doLogout()">OUT</button>
+  </div>
+</div>
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchDashTab('tracker')" id="tab-tracker">Tracker</button>
+  <button class="tab-btn" onclick="switchDashTab('leaderboard')" id="tab-lb">🏆 Ranks</button>
+  <button class="tab-btn" onclick="switchDashTab('squads')" id="tab-squads">👥 Squads</button>
+  <button class="tab-btn" onclick="switchDashTab('calories')" id="tab-cal">🔥 Calories</button>
+  <button class="tab-btn" onclick="switchDashTab('prayer')" id="tab-prayer">🕌 Prayer</button>
+  <button class="tab-btn" onclick="switchDashTab('settings')" id="tab-settings">⚙️</button>
+</div>
+
+<!-- TRACKER -->
+<div class="tab-panel active" id="dtab-tracker"><div class="dash-wrap">
+  <div class="admin-quote-banner" id="dash-admin-quote" style="margin-top:12px"><div class="admin-quote-text" id="dash-admin-text"></div><div class="admin-quote-author">— Karim</div></div>
+  <div class="status-bar" style="margin-top:12px"><div class="status-dot" id="status-dot"></div><div class="status-txt" id="status-txt">Loading...</div><div class="status-goal" id="status-goal"></div></div>
+  <div class="mnav">
+    <button class="mnav-btn" onclick="chMonth(-1)" id="mnav-prev">‹</button>
+    <div class="mnav-lbl" id="mnav-lbl"></div>
+    <button class="mnav-btn" onclick="chMonth(1)">›</button>
+    <div class="lock-badge" id="lock-badge" style="display:none">🔒</div>
+  </div>
+  <div class="locked-banner" id="locked-banner"><div class="lb-title">📅 MONTH CLOSED</div><div class="lb-stats" id="lb-stats2"></div></div>
+  <div class="rings-row">
+    <div class="ring-card">
+      <svg width="50" height="50" viewBox="0 0 54 54"><circle cx="27" cy="27" r="22" fill="none" stroke="var(--bg3)" stroke-width="5"/><circle id="ring-gym-c" cx="27" cy="27" r="22" fill="none" stroke="var(--gold)" stroke-width="5" stroke-linecap="round" stroke-dasharray="138.2" stroke-dashoffset="138.2" transform="rotate(-90 27 27)" style="transition:stroke-dashoffset .6s"/></svg>
+      <div class="ring-info"><div class="ring-label">GYM DAYS</div><div class="ring-val"><span id="ring-gym-v">0</span><span style="font-size:11px;color:var(--text3)" id="ring-gym-t">/0</span></div><div class="ring-sub" id="ring-gym-s">this month</div></div>
+    </div>
+    <div class="ring-card">
+      <svg width="50" height="50" viewBox="0 0 54 54"><circle cx="27" cy="27" r="22" fill="none" stroke="var(--bg3)" stroke-width="5"/><circle id="ring-step-c" cx="27" cy="27" r="22" fill="none" stroke="var(--gold)" stroke-width="5" stroke-linecap="round" stroke-dasharray="138.2" stroke-dashoffset="138.2" transform="rotate(-90 27 27)" style="transition:stroke-dashoffset .6s"/></svg>
+      <div class="ring-info"><div class="ring-label">STEPS</div><div class="ring-val" style="font-size:20px"><span id="ring-step-v">0</span></div><div class="ring-sub">goal: 10k/day</div></div>
+    </div>
+  </div>
+  <div class="today-card">
+    <div class="today-date" id="today-date-lbl"></div>
+    <div class="today-row">
+      <div class="today-box"><div class="today-box-lbl">GYM TODAY?</div><div class="gym-big-btn" id="gym-today-btn" onclick="toggleGymToday()"><span id="gym-today-icon">💪</span></div><div class="gym-big-sub" id="gym-today-sub">tap to mark</div></div>
+      <div class="today-box"><div class="today-box-lbl">STEPS TODAY</div><input class="steps-today-inp" id="steps-today-inp" type="number" placeholder="0" min="0" oninput="updateStepsToday()"><div class="steps-bar-track"><div class="steps-bar-fill" id="steps-bar" style="width:0%"></div></div><div class="steps-bar-lbl"><span id="steps-pct-lbl">0%</span><span>10k</span></div></div>
+    </div>
+    <div><div style="font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;font-family:var(--mono)">TODAY'S ACTIVITY</div>
+      <div style="display:flex;gap:5px;position:relative">
+        <div style="flex:1;position:relative"><input type="text" id="act-inp" placeholder="e.g. 5km run, football..." autocomplete="off" style="width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-family:var(--font);font-size:12px;padding:9px 11px;outline:none"><div id="act-dd" style="display:none;position:absolute;top:calc(100% + 3px);left:0;right:0;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r-sm);z-index:99;max-height:140px;overflow-y:auto"></div></div>
+        <button class="btn btn-p btn-sm" id="act-save-btn" onclick="saveAct()">SAVE</button>
+      </div>
+    </div>
+    <div id="act-log-today" style="margin-top:8px"></div>
+  </div>
+  <div class="card">
+    <div class="card-h" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px"><span>MONTHLY OVERVIEW</span><div style="display:flex;gap:4px"><div class="view-btn active" id="vbtn-gym" onclick="switchView('gym')">GYM</div><div class="view-btn" id="vbtn-steps" onclick="switchView('steps')">STEPS</div></div></div>
+    <div id="month-gym-view"><div class="month-view-grid" id="month-gym-grid"></div><div class="gym-summary"><div style="font-size:10px;color:var(--text3)">Total gym days</div><div><span class="gym-total" id="gym-total">0</span><span style="font-size:11px;color:var(--text3)">/<span id="gym-monthly-target">0</span></span></div></div><div class="target-bar-track"><div class="target-bar-fill" id="gym-target-bar" style="width:0%;background:var(--gold)"></div></div><div class="target-lbl" id="gym-target-lbl"></div></div>
+    <div id="month-steps-view" style="display:none"><div class="month-view-grid" id="month-steps-grid"></div><div class="steps-totals-box"><div style="display:flex;justify-content:space-between;margin-bottom:7px"><div><div style="font-size:9px;color:var(--text3);font-family:var(--mono);margin-bottom:2px">TOTAL SO FAR</div><span style="font-family:var(--font-d);font-size:22px;font-weight:700;color:var(--gold)" id="steps-month-total">0</span><span style="font-size:11px;color:var(--text2)"> steps</span></div><div style="text-align:right"><div style="font-size:9px;color:var(--text3);font-family:var(--mono);margin-bottom:2px">DAILY AVG</div><span style="font-family:var(--font-d);font-size:22px;font-weight:700;color:var(--gold)" id="steps-month-avg">0</span></div></div><div class="steps-bar-track" style="height:6px"><div class="steps-bar-fill" id="steps-month-bar" style="width:0%"></div></div><div class="steps-bar-lbl" style="margin-top:3px"><span id="steps-month-pct">0%</span><span id="steps-month-goal"></span></div></div></div>
+  </div>
+  <div class="card card-acc"><div class="card-h">MONTHLY LOG</div><div class="field"><label>WEIGHT (KG)</label><input type="number" id="inp-w" placeholder="e.g. 83.5" step="0.1"></div><div class="field"><label>MONTH NOTE</label><input type="text" id="inp-note" placeholder="e.g. Solid month"></div><button class="btn btn-p btn-full" id="save-btn" onclick="saveMonthly()">SAVE</button></div>
+  <div class="card">
+    <div class="card-h">PROGRESS PHOTOS</div>
+    <div class="photo-tab-bar"><div class="photo-tab active" onclick="switchPhotoTab('front')" id="ptab-front">Front</div><div class="photo-tab" onclick="switchPhotoTab('back')" id="ptab-back">Back</div><div class="photo-tab" onclick="switchPhotoTab('side')" id="ptab-side">Side</div></div>
+    <div class="upload-zone" id="photo-upload-zone" onclick="document.getElementById('photo-inp').click()"><div style="font-size:20px;margin-bottom:4px">📷</div><div id="upload-lbl">Tap to upload this month's photo</div><input type="file" id="photo-inp" accept="image/jpeg,image/jpg,image/png,image/gif,image/webp" style="display:none" onchange="handlePhoto(event)"></div>
+    <img id="photo-current" src="" style="display:none;width:100%;border-radius:var(--r-sm);margin-top:9px;cursor:pointer" onclick="openModal(this.src)">
+    <div style="margin-top:12px"><div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-family:var(--mono)">YOUR JOURNEY — <span id="timeline-tab-lbl">FRONT</span></div><div class="photo-timeline" id="photo-timeline"></div></div>
+    <div style="margin-top:12px"><div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;font-family:var(--mono)">COMPARE TWO MONTHS</div><div style="display:flex;gap:7px;align-items:center"><select id="cmp-m1" style="flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);padding:7px;font-size:11px;outline:none;font-family:var(--mono)"></select><span style="color:var(--text3)">vs</span><select id="cmp-m2" style="flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);padding:7px;font-size:11px;outline:none;font-family:var(--mono)"></select></div><div class="photo-cmp" id="photo-cmp"></div></div>
+  </div>
+  <div class="card"><div class="card-h">WEIGHT TREND</div><div id="trend-w"></div></div>
+  <div class="card"><div class="card-h">GYM DAYS TREND</div><div id="trend-g"></div></div>
+  <div class="card"><div class="card-h">STEPS TREND</div><div id="trend-s"></div></div>
+  <div class="card"><div class="card-h">PERSONAL BESTS</div><div id="pb"></div></div>
+  <div class="card card-acc"><div class="card-h">GOAL PROGRESS</div><div id="goal-prog"></div></div>
+</div></div>
+
+<!-- LEADERBOARD -->
+<div class="tab-panel" id="dtab-leaderboard"><div class="dash-wrap" style="padding-top:14px">
+  <div class="lb-tabs"><button class="lb-tab active" onclick="switchLbTab('global')" id="lbt-global">🌍 Global</button><button class="lb-tab" onclick="switchLbTab('monthly')" id="lbt-monthly">Monthly</button><button class="lb-tab" onclick="switchLbTab('weekly')" id="lbt-weekly">Weekly</button><button class="lb-tab" onclick="switchLbTab('daily')" id="lbt-daily">Daily</button></div>
+  <div id="leaderboard-body"></div>
+  <div style="margin-top:12px;padding:11px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm)"><div style="font-size:10px;color:var(--text3);font-family:var(--mono);margin-bottom:7px">HOW THE QAWI SCORE WORKS</div><div style="font-size:12px;color:var(--text2);line-height:1.7"><span style="color:var(--gold)">40%</span> Gym days vs your personal target<br><span style="color:var(--gold)">40%</span> Steps vs 10,000/day goal<br><span style="color:var(--gold)">20%</span> Consistency streak bonus</div></div>
+</div></div>
+
+<!-- SQUADS -->
+<div class="tab-panel" id="dtab-squads"><div class="dash-wrap" style="padding-top:14px">
+  <div class="card"><div class="card-h">CREATE A SQUAD</div><div class="field"><label>SQUAD NAME</label><input type="text" id="squad-name-inp" placeholder="e.g. The Boys, Dubai Grind..."></div><button class="btn btn-p btn-full" onclick="createSquad()">CREATE SQUAD</button></div>
+  <div class="card"><div class="card-h">JOIN A SQUAD</div><div class="field"><label>INVITE CODE</label><input type="text" id="squad-code-inp" placeholder="Enter 6-letter code" style="text-transform:uppercase" maxlength="6"></div><button class="btn btn-p btn-full" onclick="joinSquad()">JOIN SQUAD</button></div>
+  <div id="my-squads"></div>
+</div></div>
+
+<!-- CALORIES -->
+<div class="tab-panel" id="dtab-calories"><div class="dash-wrap" style="padding-top:14px">
+  <div class="card">
+    <div class="card-h">CALORIE CALCULATOR</div>
+    <div class="field"><label>GENDER</label><div class="gender-btns"><button class="gender-btn sel" onclick="selGenderCal('male',this)" id="cal-male">Male</button><button class="gender-btn" onclick="selGenderCal('female',this)" id="cal-female">Female</button></div></div>
+    <div class="field"><label>AGE</label><input type="number" id="cal-age" placeholder="e.g. 28" min="10" max="100"></div>
+    <div class="field"><label>HEIGHT (CM)</label><input type="number" id="cal-height" placeholder="e.g. 178"></div>
+    <div class="field"><label>WEIGHT (KG)</label><input type="number" id="cal-weight" placeholder="e.g. 83" step="0.1"></div>
+    <div class="field"><label>ACTIVITY LEVEL</label><select id="cal-activity" style="width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-family:var(--font);font-size:13px;padding:10px 12px;outline:none;-webkit-appearance:none"><option value="1.2">Sedentary (little or no exercise)</option><option value="1.375">Lightly active (1-3 days/week)</option><option value="1.55" selected>Moderately active (3-5 days/week)</option><option value="1.725">Very active (6-7 days/week)</option><option value="1.9">Extra active (2x per day)</option></select></div>
+    <button class="btn btn-p btn-full" onclick="calcCalories()">CALCULATE</button>
+    <div id="cal-result" style="display:none"><div class="cal-result"><div class="cal-result-main" id="cal-tdee">2,400</div><div style="font-size:11px;color:var(--text3);font-family:var(--mono);margin-top:3px">DAILY CALORIES TO MAINTAIN WEIGHT</div></div><div class="cal-grid"><div class="cal-box"><div class="cal-box-num" id="cal-lose">—</div><div class="cal-box-lbl">WEIGHT LOSS</div></div><div class="cal-box"><div class="cal-box-num" id="cal-maint">—</div><div class="cal-box-lbl">MAINTAIN</div></div><div class="cal-box"><div class="cal-box-num" id="cal-gain">—</div><div class="cal-box-lbl">WEIGHT GAIN</div></div></div><div style="margin-top:10px;padding:11px;background:var(--bg3);border-radius:var(--r-sm);font-size:11px;color:var(--text3);line-height:1.7" id="cal-notes"></div></div>
+  </div>
+  <div class="card"><div class="card-h">🥗 HALAL NUTRITION CHECK</div><div style="font-size:11px;color:var(--text3);margin-bottom:10px;line-height:1.6">Search any food to check if it's halal and see its nutritional info.</div><div style="display:flex;gap:6px;margin-bottom:10px"><input type="text" id="food-search-inp" placeholder="e.g. chicken, beef, gelatin..." style="flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-family:var(--font);font-size:12px;padding:9px 11px;outline:none"><button class="btn btn-p btn-sm" onclick="searchFood()">CHECK</button></div><div id="food-results"></div></div>
+</div></div>
+
+<!-- PRAYER (DASH) -->
+<div class="tab-panel" id="dtab-prayer">
+  <div class="prayer-hero"><div class="prayer-big-icon">🕌</div><div class="prayer-next-lbl">NEXT PRAYER</div><div class="prayer-next-name" id="dash-prayer-name">—</div><div class="prayer-countdown" id="dash-countdown">--:--:--</div></div>
+  <div class="prayer-today-grid" id="dash-prayer-grid"></div>
+  <div class="prayer-month-title">APRIL 2026 — DUBAI</div>
+  <div style="overflow-x:auto;padding:0 14px 16px"><table class="prayer-month-table"><thead><tr><th>Date</th><th>Fajr</th><th>Sunrise</th><th>Dhuhr</th><th>Asr</th><th>Maghrib</th><th>Isha</th></tr></thead><tbody id="dash-prayer-body"></tbody></table></div>
+  <div style="padding:0 14px 16px"><button class="notify-btn" id="dash-pray-notify" onclick="toggleNotify()">🕌 Enable prayer reminders</button></div>
+</div>
+
+<!-- SETTINGS -->
+<div class="tab-panel" id="dtab-settings"><div class="dash-wrap" style="padding-top:14px">
+  <div class="admin-panel" id="admin-panel" style="display:none"><div class="card-h" style="color:var(--gold)">✍️ POST TO THE SQUAD</div><p style="font-size:11px;color:var(--text3);margin-bottom:10px">Shows on landing page and everyone's dashboard.</p><div class="field"><textarea id="admin-quote-inp" rows="3" placeholder="Enter a quote, hadith, or message..."></textarea></div><button class="btn btn-p btn-full" onclick="saveAdminQuote()">POST</button></div>
+  <div class="card"><div class="card-h">ACCOUNT SETTINGS</div>
+    <div class="field"><label>GENDER</label><div class="gender-btns"><button class="gender-btn" onclick="selGenderSettings('male',this)" id="set-male">Male</button><button class="gender-btn" onclick="selGenderSettings('female',this)" id="set-female">Female</button></div></div>
+    <div class="field"><label>CITY (for prayer times)</label><div style="position:relative"><input type="text" id="set-city" placeholder="Search city..." style="width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-family:var(--font);font-size:14px;padding:10px 12px;outline:none"><div id="city-dropdown-settings" style="display:none;position:absolute;top:calc(100% + 3px);left:0;right:0;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r-sm);z-index:999;max-height:200px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,.5)"></div></div></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div style="font-size:12px;color:var(--text2)">Dark / Light Mode</div><div class="theme-toggle" id="settings-theme" onclick="toggleTheme()"></div></div>
+    <button class="btn btn-p btn-full" onclick="saveAccountSettings()" id="btn-save-account">SAVE SETTINGS</button>
+  </div>
+  <div class="card"><div class="card-h">CHANGE GOAL</div><div class="goal-grid" id="goal-grid-s"></div>
+    <div style="margin-top:10px"><div class="card-h" style="font-size:11px;margin-bottom:7px">GYM DAYS PER WEEK</div><div class="gym-week-opts" id="week-opts-s"><div class="week-opt" onclick="selWeekS(2,this)">2x</div><div class="week-opt" onclick="selWeekS(3,this)">3x</div><div class="week-opt" onclick="selWeekS(4,this)">4x</div><div class="week-opt" onclick="selWeekS(5,this)">5x</div><div class="week-opt" onclick="selWeekS(6,this)">6x</div><div class="week-opt" onclick="selWeekS(7,this)">7x</div></div></div>
+    <div class="field" style="margin-top:10px"><label>TARGET WEIGHT (KG)</label><input type="number" id="s-target" step="0.5"></div>
+    <button class="btn btn-p btn-full" style="margin-top:9px" onclick="saveSettings()" id="btn-update-goal">UPDATE GOAL</button>
+  </div>
+  <div class="card" style="margin-bottom:28px"><div class="card-h">NOTIFICATIONS</div><p style="font-size:11px;color:var(--text3);margin-bottom:10px;line-height:1.7">Daily step reminders · Prayer alerts · Gym check-in · Weekly leaderboard · Friday Jumu'ah (males only)</p><button class="notify-btn" id="notify-btn" onclick="toggleNotify()">🔔 Enable notifications</button></div>
+</div></div>
+</div>
+
+<!-- PUBLIC PRAYER PAGE -->
+<div class="page" id="page-prayer">
+<div class="topbar">
+  <div onclick="nav('/')" style="cursor:pointer"><div class="tb-logo">QAWI</div><div class="tb-logo-ar">قوي</div></div>
+  <div class="tb-name" style="flex:1;font-size:13px;color:var(--text2);margin-left:8px">PRAYER TIMES</div>
+  <div class="lang-toggle"><button class="lang-btn active" onclick="setLang('en')" id="prayer-btn-en">EN</button><button class="lang-btn" onclick="setLang('ar')" id="prayer-btn-ar">ع</button></div>
+  <div class="theme-toggle" id="prayer-theme" onclick="toggleTheme()" style="margin:0 6px"></div>
+  <button class="tb-btn" onclick="nav('/')">← HOME</button>
+</div>
+<div style="padding:12px 14px;background:var(--bg2);border-bottom:1px solid var(--border)">
+  <select id="prayer-city-inp" onchange="fetchPrayerTimesFromSelect()" style="width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-family:var(--font);font-size:14px;padding:11px 14px;outline:none;cursor:pointer">
+    <option value="Dubai|AE">🇦🇪 Dubai</option>
+    <option value="Abu Dhabi|AE">🇦🇪 Abu Dhabi</option>
+    <option value="Sharjah|AE">🇦🇪 Sharjah</option>
+    <option value="Ajman|AE">🇦🇪 Ajman</option>
+    <option value="Ras Al Khaimah|AE">🇦🇪 Ras Al Khaimah</option>
+    <option value="Fujairah|AE">🇦🇪 Fujairah</option>
+    <option value="Umm Al Quwain|AE">🇦🇪 Umm Al Quwain</option>
+    <option value="Al Ain|AE">🇦🇪 Al Ain</option>
+  </select>
+  <div style="font-size:10px;color:var(--text3);margin-top:5px;font-family:var(--mono)" id="prayer-location-lbl">Showing: Dubai, UAE</div>
+</div></div>
+<div class="prayer-hero"><div class="prayer-big-icon">🕌</div><div class="prayer-next-lbl">NEXT PRAYER</div><div class="prayer-next-name" id="pub-prayer-name">—</div><div class="prayer-countdown" id="pub-countdown">--:--:--</div></div>
+<div class="prayer-today-grid" id="pub-prayer-grid"></div>
+
+
+      <div>—°</div>
+      <div>Tap GPS to get your Qibla direction</div>
+      <button class="btn btn-p btn-sm" style="margin-top:10px" onclick="startQibla()">📍 Get Qibla Direction</button>
+    </div>
+  </div>
+</div>
+<div class="prayer-month-title">APRIL 2026 — DUBAI</div>
+<div style="overflow-x:auto;padding:0 14px 16px"><table class="prayer-month-table"><thead><tr><th>Date</th><th>Fajr</th><th>Sunrise</th><th>Dhuhr</th><th>Asr</th><th>Maghrib</th><th>Isha</th></tr></thead><tbody id="pub-prayer-body"></tbody></table></div>
+</div>
+
+<script>
+var GOALS={weight_loss:{label:'Weight Loss',labelAr:'إنقاص الوزن',icon:'↓',desc:'Lose fat & get leaner',descAr:'فقدان الدهون',metric:'lower_weight'},weight_gain:{label:'Weight Gain',labelAr:'زيادة الوزن',icon:'↑',desc:'Build mass & get bigger',descAr:'بناء العضلات',metric:'higher_weight'},recomp:{label:'Body Recomp',labelAr:'إعادة التركيب',icon:'⇄',desc:'Lose fat, gain muscle',descAr:'فقدان دهون وبناء عضلات',metric:'consistency'},endurance:{label:'Endurance',labelAr:'التحمل',icon:'⟳',desc:'Run longer & build stamina',descAr:'بناء القدرة التحملية',metric:'higher_steps'},strength:{label:'Strength',labelAr:'القوة',icon:'◆',desc:'Get stronger & hit PRs',descAr:'زيادة القوة',metric:'consistency'},maintenance:{label:'Maintenance',labelAr:'الحفاظ',icon:'—',desc:'Stay consistent & healthy',descAr:'الاتساق والصحة',metric:'consistency'}};
+var MSS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var MSS_AR=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+var PRAYER_LABELS={fajr:'Fajr',sunrise:'Sunrise',dhuhr:'Dhuhr',asr:'Asr',maghrib:'Maghrib',isha:'Isha'};
+var PRAYER_LABELS_AR={fajr:'الفجر',sunrise:'الشروق',dhuhr:'الظهر',asr:'العصر',maghrib:'المغرب',isha:'العشاء'};
+var PRAYER_ICONS={fajr:'🌙',sunrise:'🌅',dhuhr:'☀️',asr:'🌤',maghrib:'🌇',isha:'⭐'};
+var START_YEAR=2026,START_MONTH=3,DAILY_STEP_GOAL=10000;
+var HALAL_DB={chicken:{halal:true,cal:239,p:27,c:0,f:14,note:'Halal when slaughtered per Islamic rites'},beef:{halal:true,cal:250,p:26,c:0,f:17,note:'Halal when properly slaughtered'},lamb:{halal:true,cal:294,p:25,c:0,f:21,note:'Halal when properly slaughtered'},fish:{halal:true,cal:136,p:20,c:0,f:5,note:'All fish are generally halal'},salmon:{halal:true,cal:208,p:20,c:0,f:13,note:'All fish are halal'},tuna:{halal:true,cal:132,p:28,c:0,f:1,note:'All fish are halal'},pork:{halal:false,cal:242,p:27,c:0,f:14,note:'HARAM — prohibited in Islam'},bacon:{halal:false,cal:541,p:37,c:0,f:42,note:'HARAM — pork product'},ham:{halal:false,cal:145,p:21,c:0,f:5,note:'HARAM — pork product'},gelatin:{halal:null,cal:335,p:86,c:0,f:0,note:'⚠️ CHECK SOURCE — may be pork-derived'},alcohol:{halal:false,cal:231,p:0,c:14,f:0,note:'HARAM — prohibited in Islam'},wine:{halal:false,cal:83,p:0,c:2,f:0,note:'HARAM — alcoholic beverage'},beer:{halal:false,cal:43,p:0,c:3,f:0,note:'HARAM — alcoholic beverage'},eggs:{halal:true,cal:155,p:13,c:1,f:11,note:'Halal'},milk:{halal:true,cal:61,p:3,c:5,f:3,note:'Halal'},rice:{halal:true,cal:130,p:3,c:28,f:0,note:'Halal'},dates:{halal:true,cal:282,p:2,c:75,f:0,note:'Halal — sunnah food'},honey:{halal:true,cal:304,p:0,c:82,f:0,note:'Halal — mentioned in Quran'},'whey protein':{halal:null,cal:400,p:80,c:8,f:5,note:'⚠️ CHECK — must be halal certified'}};
+var S={user:null,month:new Date().getMonth(),year:new Date().getFullYear(),selGoal:null,selWeekDays:null,hist:null,photos:{},swReg:null,currentView:'gym',currentPhotoTab:'front',lbPeriod:'global',prayerTimer:null,compassWatcher:null,prayerCity:'Dubai'};
+var currentLang='en';var currentTheme='dark';var signupGender='male';var calGender='male';var settingsGender='male';
+
+async function api(m,p,b){var r=await fetch(p,{method:m,credentials:'include',headers:{'Content-Type':'application/json'},body:b?JSON.stringify(b):undefined});if(!r.ok)throw new Error(await r.text());return r.json();}
+function GET(p){return api('GET',p);}function POST(p,b){return api('POST',p,b);}
+function tsSteps(s){return Object.values(s||{}).reduce(function(a,b){return a+(parseInt(b)||0);},0);}
+function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):'';}
+function getTarget(p){return Math.round(((p&&p.gymDaysPerWeek)||4)*4.33);}
+
+function setLang(lang){currentLang=lang;document.getElementById('html-root').dir=lang==='ar'?'rtl':'ltr';document.getElementById('html-root').lang=lang;['land-btn-en','dash-btn-en','prayer-btn-en'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.toggle('active',lang==='en');});['land-btn-ar','dash-btn-ar','prayer-btn-ar'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.toggle('active',lang==='ar');});localStorage.setItem('qawi_lang',lang);}
+
+function toggleTheme(){currentTheme=currentTheme==='dark'?'light':'dark';document.body.classList.toggle('light',currentTheme==='light');updateThemeToggles();localStorage.setItem('qawi_theme',currentTheme);if(S.user)POST('/api/settings',{theme:currentTheme}).catch(function(){});}
+function updateThemeToggles(){['land-theme','dash-theme','prayer-theme','settings-theme'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.toggle('on',currentTheme==='light');});}
+
+function nav(p){history.pushState({},'' ,p);route();}
+window.addEventListener('popstate',route);
+async function route(){var path=window.location.pathname;if(path==='/prayer'){renderPrayerPagePublic();showPage('page-prayer');return;}if(path==='/fitness'||path==='/auth'){showPage('page-auth');return;}try{var me=await GET('/api/me');S.user=me;await openDash();return;}catch(e){}await renderLanding();showPage('page-landing');}
+function showPage(id){document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');p.style.display='none';});var el=document.getElementById(id);el.classList.add('active');el.style.display='block';window.scrollTo(0,0);}
+
+async function renderLanding(){
+  try{var q=await GET('/api/quote');document.getElementById('hero-q').textContent=q.text;document.getElementById('hero-a').textContent='— '+q.author;}catch(e){document.getElementById('hero-q').textContent='Show up. Every single day.';}
+  try{var aq=await GET('/api/admin-quote');if(aq&&aq.text){document.getElementById('land-admin-text').textContent=aq.text;document.getElementById('land-admin-quote').style.display='block';}}catch(e){}
+  try{var now=new Date();var d=await GET('/api/compare/'+now.getFullYear()+'/'+now.getMonth());var tD=d.reduce(function(a,u){return a+(parseInt(u.gymDays)||0);},0);var tS=d.reduce(function(a,u){return a+u.totalSteps;},0);document.getElementById('ticker').innerHTML='<span style="color:var(--gold-dim)">'+(currentLang==='ar'?MSS_AR[now.getMonth()]:MSS[now.getMonth()])+' \''+String(now.getFullYear()).slice(2)+'</span> · Squad gym days: <b>'+tD+'</b> · Squad steps: <b>'+tS.toLocaleString()+'</b>';}catch(e){}
+}
+
+function selGenderSignup(g,el){signupGender=g;document.querySelectorAll('#auth-signup .gender-btn').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');}
+function showSignup(){document.getElementById('auth-login').style.display='none';document.getElementById('auth-signup').style.display='block';}
+function showLogin(){document.getElementById('auth-signup').style.display='none';document.getElementById('auth-login').style.display='block';}
+async function doLogin(){var user=document.getElementById('login-user').value.trim();var pass=document.getElementById('login-pass').value;document.getElementById('login-err').textContent='';if(!user||!pass){document.getElementById('login-err').textContent='Please fill in all fields';return;}try{var res=await POST('/api/login',{username:user,password:pass});S.user=res;await openDash();}catch(e){document.getElementById('login-err').textContent='Invalid username or password';}}
+async function doSignup(){var user=document.getElementById('signup-user').value.trim();var pass=document.getElementById('signup-pass').value;var email=document.getElementById('signup-email').value;document.getElementById('signup-err').textContent='';if(!user||!pass){document.getElementById('signup-err').textContent='Please fill in username and password';return;}try{var res=await POST('/api/signup',{username:user,password:pass,email:email,gender:signupGender});S.user=res;await openDash();}catch(e){try{var err=JSON.parse(e.message);document.getElementById('signup-err').textContent=err.error||'Signup failed';}catch(e2){document.getElementById('signup-err').textContent='Username may already be taken';}}}
+document.addEventListener('keydown',function(e){if(e.key==='Enter'){var ap=document.getElementById('page-auth');if(ap&&ap.classList.contains('active')){if(document.getElementById('auth-login').style.display!=='none')doLogin();else doSignup();}}});
+
+function renderGoalGrid(id){var el=document.getElementById(id);if(!el)return;el.innerHTML=Object.entries(GOALS).map(function(e){var k=e[0],g=e[1];var lbl=currentLang==='ar'?g.labelAr:g.label;var desc=currentLang==='ar'?g.descAr:g.desc;return'<div class="goal-opt'+(S.selGoal===k?' sel':'')+'" onclick="selGoal(\''+k+'\',\''+id+'\')"><div class="g-icon">'+g.icon+'</div><div class="g-name">'+lbl+'</div><div class="g-desc">'+desc+'</div></div>';}).join('');}
+function selGoal(k,id){S.selGoal=k;renderGoalGrid(id);}
+function selWeek(n,el){S.selWeekDays=n;updateWeekOpts('week-opts-setup',n);var wc=document.getElementById('week-calc');if(wc)wc.textContent='→ Monthly target: ~'+Math.round(n*4.33)+' days';}
+function selWeekS(n,el){S.selWeekDays=n;updateWeekOpts('week-opts-s',n);}
+function updateWeekOpts(cid,sel){var opts=document.getElementById(cid);if(!opts)return;opts.querySelectorAll('.week-opt').forEach(function(el){el.classList.toggle('sel',parseInt(el.textContent)===parseInt(sel));});}
+function openGoalSetup(){S.selGoal=S.user.profile?S.user.profile.goal:null;S.selWeekDays=S.user.profile?S.user.profile.gymDaysPerWeek:null;document.getElementById('goal-uname').textContent=cap(S.user.username);renderGoalGrid('goal-grid-setup');document.getElementById('goal-target').value=S.user.profile?(S.user.profile.targetWeight||''):'';updateWeekOpts('week-opts-setup',S.selWeekDays);showPage('page-goal');}
+async function saveGoalSetup(){if(!S.selGoal){alert('Please select a goal');return;}if(!S.selWeekDays){alert('Please select gym days per week');return;}var p={goal:S.selGoal,gymDaysPerWeek:S.selWeekDays,targetWeight:document.getElementById('goal-target').value};await POST('/api/profile',p);S.user.profile=p;await openDash();}
+
+async function openDash(){if(!S.user.profile||!S.user.profile.goal){openGoalSetup();return;}var now=new Date();S.month=now.getMonth();S.year=now.getFullYear();document.getElementById('dash-uname').textContent=cap(S.user.username);history.pushState({},'' ,'/');if(S.user.language)setLang(S.user.language);if(S.user.theme){currentTheme=S.user.theme;document.body.classList.toggle('light',currentTheme==='light');updateThemeToggles();}var ap=document.getElementById('admin-panel');if(ap)ap.style.display=S.user.isAdmin?'block':'none';try{var aq=await GET('/api/admin-quote');if(aq&&aq.text){document.getElementById('dash-admin-text').textContent=aq.text;document.getElementById('dash-admin-quote').style.display='block';}}catch(e){}showPage('page-dash');
+  var fab=document.getElementById('nb-fab');if(fab){fab.style.display='flex';fab.style.left='';fab.style.top='';fab.style.right='20px';fab.style.bottom='24px';initFAB();}switchDashTab('tracker');await renderDash();}
+async function doLogout(){await POST('/api/logout',{});S.user=null;S.hist=null;S.photos={};var fab=document.getElementById('nb-fab');if(fab)fab.style.display='none';nav('/');}
+
+function switchDashTab(name){var tabs=['tracker','leaderboard','squads','calories','prayer','settings'];document.querySelectorAll('.tab-btn').forEach(function(b,i){b.classList.toggle('active',tabs[i]===name);});document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});var el=document.getElementById('dtab-'+name);if(el)el.classList.add('active');if(name==='leaderboard')renderLeaderboard();if(name==='squads')renderMySquads();if(name==='prayer')renderPrayerPageDash();if(name==='calories')prefillCalories();if(name==='settings')renderSettingsTab();}
+function chMonth(d){var m=S.month+d;var y=S.year;if(m>11){m=0;y++;}if(m<0){m=11;y--;}if(y<START_YEAR||(y===START_YEAR&&m<START_MONTH))return;S.month=m;S.year=y;renderDash();}
+function isLocked(y,m){var now=new Date();if(new Date()<new Date(2026,4,2))return false;if(y<now.getFullYear())return true;if(y===now.getFullYear()&&m<now.getMonth())return true;return false;}
+
+async function renderDash(){
+  var m=S.month;var y=S.year;var locked=isLocked(y,m);var now=new Date();var isCM=(m===now.getMonth()&&y===now.getFullYear());var todayIdx=now.getDate()-1;
+  var MS=currentLang==='ar'?MSS_AR:MSS;
+  document.getElementById('mnav-lbl').textContent=MS[m]+' '+y;
+  document.getElementById('mnav-prev').style.opacity=(y===START_YEAR&&m===START_MONTH)?'0.3':'1';
+  document.getElementById('lock-badge').style.display=locked?'block':'none';
+  document.getElementById('inp-w').disabled=false;document.getElementById('inp-note').disabled=locked;
+  var data,ticks,steps;
+  try{data=await GET('/api/data/'+y+'/'+m);ticks=data.gymTicks||{};steps=data.steps||{};}catch(e){data={weight:'',note:'',gymDays:0};ticks={};steps={};}
+  var gymDays=Object.keys(ticks).length;var stepTotal=tsSteps(steps);var todaySteps=parseInt(steps[todayIdx])||0;
+  var profile=S.user.profile||{};var gymTarget=getTarget(profile);
+  document.getElementById('inp-w').value=data.weight||'';document.getElementById('inp-note').value=data.note||'';
+  var lb=document.getElementById('locked-banner');
+  if(locked){lb.classList.add('show');document.getElementById('lb-stats2').innerHTML='Weight: <strong>'+(data.weight||'—')+' kg</strong> &nbsp; Gym: <strong>'+gymDays+'d</strong> &nbsp; Steps: <strong>'+stepTotal.toLocaleString()+'</strong>';}else{lb.classList.remove('show');}
+  document.getElementById('today-date-lbl').textContent=isCM?now.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'}).toUpperCase():(MS[m]+' '+y).toUpperCase();
+  var gymDone=isCM?!!ticks[todayIdx]:false;
+  document.getElementById('gym-today-btn').classList.toggle('done',gymDone);document.getElementById('gym-today-icon').textContent=gymDone?'✓':'💪';document.getElementById('gym-today-sub').textContent=gymDone?'logged! tap to undo':'tap to mark';
+  document.getElementById('steps-today-inp').value=isCM?(todaySteps||''):'';updateStepsTodayDisplay(todaySteps);
+  var g=profile.goal?GOALS[profile.goal]:null;var gymPct=gymDays/Math.max(gymTarget,1);var stepPct=stepTotal/(DAILY_STEP_GOAL*(new Date(y,m+1,0).getDate()));var oPct=(gymPct+stepPct)/2;
+  var sColor=oPct>=0.7?'var(--green)':oPct>=0.4?'var(--yellow)':'var(--red)';
+  document.getElementById('status-dot').style.background=sColor;document.getElementById('status-txt').textContent=oPct>=0.7?'🔥 On track!':oPct>=0.4?'⚡ Getting there!':'💪 Just getting started!';document.getElementById('status-goal').textContent=g?(currentLang==='ar'?g.labelAr:g.label):'';
+  var C=138.2;
+  document.getElementById('ring-gym-c').style.strokeDashoffset=C-Math.min(gymDays/Math.max(gymTarget,1),1)*C;document.getElementById('ring-gym-v').textContent=gymDays;document.getElementById('ring-gym-t').textContent='/'+gymTarget;document.getElementById('ring-gym-s').textContent='target: '+gymTarget+'/mo';
+  document.getElementById('ring-step-c').style.strokeDashoffset=C-Math.min(todaySteps/DAILY_STEP_GOAL,1)*C;document.getElementById('ring-step-v').textContent=todaySteps>999?(todaySteps/1000).toFixed(1)+'k':todaySteps;
+  renderMonthGymGrid(ticks,y,m);document.getElementById('gym-total').textContent=gymDays;document.getElementById('gym-monthly-target').textContent=gymTarget;
+  var gtp=Math.min(gymDays/Math.max(gymTarget,1)*100,100);document.getElementById('gym-target-bar').style.width=gtp+'%';document.getElementById('gym-target-lbl').textContent=gymDays+' of '+gymTarget+' days ('+Math.round(gtp)+'%)';
+  renderMonthStepsView(steps,y,m);renderActivities(y,m);fetchHistory();loadPhotos(y,m);updateNotifyBtn();
+}
+
+function updateStepsTodayDisplay(val){var pct=Math.min(val/DAILY_STEP_GOAL*100,100);document.getElementById('steps-bar').style.width=pct+'%';document.getElementById('steps-pct-lbl').textContent=Math.round(pct)+'%';var C=138.2;document.getElementById('ring-step-c').style.strokeDashoffset=C-Math.min(val/DAILY_STEP_GOAL,1)*C;document.getElementById('ring-step-v').textContent=val>999?(val/1000).toFixed(1)+'k':val;}
+async function updateStepsToday(){var val=parseInt(document.getElementById('steps-today-inp').value)||0;updateStepsTodayDisplay(val);var now=new Date();try{await POST('/api/steps/'+S.year+'/'+S.month+'/'+(now.getDate()-1),{value:val});}catch(e){}}
+async function toggleGymToday(){var now=new Date();var todayIdx=now.getDate()-1;var data=await GET('/api/data/'+S.year+'/'+S.month);var ticks=data.gymTicks||{};var wasDone=!!ticks[todayIdx];var res=await POST('/api/tick/'+S.year+'/'+S.month+'/'+todayIdx,{value:!wasDone});document.getElementById('gym-today-btn').classList.toggle('done',!wasDone);document.getElementById('gym-today-icon').textContent=!wasDone?'✓':'💪';document.getElementById('gym-today-sub').textContent=!wasDone?'logged! tap to undo':'tap to mark';document.getElementById('gym-total').textContent=res.gymDays;document.getElementById('ring-gym-v').textContent=res.gymDays;var profile=S.user.profile||{};var tgt=getTarget(profile);var C=138.2;document.getElementById('ring-gym-c').style.strokeDashoffset=C-Math.min(res.gymDays/Math.max(tgt,1),1)*C;var pct=Math.min(res.gymDays/Math.max(tgt,1)*100,100);document.getElementById('gym-target-bar').style.width=pct+'%';document.getElementById('gym-target-lbl').textContent=res.gymDays+' of '+tgt+' days ('+Math.round(pct)+'%)';renderMonthGymGrid(null,S.year,S.month);}
+function switchView(v){S.currentView=v;document.getElementById('vbtn-gym').classList.toggle('active',v==='gym');document.getElementById('vbtn-steps').classList.toggle('active',v==='steps');document.getElementById('month-gym-view').style.display=v==='gym'?'block':'none';document.getElementById('month-steps-view').style.display=v==='steps'?'block':'none';}
+async function renderMonthGymGrid(ticks,y,m){if(!ticks){try{var d=await GET('/api/data/'+y+'/'+m);ticks=d.gymTicks||{};}catch(e){ticks={};}}var days=new Date(y,m+1,0).getDate();var now=new Date();var isTM=(now.getMonth()===m&&now.getFullYear()===y);var grid=document.getElementById('month-gym-grid');grid.innerHTML='';for(var i=0;i<days;i++){var done=!!ticks[i];var isToday=isTM&&now.getDate()-1===i;var cell=document.createElement('div');cell.className='month-day';cell.innerHTML='<div class="month-day-num">'+(i+1)+'</div><div class="month-day-gym'+(done?' done':'')+(isToday?' today':'')+'">'+( done?'✓':'')+'</div>';grid.appendChild(cell);}}
+async function renderMonthStepsView(steps,y,m){if(!steps){try{var d=await GET('/api/data/'+y+'/'+m);steps=d.steps||{};}catch(e){steps={};}}var days=new Date(y,m+1,0).getDate();var now=new Date();var isTM=(now.getMonth()===m&&now.getFullYear()===y);var todayIdx=isTM?now.getDate()-1:days-1;var grid=document.getElementById('month-steps-grid');grid.innerHTML='';var runningTotal=0;var daysWithData=0;for(var i=0;i<days;i++){var val=parseInt(steps[i])||0;var isFuture=isTM&&i>todayIdx;if(!isFuture&&val>0){runningTotal+=val;daysWithData++;}var hit=val>=DAILY_STEP_GOAL;var bgColor=isFuture?'var(--bg3)':hit?'var(--gold)':(val>0?'rgba(201,168,76,0.3)':'var(--bg3)');var txtColor=hit?'#000':'var(--text3)';var cell=document.createElement('div');cell.className='month-day';cell.innerHTML='<div class="month-day-num">'+(i+1)+'</div><div class="month-day-gym" style="background:'+bgColor+';color:'+txtColor+';font-size:7px;border:1px solid var(--border)">'+(val>0?(val>=1000?Math.round(val/1000)+'k':val):'')+'</div>';grid.appendChild(cell);}var dTC=isTM?todayIdx+1:days;var mGoal=DAILY_STEP_GOAL*dTC;var pct=mGoal>0?Math.min(runningTotal/mGoal*100,100):0;var avg=daysWithData?Math.round(runningTotal/daysWithData):0;document.getElementById('steps-month-total').textContent=runningTotal.toLocaleString();document.getElementById('steps-month-avg').textContent=avg.toLocaleString();document.getElementById('steps-month-bar').style.width=pct+'%';document.getElementById('steps-month-pct').textContent=Math.round(pct)+'%';document.getElementById('steps-month-goal').textContent='goal: '+(mGoal/1000).toFixed(0)+'k';}
+
+function actKey(y,m){return'qawi_acts_'+y+'_'+m;}var LIB_KEY='qawi_act_lib';
+function renderActivities(y,m){var now=new Date();var isTM=(m===now.getMonth()&&y===now.getFullYear());var monthActs=JSON.parse(localStorage.getItem(actKey(y,m))||'{}');var library=JSON.parse(localStorage.getItem(LIB_KEY)||'[]');var todayIdx=now.getDate()-1;var inp=document.getElementById('act-inp');inp.value=isTM?(monthActs[todayIdx]||''):'';inp.oninput=function(){showDD(library,inp.value);};inp.onfocus=function(){showDD(library,inp.value);};document.removeEventListener('click',closeDD);document.addEventListener('click',closeDD);var log=document.getElementById('act-log-today');var entries=Object.entries(monthActs).filter(function(e){return e[1];}).sort(function(a,b){return parseInt(b[0])-parseInt(a[0]);});if(!entries.length){log.innerHTML='<div style="font-size:11px;color:var(--text3);padding:5px 0">No activities logged yet.</div>';return;}log.innerHTML=entries.map(function(e){var day=e[0],act=e[1];var date=new Date(y,m,parseInt(day)+1);var lbl=date.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});return'<div style="display:flex;align-items:center;gap:7px;padding:6px 9px;background:var(--bg3);border-radius:var(--r-sm);border:1px solid var(--border);margin-bottom:4px"><div style="font-size:9px;color:var(--text3);font-family:var(--mono);width:64px;flex-shrink:0">'+lbl+'</div><div style="font-size:11px;color:var(--text);flex:1">'+act+'</div><div style="font-size:10px;cursor:pointer;color:var(--text3)" onclick="deleteAct('+day+','+y+','+m+')">✕</div></div>';}).join('');}
+function closeDD(e){if(!e.target.closest('#act-inp')&&!e.target.closest('#act-dd')){var d=document.getElementById('act-dd');if(d)d.style.display='none';}}
+function showDD(lib,val){var dd=document.getElementById('act-dd');var f=val?lib.filter(function(a){return a.toLowerCase().includes(val.toLowerCase());}):lib;if(!f.length){dd.style.display='none';return;}dd.style.display='block';dd.innerHTML=f.slice(0,7).map(function(a){return'<div onclick="pickAct(this)" data-val="'+a.replace(/"/g,'&quot;')+'" style="padding:8px 11px;font-size:11px;cursor:pointer;border-bottom:1px solid var(--border);color:var(--text)" onmouseover="this.style.background=\'var(--bg4)\'" onmouseout="this.style.background=\'\'">'+a+'</div>';}).join('');}
+function pickAct(el){document.getElementById('act-inp').value=el.dataset.val;document.getElementById('act-dd').style.display='none';}
+function saveAct(){var val=document.getElementById('act-inp').value.trim();if(!val)return;var now=new Date();var todayIdx=now.getDate()-1;var y=S.year;var m=S.month;var ma=JSON.parse(localStorage.getItem(actKey(y,m))||'{}');ma[todayIdx]=val;localStorage.setItem(actKey(y,m),JSON.stringify(ma));var lib=JSON.parse(localStorage.getItem(LIB_KEY)||'[]');if(!lib.includes(val)){lib.unshift(val);if(lib.length>60)lib=lib.slice(0,60);localStorage.setItem(LIB_KEY,JSON.stringify(lib));}renderActivities(y,m);var btn=document.getElementById('act-save-btn');btn.textContent='✓';btn.style.opacity='.7';setTimeout(function(){btn.textContent='SAVE';btn.style.opacity='';},1200);}
+function deleteAct(day,y,m){var ma=JSON.parse(localStorage.getItem(actKey(y,m))||'{}');delete ma[day];localStorage.setItem(actKey(y,m),JSON.stringify(ma));renderActivities(y,m);}
+async function saveMonthly(){try{await POST('/api/data/'+S.year+'/'+S.month,{weight:document.getElementById('inp-w').value,note:document.getElementById('inp-note').value});S.hist=null;var btn=document.getElementById('save-btn');btn.textContent='✓ SAVED';btn.style.opacity='.7';setTimeout(function(){btn.textContent='SAVE';btn.style.opacity='';},1600);fetchHistory();}catch(e){alert('Could not save.');}}
+
+function switchPhotoTab(tab){S.currentPhotoTab=tab;['front','back','side'].forEach(function(tb){var el=document.getElementById('ptab-'+tb);if(el)el.classList.toggle('active',tb===tab);});document.getElementById('timeline-tab-lbl').textContent=tab.toUpperCase();updatePhotoSlot();renderTimeline();}
+function getPhotoKey(y,m,tab){return S.user.username+'_'+y+'_'+m+'_'+tab;}
+function updatePhotoSlot(){var key=getPhotoKey(S.year,S.month,S.currentPhotoTab);var photo=S.photos[key];var d=photo?(photo.data||photo):null;var zone=document.getElementById('photo-upload-zone');var prev=document.getElementById('photo-current');if(d&&d.startsWith('data:')){zone.style.display='none';prev.src=d;prev.style.display='block';}else{zone.style.display='block';document.getElementById('upload-lbl').textContent='Upload '+S.currentPhotoTab+' — '+(currentLang==='ar'?MSS_AR[S.month]:MSS[S.month]);prev.style.display='none';}}
+async function handlePhoto(e){var file=e.target.files[0];if(!file)return;var type=file.type?file.type.toLowerCase():'';if(type.includes('heic')||type.includes('heif')){alert('HEIC not supported. Screenshot the photo first.');e.target.value='';return;}document.getElementById('upload-lbl').textContent='Uploading...';var reader=new FileReader();reader.onload=async function(ev){var original=ev.target.result;var tryCanvas=function(){return new Promise(function(resolve){var img=new Image();img.onload=function(){var canvas=document.createElement('canvas');var MAX=1200;var w=img.width;var h=img.height;if(w>MAX){h=Math.round(h*MAX/w);w=MAX;}if(h>MAX){w=Math.round(w*MAX/h);h=MAX;}canvas.width=w;canvas.height=h;var ctx=canvas.getContext('2d');ctx.fillStyle='#000';ctx.fillRect(0,0,w,h);ctx.drawImage(img,0,0,w,h);resolve(canvas.toDataURL('image/jpeg',0.85));};img.onerror=function(){resolve(original);};img.src=original;});};try{var jpeg=await tryCanvas();await POST('/api/photo/'+S.year+'/'+S.month+'/'+S.currentPhotoTab,{data:jpeg});S.photos[getPhotoKey(S.year,S.month,S.currentPhotoTab)]={data:jpeg};e.target.value='';updatePhotoSlot();renderTimeline();}catch(err){document.getElementById('upload-lbl').textContent='Upload failed';alert('Upload failed: '+err.message);}};reader.readAsDataURL(file);}
+async function loadPhotos(y,m){try{var all=await GET('/api/photos/all');S.photos=all;}catch(e){S.photos={};}updatePhotoSlot();renderTimeline();renderCmpSelects();}
+function getMonthRange(){var months=[];var now=new Date();for(var y=START_YEAR;y<=now.getFullYear()+1;y++){for(var m=(y===START_YEAR?START_MONTH:0);m<12;m++){if(y>now.getFullYear()||(y===now.getFullYear()&&m>now.getMonth()))break;months.push({y:y,m:m,label:(currentLang==='ar'?MSS_AR[m]:MSS[m])+'\''+String(y).slice(2)});}}return months;}
+function getPhotoData(y,m,tab){var key=getPhotoKey(y,m,tab||S.currentPhotoTab);var p=S.photos?S.photos[key]:null;if(!p)return null;var d=p.data||p;return(typeof d==='string'&&d.startsWith('data:'))?d:null;}
+function renderTimeline(){var tl=document.getElementById('photo-timeline');var months=getMonthRange();var tab=S.currentPhotoTab;tl.innerHTML=months.map(function(e){var y=e.y,m=e.m,label=e.label;var d=getPhotoData(y,m,tab);if(d)return'<div class="photo-month"><div class="photo-month-lbl">'+label+'</div><img src="'+d+'" alt="'+label+'" onclick="openModal(this.src)" style="width:120px;height:160px;object-fit:cover;border-radius:var(--r-sm);border:1px solid var(--border);cursor:pointer;display:block"></div>';return'<div class="photo-month"><div class="photo-month-lbl">'+label+'</div><div class="photo-empty" onclick="S.month='+m+';S.year='+y+';document.getElementById(\'photo-inp\').click()"><div style="font-size:16px;opacity:.4">📷</div><div style="font-size:9px;color:var(--text3)">'+label+'</div></div></div>';}).join('');}
+function renderCmpSelects(){var months=getMonthRange();var opts=months.map(function(e){return'<option value="'+e.y+'_'+e.m+'">'+e.label+'</option>';}).join('');var s1=document.getElementById('cmp-m1');var s2=document.getElementById('cmp-m2');s1.innerHTML=opts;s2.innerHTML=opts;if(months.length>=2){s1.value=months[0].y+'_'+months[0].m;s2.value=months[months.length-1].y+'_'+months[months.length-1].m;}s1.onchange=renderPhotoCmp;s2.onchange=renderPhotoCmp;renderPhotoCmp();}
+function renderPhotoCmp(){var v1=document.getElementById('cmp-m1').value;var v2=document.getElementById('cmp-m2').value;var parts1=v1.split('_');var parts2=v2.split('_');var p1=getPhotoData(parseInt(parts1[0]),parseInt(parts1[1]));var p2=getPhotoData(parseInt(parts2[0]),parseInt(parts2[1]));var lbl1=document.getElementById('cmp-m1').selectedOptions[0]?document.getElementById('cmp-m1').selectedOptions[0].text:'';var lbl2=document.getElementById('cmp-m2').selectedOptions[0]?document.getElementById('cmp-m2').selectedOptions[0].text:'';var noP='<div style="width:100%;aspect-ratio:.75;border:1px dashed var(--border2);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:10px">No photo</div>';document.getElementById('photo-cmp').innerHTML='<div class="photo-cmp-slot"><div class="photo-cmp-lbl">'+lbl1+'</div>'+(p1?'<img src="'+p1+'" onclick="openModal(this.src)" style="width:100%;aspect-ratio:.75;object-fit:cover;border-radius:var(--r-sm);border:1px solid var(--border);cursor:pointer">':noP)+'</div><div class="photo-cmp-slot"><div class="photo-cmp-lbl">'+lbl2+'</div>'+(p2?'<img src="'+p2+'" onclick="openModal(this.src)" style="width:100%;aspect-ratio:.75;object-fit:cover;border-radius:var(--r-sm);border:1px solid var(--border);cursor:pointer">':noP)+'</div>';}
+function openModal(src){document.getElementById('modal-img').src=src;document.getElementById('photo-modal').classList.add('show');}function closeModal(){document.getElementById('photo-modal').classList.remove('show');}
+
+async function fetchHistory(){if(!S.hist){try{S.hist=await GET('/api/history');}catch(e){return;}}var hist=S.hist;var color=S.user?S.user.color:'#C9A84C';function bar(id,getter,unit){var el=document.getElementById(id);if(!el)return;if(!hist.length){el.innerHTML='<div style="color:var(--text3);font-size:11px">No data yet</div>';return;}var vals=hist.map(getter);var max=Math.max.apply(null,vals.concat([1]));el.innerHTML=hist.map(function(h){var v=getter(h);var pct=Math.max(v/max*100,v>0?3:0);return'<div class="t-row"><div class="t-lbl">'+h.label+'</div><div class="t-track"><div class="t-bar" style="width:'+pct+'%;background:'+color+';">'+(v>0?(v>9999?(v/1000).toFixed(1)+'k':v):'')+'</div></div><div class="t-out">'+(v>0?v+unit:'')+'</div></div>';}).join('');}bar('trend-w',function(h){return parseFloat(h.data.weight)||0;},'kg');bar('trend-g',function(h){return parseInt(h.data.gymDays)||0;},'d');bar('trend-s',function(h){return parseInt(h.data.steps)||0;},'');var ws=hist.map(function(h){return parseFloat(h.data.weight);}).filter(Boolean);var gs=hist.map(function(h){return parseInt(h.data.gymDays);}).filter(Boolean);var ss=hist.map(function(h){return parseInt(h.data.steps);}).filter(function(v){return v>0;});document.getElementById('pb').innerHTML='<div class="metric-grid"><div class="m-box"><div class="m-lbl">Best weight</div><div class="m-val">'+(ws.length?Math.min.apply(null,ws):'—')+'<span class="m-unit"> kg</span></div></div><div class="m-box"><div class="m-lbl">Best gym month</div><div class="m-val">'+(gs.length?Math.max.apply(null,gs):'—')+'<span class="m-unit"> d</span></div></div><div class="m-box"><div class="m-lbl">Best step month</div><div class="m-val" style="font-size:18px">'+(ss.length?Math.max.apply(null,ss).toLocaleString():'—')+'</div></div><div class="m-box"><div class="m-lbl">Months tracked</div><div class="m-val">'+hist.length+'</div></div></div>';var profile=S.user?S.user.profile||{}:{};var gp=document.getElementById('goal-prog');if(!profile.goal){gp.innerHTML='<div style="color:var(--text3);font-size:11px">No goal set.</div>';return;}var g=GOALS[profile.goal];var score=calcScore(profile.goal,hist);gp.innerHTML='<div style="display:flex;align-items:center;gap:9px;margin-bottom:10px"><span style="font-size:24px">'+g.icon+'</span><div><div style="font-size:13px;font-weight:600">'+(currentLang==='ar'?g.labelAr:g.label)+'</div><div style="font-size:10px;color:var(--text3)">'+(currentLang==='ar'?g.descAr:g.desc)+'</div></div></div>'+(score?'<div style="font-family:var(--font-d);font-size:44px;font-weight:800;color:'+color+'">'+score.score+'</div><div style="font-size:11px;color:var(--text2)">'+score.unit+'</div>':'<div style="font-size:11px;color:var(--text3)">Log more months to see your score.</div>');}
+
+async function renderLeaderboard(){try{var board=await GET('/api/leaderboard/global');var body=document.getElementById('leaderboard-body');if(!board||!board.length){body.innerHTML='<div style="color:var(--text3);font-size:12px;text-align:center;padding:20px">No users yet. Be the first!</div>';return;}var medals=['🥇','🥈','🥉'];body.innerHTML=board.map(function(u,i){var medal=i<3?medals[i]:'#'+(i+1);var bw=Math.min(u.score,100);return'<div class="lb-row"><div class="lb-rank">'+medal+'</div><div class="lb-av" style="background:'+u.color+'22;color:'+u.color+'">'+u.initials+'</div><div class="lb-info"><div class="lb-name">'+u.username+'</div><div class="lb-detail">'+u.gymDays+'d gym · '+u.totalSteps.toLocaleString()+' steps · '+u.streak+'d streak</div><div class="lb-bar-track"><div class="lb-bar-fill" style="width:'+bw+'%"></div></div></div><div style="text-align:right"><div class="lb-score">'+u.score+'</div><div class="lb-score-lbl">pts</div></div></div>';}).join('');}catch(e){document.getElementById('leaderboard-body').innerHTML='<div style="color:var(--text3);font-size:11px">Could not load.</div>';}}
+function switchLbTab(p){S.lbPeriod=p;['global','monthly','weekly','daily'].forEach(function(n){var el=document.getElementById('lbt-'+n);if(el)el.classList.toggle('active',n===p);});renderLeaderboard();}
+
+async function createSquad(){var name=document.getElementById('squad-name-inp').value.trim();if(!name){alert('Enter a squad name');return;}try{var squad=await POST('/api/squad/create',{name:name});document.getElementById('squad-name-inp').value='';renderMySquads();alert('Squad created!\nInvite code: '+squad.code+'\nShare this with friends to join!');}catch(e){alert('Failed to create squad');}}
+async function joinSquad(){var code=document.getElementById('squad-code-inp').value.trim().toUpperCase();if(!code||code.length!==6){alert('Enter a valid 6-letter code');return;}try{var res=await POST('/api/squad/join',{code:code});document.getElementById('squad-code-inp').value='';renderMySquads();alert('Joined '+res.squad.name+'!');}catch(e){try{var err=JSON.parse(e.message);alert(err.error||'Failed to join');}catch(e2){alert('Squad not found. Check the code.');}}}
+async function renderMySquads(){try{var squads=await GET('/api/squad/mine');var el=document.getElementById('my-squads');if(!squads.length){el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:10px 0">You haven\'t joined any squads yet. Create one or ask a friend for their invite code!</div>';return;}el.innerHTML=squads.map(function(s){return'<div class="squad-card"><div class="squad-name">'+s.name+'</div><div style="margin-bottom:8px"><span class="squad-code">'+s.code+'</span><span style="font-size:10px;color:var(--text3);margin-left:8px">Share to invite friends</span></div><div style="font-size:11px;color:var(--text3)">'+s.members.length+' member'+(s.members.length!==1?'s':'')+'</div><button class="btn btn-o btn-sm" style="margin-top:9px" onclick="loadSquadLb(\''+s.id+'\')">View Leaderboard</button></div>';}).join('');}catch(e){}}
+async function loadSquadLb(id){try{var res=await GET('/api/squad/'+id+'/leaderboard');var medals=['🥇','🥈','🥉'];var el=document.getElementById('my-squads');el.insertAdjacentHTML('afterbegin','<div class="card" style="margin-bottom:12px"><div style="font-family:var(--font-d);font-size:20px;font-weight:700;color:var(--gold);margin-bottom:12px">'+res.squad.name+'</div>'+res.scores.map(function(u,i){return'<div class="lb-row"><div class="lb-rank">'+(i<3?medals[i]:'#'+(i+1))+'</div><div class="lb-av" style="background:'+u.color+'22;color:'+u.color+'">'+u.initials+'</div><div class="lb-info"><div class="lb-name">'+u.username+'</div><div class="lb-detail">'+u.gymDays+'d · '+u.totalSteps.toLocaleString()+' steps</div></div><div style="text-align:right"><div class="lb-score">'+u.score+'</div><div class="lb-score-lbl">pts</div></div></div>';}).join('')+'<button class="btn btn-o btn-sm" style="margin-top:10px" onclick="renderMySquads()">← Back</button></div>');}catch(e){alert('Could not load leaderboard');}}
+
+function selGenderCal(g,el){calGender=g;document.querySelectorAll('#dtab-calories .gender-btn').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');}
+function prefillCalories(){if(S.user&&S.user.profile&&S.user.profile.targetWeight){document.getElementById('cal-weight').value=S.user.profile.targetWeight;}}
+function calcCalories(){var age=parseInt(document.getElementById('cal-age').value);var height=parseFloat(document.getElementById('cal-height').value);var weight=parseFloat(document.getElementById('cal-weight').value);var activity=parseFloat(document.getElementById('cal-activity').value);if(!age||!height||!weight){alert('Please fill in all fields');return;}var bmr=calGender==='male'?(10*weight+6.25*height-5*age+5):(10*weight+6.25*height-5*age-161);var tdee=Math.round(bmr*activity);document.getElementById('cal-tdee').textContent=tdee.toLocaleString();document.getElementById('cal-lose').textContent=(tdee-500).toLocaleString();document.getElementById('cal-maint').textContent=tdee.toLocaleString();document.getElementById('cal-gain').textContent=(tdee+500).toLocaleString();document.getElementById('cal-notes').innerHTML='<strong style="color:var(--gold)">BMR:</strong> '+Math.round(bmr)+' kcal at rest<br><strong style="color:var(--gold)">TDEE:</strong> '+tdee+' kcal total daily burn<br>Weight loss: ~'+(tdee-500)+' kcal/day &nbsp;|&nbsp; Weight gain: ~'+(tdee+500)+' kcal/day';document.getElementById('cal-result').style.display='block';}
+function searchFood(){var query=document.getElementById('food-search-inp').value.trim().toLowerCase();if(!query)return;var results=document.getElementById('food-results');var matches=Object.entries(HALAL_DB).filter(function(e){return e[0].includes(query)||query.includes(e[0]);});if(!matches.length){results.innerHTML='<div style="font-size:11px;color:var(--text3);padding:8px 0">No results. Try: chicken, beef, pork, gelatin, dates...</div>';return;}results.innerHTML=matches.map(function(e){var name=e[0],info=e[1];var halalColor=info.halal===true?'var(--green)':info.halal===false?'var(--red)':'var(--yellow)';var halalLabel=info.halal===true?'HALAL':info.halal===false?'HARAM':'⚠️ CHECK';return'<div class="food-item"><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text);text-transform:capitalize;margin-bottom:3px">'+name+'</div><div style="font-size:10px;color:var(--text3);font-family:var(--mono)">'+info.cal+' kcal | P:'+info.p+'g | C:'+info.c+'g | F:'+info.f+'g</div><div style="font-size:10px;color:'+halalColor+';margin-top:3px">'+info.note+'</div></div><span class="food-halal" style="border-color:'+halalColor+';color:'+halalColor+'">'+halalLabel+'</span></div>';}).join('');}
+
+var DUBAI_APR2026=[{d:1,f:'4:52',s:'6:07',dh:'12:26',a:'3:52',mg:'6:39',i:'7:53'},{d:2,f:'4:51',s:'6:06',dh:'12:26',a:'3:52',mg:'6:39',i:'7:54'},{d:3,f:'4:50',s:'6:05',dh:'12:25',a:'3:52',mg:'6:40',i:'7:54'},{d:4,f:'4:49',s:'6:04',dh:'12:25',a:'3:52',mg:'6:40',i:'7:55'},{d:5,f:'4:48',s:'6:03',dh:'12:25',a:'3:51',mg:'6:41',i:'7:55'},{d:6,f:'4:47',s:'6:02',dh:'12:24',a:'3:51',mg:'6:41',i:'7:56'},{d:7,f:'4:46',s:'6:01',dh:'12:24',a:'3:51',mg:'6:42',i:'7:56'},{d:8,f:'4:45',s:'6:00',dh:'12:24',a:'3:51',mg:'6:42',i:'7:57'},{d:9,f:'4:44',s:'5:59',dh:'12:23',a:'3:50',mg:'6:43',i:'7:57'},{d:10,f:'4:43',s:'5:58',dh:'12:23',a:'3:50',mg:'6:43',i:'7:58'},{d:11,f:'4:42',s:'5:57',dh:'12:23',a:'3:50',mg:'6:44',i:'7:58'},{d:12,f:'4:41',s:'5:56',dh:'12:22',a:'3:50',mg:'6:44',i:'7:59'},{d:13,f:'4:40',s:'5:56',dh:'12:22',a:'3:49',mg:'6:45',i:'7:59'},{d:14,f:'4:39',s:'5:55',dh:'12:22',a:'3:49',mg:'6:45',i:'8:00'},{d:15,f:'4:38',s:'5:54',dh:'12:21',a:'3:49',mg:'6:46',i:'8:00'},{d:16,f:'4:37',s:'5:53',dh:'12:21',a:'3:49',mg:'6:46',i:'8:01'},{d:17,f:'4:36',s:'5:52',dh:'12:21',a:'3:48',mg:'6:47',i:'8:01'},{d:18,f:'4:35',s:'5:51',dh:'12:20',a:'3:48',mg:'6:47',i:'8:02'},{d:19,f:'4:34',s:'5:50',dh:'12:20',a:'3:48',mg:'6:48',i:'8:02'},{d:20,f:'4:33',s:'5:50',dh:'12:20',a:'3:48',mg:'6:48',i:'8:03'},{d:21,f:'4:32',s:'5:49',dh:'12:19',a:'3:47',mg:'6:49',i:'8:03'},{d:22,f:'4:31',s:'5:48',dh:'12:19',a:'3:47',mg:'6:49',i:'8:04'},{d:23,f:'4:30',s:'5:47',dh:'12:19',a:'3:47',mg:'6:50',i:'8:04'},{d:24,f:'4:29',s:'5:46',dh:'12:18',a:'3:47',mg:'6:50',i:'8:05'},{d:25,f:'4:28',s:'5:46',dh:'12:18',a:'3:46',mg:'6:51',i:'8:05'},{d:26,f:'4:27',s:'5:45',dh:'12:18',a:'3:46',mg:'6:51',i:'8:06'},{d:27,f:'4:26',s:'5:44',dh:'12:17',a:'3:46',mg:'6:52',i:'8:06'},{d:28,f:'4:25',s:'5:43',dh:'12:17',a:'3:46',mg:'6:52',i:'8:07'},{d:29,f:'4:24',s:'5:43',dh:'12:17',a:'3:45',mg:'6:53',i:'8:07'},{d:30,f:'4:23',s:'5:42',dh:'12:17',a:'3:45',mg:'6:53',i:'8:08'}];
+
+function fillPrayerTable(bodyId){var tbody=document.getElementById(bodyId);if(!tbody)return;var now=new Date();DUBAI_APR2026.forEach(function(dp){var isToday=dp.d===now.getDate()&&now.getMonth()===3;var tr=document.createElement('tr');if(isToday)tr.className='today-row';tr.innerHTML='<td>'+dp.d+' Apr</td><td>'+dp.f+'</td><td>'+dp.s+'</td><td>'+dp.dh+'</td><td>'+dp.a+'</td><td>'+dp.mg+'</td><td>'+dp.i+'</td>';tbody.appendChild(tr);});}
+
+function renderPrayerCards(timings,gridId,nameId,countdownId){
+  if(!timings)return;
+  var lbls=currentLang==='ar'?PRAYER_LABELS_AR:PRAYER_LABELS;
+  var now=new Date();var nowMins=now.getHours()*60+now.getMinutes();
+  var pList=[{n:'fajr',t:timings.fajr},{n:'sunrise',t:timings.sunrise},{n:'dhuhr',t:timings.dhuhr},{n:'asr',t:timings.asr},{n:'maghrib',t:timings.maghrib},{n:'isha',t:timings.isha}];
+  var seq=['fajr','dhuhr','asr','maghrib','isha'];
+  var currentPrayer=null;var nextPrayer=null;var nextTime=null;
+  seq.forEach(function(p){var info=pList.find(function(x){return x.n===p;});if(!info||!info.t)return;var parts=info.t.replace(' ','').split(':');var h=parseInt(parts[0]);var m=parseInt(parts[1]);if(p!=='fajr'&&p!=='sunrise'&&h<12)h+=12;var pMins=h*60+m;if(pMins<=nowMins)currentPrayer=p;else if(!nextPrayer){nextPrayer=p;nextTime=info.t;}});
+  if(!nextPrayer){nextPrayer='fajr';nextTime=timings.fajr;}
+  var nameEl=document.getElementById(nameId);if(nameEl)nameEl.textContent=lbls[nextPrayer]||nextPrayer;
+  var grid=document.getElementById(gridId);if(!grid)return;
+  grid.innerHTML=pList.map(function(info){var isCurrent=info.n===currentPrayer;var isNext=info.n===nextPrayer;return'<div class="prayer-card'+(isCurrent?' current':'')+'"><div class="prayer-icon">'+PRAYER_ICONS[info.n]+'</div><div class="prayer-name-lbl">'+lbls[info.n]+'</div><div class="prayer-time-val">'+(info.t||'—')+'</div>'+(isCurrent?'<div class="prayer-now-badge">NOW</div>':'')+(isNext&&!isCurrent?'<div class="prayer-now-badge" style="color:var(--gold-dim)">NEXT</div>':'')+'</div>';}).join('');
+  if(nextTime)startPrayerCountdown(nextTime,nextPrayer,countdownId);
+}
+
+async function renderPrayerPagePublic(){
+  setTimeout(function(){fetchPrayerTimesFromSelect();},200);
+  document.getElementById('pub-prayer-body').innerHTML='';
+  var timings=await fetchPrayerTimingsAPI(S.prayerCity||'Dubai','AE');
+  if(timings)renderPrayerCards(timings,'pub-prayer-grid','pub-prayer-name','pub-countdown');
+  else renderPrayerCards({fajr:'4:35',sunrise:'5:51',dhuhr:'12:20',asr:'3:48',maghrib:'6:47',isha:'8:02'},'pub-prayer-grid','pub-prayer-name','pub-countdown');
+  fillPrayerTable('pub-prayer-body');
+}
+
+async function renderPrayerPageDash(){
+  document.getElementById('dash-prayer-body').innerHTML='';
+  var city=S.user&&S.user.city?S.user.city:'Dubai';
+  var timings=await fetchPrayerTimingsAPI(city,'AE');
+  if(timings)renderPrayerCards(timings,'dash-prayer-grid','dash-prayer-name','dash-countdown');
+  else renderPrayerCards({fajr:'4:35',sunrise:'5:51',dhuhr:'12:20',asr:'3:48',maghrib:'6:47',isha:'8:02'},'dash-prayer-grid','dash-prayer-name','dash-countdown');
+  fillPrayerTable('dash-prayer-body');
+}
+
+async function fetchPrayerTimingsAPI(city,country){try{var url='/api/prayer-times?city='+encodeURIComponent(city||'Dubai')+'&country='+(country||'AE');var data=await GET(url);return data;}catch(e){return null;}}
+
+function fetchPrayerTimesFromSelect(){
+  var sel=document.getElementById('prayer-city-inp');
+  if(!sel)return;
+  var parts=sel.value.split('|');
+  S.prayerCity=parts[0];S.prayerCountry=parts[1]||'AE';
+  document.getElementById('prayer-location-lbl').textContent='Loading '+parts[0]+'...';
+  document.getElementById('pub-prayer-body').innerHTML='';
+  fetchPrayerTimingsAPI(parts[0],parts[1]||'AE').then(function(timings){
+    if(timings){renderPrayerCards(timings,'pub-prayer-grid','pub-prayer-name','pub-countdown');document.getElementById('prayer-location-lbl').textContent='Showing: '+parts[0];}
+  });
+}
+async function fetchPrayerTimes(){var city=document.getElementById('prayer-city-inp').value.trim();if(!city)return;S.prayerCity=city;document.getElementById('prayer-location-lbl').textContent='Loading...';document.getElementById('pub-prayer-body').innerHTML='';var timings=await fetchPrayerTimingsAPI(city);if(timings){renderPrayerCards(timings,'pub-prayer-grid','pub-prayer-name','pub-countdown');document.getElementById('prayer-location-lbl').textContent='Showing: '+city;}else{document.getElementById('prayer-location-lbl').textContent='Could not find times for: '+city;}}
+
+function getPrayerByGPS(){if(!navigator.geolocation){alert('GPS not available');return;}document.getElementById('prayer-location-lbl').textContent='Getting your location...';navigator.geolocation.getCurrentPosition(async function(pos){var lat=pos.coords.latitude;var lng=pos.coords.longitude;document.getElementById('prayer-location-lbl').textContent='Loading prayer times...';try{var url='/api/prayer-times?lat='+lat+'&lng='+lng;var data=await GET(url);renderPrayerCards(data,'pub-prayer-grid','pub-prayer-name','pub-countdown');document.getElementById('prayer-location-lbl').textContent='Showing: Your location';}catch(e){document.getElementById('prayer-location-lbl').textContent='Could not load times';}},function(){alert('Could not get location. Please enter your city.');});}
+
+function startPrayerCountdown(timeStr,prayerName,elId){if(S.prayerTimer)clearInterval(S.prayerTimer);if(!timeStr){var el=document.getElementById(elId);if(el)el.textContent='--:--:--';return;}function tick(){var now=new Date();var parts=timeStr.replace(' ','').split(':');var h=parseInt(parts[0]);var m=parseInt(parts[1]);var amPrayers=['fajr','sunrise'];if(amPrayers.indexOf(prayerName)===-1&&h<12)h+=12;var target=new Date(now.getFullYear(),now.getMonth(),now.getDate(),h,m,0);if(target<=now)target=new Date(target.getTime()+86400000);var diff=target-now;if(diff<=0){clearInterval(S.prayerTimer);return;}var hh=Math.floor(diff/3600000);var mm=Math.floor((diff%3600000)/60000);var ss=Math.floor((diff%60000)/1000);var elmt=document.getElementById(elId);if(elmt)elmt.textContent=(hh<10?'0':'')+hh+':'+(mm<10?'0':'')+mm+':'+(ss<10?'0':'')+ss;}tick();S.prayerTimer=setInterval(tick,1000);}
+
+function renderSettingsTab(){S.selGoal=S.user?S.user.profile?S.user.profile.goal:null:null;S.selWeekDays=S.user?S.user.profile?S.user.profile.gymDaysPerWeek:null:null;renderGoalGrid('goal-grid-s');updateWeekOpts('week-opts-s',S.selWeekDays);document.getElementById('s-target').value=S.user&&S.user.profile?(S.user.profile.targetWeight||''):'';if(S.user){settingsGender=S.user.gender||'male';document.getElementById('set-male').classList.toggle('sel',settingsGender==='male');document.getElementById('set-female').classList.toggle('sel',settingsGender==='female');if(S.user.city)document.getElementById('set-city').value=S.user.city;}}
+function selGenderSettings(g,el){settingsGender=g;document.querySelectorAll('#dtab-settings .gender-btn').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');}
+async function saveAccountSettings(){var city=document.getElementById('set-city').value.trim();await POST('/api/settings',{gender:settingsGender,city:city,language:currentLang,theme:currentTheme});if(S.user){S.user.gender=settingsGender;S.user.city=city;}var btn=document.getElementById('btn-save-account');btn.textContent='✓ SAVED';btn.style.opacity='.7';setTimeout(function(){btn.textContent='SAVE SETTINGS';btn.style.opacity='';},1600);}
+async function saveSettings(){if(!S.selGoal){alert('Pick a goal');return;}var p={goal:S.selGoal,gymDaysPerWeek:S.selWeekDays||4,targetWeight:document.getElementById('s-target').value};await POST('/api/profile',p);S.user.profile=p;S.hist=null;fetchHistory();renderSettingsTab();var btn=document.getElementById('btn-update-goal');btn.textContent='✓';btn.style.opacity='.7';setTimeout(function(){btn.textContent='UPDATE GOAL';btn.style.opacity='';},1600);}
+async function saveAdminQuote(){var text=document.getElementById('admin-quote-inp').value.trim();if(!text)return;try{await POST('/api/admin-quote',{text:text});document.getElementById('admin-quote-inp').value='';alert('Posted!');}catch(e){alert('Failed');}}
+
+function calcScore(gk,hist){if(!gk||!hist.length)return null;var g=GOALS[gk];var f=hist[0];var l=hist[hist.length-1];if(g.metric==='lower_weight'){var d=(parseFloat(f.data.weight)||0)-(parseFloat(l.data.weight)||0);return{score:Math.abs(d).toFixed(1),unit:'kg lost'};}if(g.metric==='higher_weight'){var d=(parseFloat(l.data.weight)||0)-(parseFloat(f.data.weight)||0);return{score:Math.max(0,d).toFixed(1),unit:'kg gained'};}if(g.metric==='higher_steps'){var a=Math.round(hist.reduce(function(x,h){return x+(parseInt(h.data.steps)||0);},0)/hist.length);return{score:a.toLocaleString(),unit:'avg steps/month'};}if(g.metric==='consistency'){var a=Math.round(hist.reduce(function(x,h){return x+(parseInt(h.data.gymDays)||0);},0)/hist.length);return{score:a,unit:'avg gym days/month'};}return null;}
+
+async function initSW(){if(!('serviceWorker' in navigator))return;S.swReg=await navigator.serviceWorker.register('/sw.js');}
+function updateNotifyBtn(){['notify-btn','dash-pray-notify'].forEach(function(id){var btn=document.getElementById(id);if(!btn)return;if(!('Notification' in window)){btn.textContent='🔕 Not supported';btn.disabled=true;return;}if(Notification.permission==='granted'){btn.classList.add('on');btn.textContent='🔔 Notifications ON';}else{btn.classList.remove('on');btn.textContent='🔔 Enable notifications';}});}
+async function toggleNotify(){if(!S.user){nav('/fitness');return;}if(Notification.permission==='granted'){if(S.swReg){var s=await S.swReg.pushManager.getSubscription();if(s){await s.unsubscribe();await POST('/api/push/unsubscribe',{endpoint:s.endpoint});}}updateNotifyBtn();}else{var p=await Notification.requestPermission();if(p!=='granted')return;var res=await GET('/api/push/vapid-public');var key=res.key;var sub=await S.swReg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64(key)});await POST('/api/push/subscribe',sub);updateNotifyBtn();}}
+function b64(s){var p='='.repeat((4-s.length%4)%4);var b=(s+p).replace(/-/g,'+').replace(/_/g,'/');var r=window.atob(b);return Uint8Array.from(Array.from(r).map(function(c){return c.charCodeAt(0);}));}
+var deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredPrompt=e;document.getElementById('install-banner').style.display='block';});
+function installApp(){document.getElementById('install-banner').style.display='none';if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(){deferredPrompt=null;});}}
+
+
+var WORLD_CITIES = [
+  {city:'Dubai',country:'AE',label:'Dubai, UAE'},
+  {city:'Abu Dhabi',country:'AE',label:'Abu Dhabi, UAE'},
+  {city:'Sharjah',country:'AE',label:'Sharjah, UAE'},
+  {city:'Ajman',country:'AE',label:'Ajman, UAE'},
+  {city:'Ras Al Khaimah',country:'AE',label:'Ras Al Khaimah, UAE'},
+  {city:'Fujairah',country:'AE',label:'Fujairah, UAE'},
+  {city:'Umm Al Quwain',country:'AE',label:'Umm Al Quwain, UAE'},
+  {city:'Al Ain',country:'AE',label:'Al Ain, UAE'},
+];
+
+function searchCities(query) {
+  if (!query || query.length < 2) return [];
+  var q = query.toLowerCase();
+  return WORLD_CITIES.filter(function(c) {
+    return c.label.toLowerCase().includes(q) || c.city.toLowerCase().includes(q);
+  }).slice(0, 8);
+}
+
+function showCityDropdown(inputId, ddId, onSelect) {
+  var inp = document.getElementById(inputId);
+  var dd = document.getElementById(ddId);
+  if (!inp || !dd) return;
+  inp.oninput = function() {
+    var results = searchCities(inp.value);
+    if (!results.length) { dd.style.display = 'none'; return; }
+    dd.style.display = 'block';
+    dd.innerHTML = results.map(function(c) {
+      return '<div onclick="selectCity(' + JSON.stringify(c).replace(/"/g,'&quot;') + ',\'' + inputId + '\',\'' + ddId + '\')" style="padding:10px 12px;font-size:12px;cursor:pointer;border-bottom:1px solid var(--border);color:var(--text);display:flex;align-items:center;gap:8px" onmouseover="this.style.background=\'var(--bg4)\'" onmouseout="this.style.background=\'\'"><span style="font-size:16px">📍</span><div><div style="font-weight:600">' + c.city + '</div><div style="font-size:10px;color:var(--text3)">' + c.label + '</div></div></div>';
+    }).join('');
+  };
+  inp.onfocus = function() { if(inp.value.length >= 2) inp.oninput(); };
+  document.addEventListener('click', function(e) { if(!e.target.closest('#'+inputId)&&!e.target.closest('#'+ddId)) dd.style.display='none'; });
+}
+
+function selectCity(cityObj, inputId, ddId) {
+  document.getElementById(inputId).value = cityObj.label;
+  document.getElementById(ddId).style.display = 'none';
+  S.prayerCity = cityObj.city;
+  S.prayerCountry = cityObj.country;
+  // Auto-fetch prayer times
+  if (inputId === 'prayer-city-inp') {
+    fetchPrayerTimesForCity(cityObj.city, cityObj.country);
+  } else if (inputId === 'set-city') {
+    // Just save the city value
+  }
+}
+
+async function fetchPrayerTimesForCity(city, country) {
+  document.getElementById('prayer-location-lbl').textContent = 'Loading ' + city + '...';
+  document.getElementById('pub-prayer-body').innerHTML = '';
+  try {
+    var url = '/api/prayer-times?city=' + encodeURIComponent(city) + '&country=' + (country || 'AE');
+    var data = await GET(url);
+    renderPrayerCards(data, 'pub-prayer-grid', 'pub-prayer-name', 'pub-countdown');
+    document.getElementById('prayer-location-lbl').textContent = 'Showing: ' + city;
+  } catch(e) {
+    document.getElementById('prayer-location-lbl').textContent = 'Could not load times for: ' + city;
+  }
+}
+
+
+
+var nbData={exercises:[],notes:'',workoutName:'',date:''};
+var nbTimer=null;
+
+function getTodayKey(){var n=new Date();return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');}
+
+function openNotebook(){
+  var modal=document.getElementById('nb-modal');
+  var sheet=document.getElementById('nb-sheet');
+  modal.style.display='block';
+  setTimeout(function(){sheet.style.transform='translateY(0)';},10);
+  var now=new Date();
+  document.getElementById('nb-date-lbl').textContent=now.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).toUpperCase();
+  nbLoad(getTodayKey());
+  nbLoadHistory();
+}
+
+function closeNotebook(){
+  var sheet=document.getElementById('nb-sheet');
+  sheet.style.transform='translateY(100%)';
+  setTimeout(function(){
+    document.getElementById('nb-modal').style.display='none';
+    var fab=document.getElementById('nb-fab');
+    if(fab){fab.style.display='flex';fab.style.opacity='1';fab.style.visibility='visible';}
+  },300);
+}
+
+async function nbLoad(dk){
+  try{
+    if(S.user){var d=await GET('/api/notebook/'+dk);nbData=d;}
+    else{var st=localStorage.getItem('qawi_nb_'+dk);nbData=st?JSON.parse(st):{exercises:[],notes:'',workoutName:'',date:dk};}
+  }catch(e){nbData={exercises:[],notes:'',workoutName:'',date:dk};}
+  if(!nbData.exercises)nbData.exercises=[];
+  document.getElementById('nb-workout-name').value=nbData.workoutName||'';
+  document.getElementById('nb-notes').value=nbData.notes||'';
+  nbRender();nbStats();
+}
+
+async function nbLoadHistory(){
+  try{
+    var hist=S.user?await GET('/api/notebook-history'):[];
+    var el=document.getElementById('nb-history');
+    if(!hist||!hist.length){el.innerHTML='<div style="font-size:11px;color:var(--text3)">No previous workouts yet</div>';return;}
+    var html='';
+    for(var i=0;i<Math.min(hist.length,10);i++){
+      var h=hist[i];
+      var exC=(h.exercises||[]).length;
+      var d=new Date(h.date);
+      var lbl=d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+      var div=document.createElement('div');
+      div.style.cssText='flex-shrink:0;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 12px;cursor:pointer;min-width:100px;text-align:center';
+      div.dataset.dk=h.date;
+      div.onclick=function(){nbLoad(this.dataset.dk);};
+      div.innerHTML='<div style="font-size:10px;color:var(--text3);font-family:var(--mono);margin-bottom:3px">'+lbl+'</div>'
+        +'<div style="font-size:13px;font-weight:600;color:var(--gold)">'+(h.workoutName||'Workout')+'</div>'
+        +'<div style="font-size:10px;color:var(--text3)">'+exC+' exercises</div>';
+      el.appendChild(div);
+    }
+  }catch(e){}
+}
+
+function nbRender(){
+  var el=document.getElementById('nb-exercises');
+  el.innerHTML='';
+  if(!nbData.exercises||!nbData.exercises.length){
+    el.innerHTML='<div style="text-align:center;padding:16px;color:var(--text3);font-size:12px">No exercises yet. Add one below!</div>';
+    return;
+  }
+  for(var ei=0;ei<nbData.exercises.length;ei++){
+    var ex=nbData.exercises[ei];
+    var card=document.createElement('div');
+    card.style.cssText='background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px;margin-bottom:8px';
+    var header=document.createElement('div');
+    header.style.cssText='display:flex;align-items:center;justify-content:space-between;margin-bottom:8px';
+    var nameDiv=document.createElement('div');
+    nameDiv.style.cssText='font-size:14px;font-weight:600;color:var(--text)';
+    nameDiv.textContent=ex.name;
+    var btns=document.createElement('div');
+    btns.style.cssText='display:flex;gap:6px';
+    var addSetBtn=document.createElement('button');
+    addSetBtn.style.cssText='background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--gold);font-size:11px;padding:4px 9px;cursor:pointer;font-family:var(--mono)';
+    addSetBtn.textContent='+ Set';
+    addSetBtn.dataset.ei=ei;
+    addSetBtn.onclick=function(){nbAddSet(parseInt(this.dataset.ei));};
+    var delExBtn=document.createElement('button');
+    delExBtn.style.cssText='background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px';
+    delExBtn.textContent='✕';
+    delExBtn.dataset.ei=ei;
+    delExBtn.onclick=function(){nbDelEx(parseInt(this.dataset.ei));};
+    btns.appendChild(addSetBtn);btns.appendChild(delExBtn);
+    header.appendChild(nameDiv);header.appendChild(btns);
+    card.appendChild(header);
+    if(ex.sets&&ex.sets.length){
+      for(var si=0;si<ex.sets.length;si++){
+        var s=ex.sets[si];
+        var row=document.createElement('div');
+        row.style.cssText='display:flex;align-items:center;gap:6px;margin-bottom:5px';
+        var num=document.createElement('div');
+        num.style.cssText='width:20px;height:20px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text3);font-family:var(--mono);flex-shrink:0';
+        num.textContent=si+1;
+        var wInp=document.createElement('input');
+        wInp.type='number';wInp.placeholder='kg';wInp.value=s.weight||'';
+        wInp.style.cssText='width:52px;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:12px;padding:4px 7px;outline:none;text-align:center';
+        wInp.dataset.ei=ei;wInp.dataset.si=si;wInp.dataset.field='w';
+        wInp.onchange=function(){nbSetVal(parseInt(this.dataset.ei),parseInt(this.dataset.si),this.dataset.field,this.value);};
+        var kgLbl=document.createElement('span');kgLbl.style.cssText='font-size:11px;color:var(--text3)';kgLbl.textContent='kg x';
+        var rInp=document.createElement('input');
+        rInp.type='number';rInp.placeholder='reps';rInp.value=s.reps||'';
+        rInp.style.cssText='width:48px;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:12px;padding:4px 7px;outline:none;text-align:center';
+        rInp.dataset.ei=ei;rInp.dataset.si=si;rInp.dataset.field='r';
+        rInp.onchange=function(){nbSetVal(parseInt(this.dataset.ei),parseInt(this.dataset.si),this.dataset.field,this.value);};
+        var repsLbl=document.createElement('span');repsLbl.style.cssText='font-size:11px;color:var(--text3)';repsLbl.textContent='reps';
+        var doneBtn=document.createElement('button');
+        doneBtn.style.cssText='width:24px;height:24px;border-radius:50%;border:none;cursor:pointer;font-size:12px;flex-shrink:0;background:'+(s.done?'var(--gold)':'var(--bg4)')+';color:'+(s.done?'#000':'var(--text3)');
+        doneBtn.textContent='✓';doneBtn.dataset.ei=ei;doneBtn.dataset.si=si;
+        doneBtn.onclick=function(){nbToggleDone(parseInt(this.dataset.ei),parseInt(this.dataset.si));};
+        var delBtn=document.createElement('button');
+        delBtn.style.cssText='background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;padding:0';
+        delBtn.textContent='✕';delBtn.dataset.ei=ei;delBtn.dataset.si=si;
+        delBtn.onclick=function(){nbDelSet(parseInt(this.dataset.ei),parseInt(this.dataset.si));};
+        row.appendChild(num);row.appendChild(wInp);row.appendChild(kgLbl);row.appendChild(rInp);row.appendChild(repsLbl);row.appendChild(doneBtn);row.appendChild(delBtn);
+        card.appendChild(row);
+      }
+    }
+    el.appendChild(card);
+  }
+}
+
+function nbStats(){
+  var exC=(nbData.exercises||[]).length;
+  var setC=(nbData.exercises||[]).reduce(function(a,e){return a+(e.sets||[]).length;},0);
+  document.getElementById('nb-ex-count').textContent=exC;
+  document.getElementById('nb-set-count').textContent=setC;
+}
+
+function nbAddExercise(){
+  var inp=document.getElementById('nb-new-ex');var name=inp.value.trim();if(!name)return;
+  if(!nbData.exercises)nbData.exercises=[];
+  nbData.exercises.push({name:name,sets:[{weight:'',reps:'',done:false}]});
+  inp.value='';nbRender();nbStats();nbSave();
+}
+
+function nbQ(name){
+  if(!nbData.exercises)nbData.exercises=[];
+  nbData.exercises.push({name:name,sets:[{weight:'',reps:'',done:false}]});
+  nbRender();nbStats();nbSave();
+}
+
+function nbAddSet(ei){
+  if(!nbData.exercises[ei].sets)nbData.exercises[ei].sets=[];
+  nbData.exercises[ei].sets.push({weight:'',reps:'',done:false});
+  nbRender();nbStats();nbSave();
+}
+
+function nbSetVal(ei,si,field,val){
+  if(!nbData.exercises[ei]||!nbData.exercises[ei].sets[si])return;
+  if(field==='w')nbData.exercises[ei].sets[si].weight=val;
+  else nbData.exercises[ei].sets[si].reps=val;
+  nbSave();
+}
+
+function nbToggleDone(ei,si){
+  if(!nbData.exercises[ei]||!nbData.exercises[ei].sets[si])return;
+  nbData.exercises[ei].sets[si].done=!nbData.exercises[ei].sets[si].done;
+  nbRender();nbSave();
+}
+
+function nbDelSet(ei,si){nbData.exercises[ei].sets.splice(si,1);nbRender();nbStats();nbSave();}
+function nbDelEx(ei){nbData.exercises.splice(ei,1);nbRender();nbStats();nbSave();}
+
+function nbSave(){
+  nbData.workoutName=document.getElementById('nb-workout-name').value;
+  nbData.notes=document.getElementById('nb-notes').value;
+  if(nbTimer)clearTimeout(nbTimer);
+  nbTimer=setTimeout(async function(){
+    var dk=getTodayKey();
+    if(S.user){try{await POST('/api/notebook/'+dk,nbData);}catch(e){}}
+    else{localStorage.setItem('qawi_nb_'+dk,JSON.stringify(nbData));}
+  },800);
+}
+
+function initFAB(){
+  var fab=document.getElementById('nb-fab');if(!fab)return;
+  var startX,startY,startL,startT,moved;
+  fab.addEventListener('mousedown',function(e){
+    moved=false;startX=e.clientX;startY=e.clientY;
+    fab.style.right='auto';fab.style.bottom='auto';
+    startL=fab.offsetLeft;startT=fab.offsetTop;
+    e.preventDefault();
+    function mm(e2){var dx=e2.clientX-startX;var dy=e2.clientY-startY;if(Math.abs(dx)>4||Math.abs(dy)>4)moved=true;fab.style.left=Math.max(0,Math.min(startL+dx,window.innerWidth-56))+'px';fab.style.top=Math.max(0,Math.min(startT+dy,window.innerHeight-56))+'px';}
+    function mu(){if(!moved)openNotebook();document.removeEventListener('mousemove',mm);document.removeEventListener('mouseup',mu);}
+    document.addEventListener('mousemove',mm);document.addEventListener('mouseup',mu);
+  });
+  fab.addEventListener('touchstart',function(e){
+    var t=e.touches[0];moved=false;startX=t.clientX;startY=t.clientY;
+    fab.style.right='auto';fab.style.bottom='auto';
+    startL=fab.offsetLeft;startT=fab.offsetTop;
+    function tm(e2){e2.preventDefault();var t2=e2.touches[0];var dx=t2.clientX-startX;var dy=t2.clientY-startY;if(Math.abs(dx)>4||Math.abs(dy)>4)moved=true;fab.style.left=Math.max(0,Math.min(startL+dx,window.innerWidth-56))+'px';fab.style.top=Math.max(0,Math.min(startT+dy,window.innerHeight-56))+'px';}
+    function te(){if(!moved)openNotebook();document.removeEventListener('touchmove',tm);document.removeEventListener('touchend',te);}
+    document.addEventListener('touchmove',tm,{passive:false});document.addEventListener('touchend',te);
+  },{passive:true});
+}
+
+
+function searchPlaces(type){
+  var isGym = type==='gym';
+  var inp = document.getElementById(isGym?'gym-search-inp':'masjid-search-inp');
+  var query = (inp?inp.value.trim():'') || (isGym?'gym Dubai':'mosque Dubai');
+  var el = document.getElementById(isGym?'gym-finder-results':'masjid-finder-results');
+  var color = isGym?'var(--gold)':'#4CAF7D';
+  var bg = isGym?'rgba(201,168,76,0.08)':'rgba(76,175,125,0.08)';
+  var border = isGym?'rgba(201,168,76,0.25)':'rgba(76,175,125,0.25)';
+  var icon = isGym?'🏋️':'🕌';
+  var suggestions = isGym ? [
+    query,
+    'Fitness First ' + (query.includes('Dubai')?'':'Dubai ') + query,
+    "Gold's Gym Dubai",
+    'GymNation Dubai',
+    'Warehouse Gym Dubai',
+    'UFC Gym Dubai',
+    'Fit Republic Dubai'
+  ] : [
+    query,
+    'Grand Mosque ' + (query.includes('Dubai')?'':'Dubai ') + query,
+    'Jumeirah Mosque Dubai',
+    'Al Farooq Omar Mosque Dubai',
+    'Dubai Grand Mosque',
+    'Mosque near me Dubai',
+    'Masjid Al Nabawi Dubai'
+  ];
+  // Deduplicate and clean
+  var seen = {};
+  var items = suggestions.filter(function(s){
+    s=s.trim();
+    if(!s||seen[s])return false;
+    seen[s]=true;return true;
+  }).slice(0,6);
+  el.innerHTML = '<div style="font-size:10px;color:var(--text3);font-family:var(--mono);margin-bottom:10px">TAP TO OPEN IN GOOGLE MAPS →</div>' +
+    items.map(function(s){
+      var url = 'https://www.google.com/maps/search/' + encodeURIComponent(s);
+      return '<a href="'+url+'" target="_blank" style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:8px;text-decoration:none">'
+        +'<div style="width:38px;height:38px;border-radius:9px;background:'+bg+';border:1px solid '+border+';display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">'+icon+'</div>'
+        +'<div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px">'+s+'</div>'
+        +'<div style="font-size:10px;color:var(--text3)">Opens in Google Maps</div></div>'
+        +'<div style="font-size:16px;color:'+color+'">→</div></a>';
+    }).join('');
+}
+
+function openGymFinder(){document.getElementById('gym-finder-modal').style.display='block';}
+function openMasjidFinder(){document.getElementById('masjid-finder-modal').style.display='block';}
+
+function findNearby(type,resultId){
+  var el=document.getElementById(resultId);
+  el.innerHTML='<div style="text-align:center;padding:20px;color:var(--text3)">📍 Getting your location...</div>';
+  if(!navigator.geolocation){el.innerHTML='<div style="padding:16px;color:var(--text3)">GPS not available on this browser</div>';return;}
+  navigator.geolocation.getCurrentPosition(function(pos){
+    var lat=pos.coords.latitude;var lng=pos.coords.longitude;
+    var isGym=type==='gym';
+    var q=isGym?'gym':'mosque';
+    var apple='https://maps.apple.com/?q='+q+'&sll='+lat+','+lng+'&z=14';
+    var google='https://maps.google.com/?q='+q+'+near+me&ll='+lat+','+lng;
+    var bg=isGym?'var(--gold)':'rgba(76,175,125,0.15)';
+    var txt=isGym?'#000':'#4CAF7D';
+    var bdr=isGym?'none':'1px solid rgba(76,175,125,0.3)';
+    el.innerHTML='<div style="padding:16px;text-align:center"><div style="font-size:14px;color:var(--text);margin-bottom:16px">Location found! Open Maps to see nearby '+(isGym?'gyms':'mosques')+':</div><div style="display:flex;gap:10px;justify-content:center;margin-bottom:14px"><a href="'+apple+'" style="flex:1;background:'+bg+';color:'+txt+';border:'+bdr+';border-radius:var(--r-sm);padding:12px;font-weight:700;font-size:13px;text-align:center;text-decoration:none;display:block">🗺 Apple Maps</a><a href="'+google+'" style="flex:1;background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:var(--r-sm);padding:12px;font-weight:700;font-size:13px;text-align:center;text-decoration:none;display:block">🌐 Google Maps</a></div><div style="font-size:11px;color:var(--text3)">Tip: Search '+(isGym?'Fitness First or Golds Gym':'Grand Mosque or nearest mosque')+'</div></div>';
+  },function(){
+    var isGym=type==='gym';
+    el.innerHTML='<div style="padding:16px;text-align:center"><div style="color:var(--text3);margin-bottom:12px">Could not get location. Search manually:</div><a href="https://maps.google.com/?q='+(isGym?'gym':'mosque')+'+Dubai" style="background:'+(isGym?'var(--gold)':'rgba(76,175,125,0.15)')+';color:'+(isGym?'#000':'#4CAF7D')+';border-radius:var(--r-sm);padding:10px 20px;font-weight:700;text-decoration:none;display:inline-block">Search in Google Maps</a></div>';
+  });
+}
+
+(async function(){
+  await initSW();
+  var savedLang=localStorage.getItem('qawi_lang')||'en';
+  var savedTheme=localStorage.getItem('qawi_theme')||'dark';
+  currentTheme=savedTheme;
+  document.body.classList.toggle('light',savedTheme==='light');
+  setLang(savedLang);
+  updateThemeToggles();
+  showCityDropdown('prayer-city-inp','city-dropdown',null);
+  showCityDropdown('set-city','city-dropdown-settings',null);
+  route();
+})();
+</script>
+
+<div id="nb-fab" style="position:fixed;bottom:24px;right:20px;z-index:500;width:56px;height:56px;border-radius:50%;background:var(--gold);box-shadow:0 4px 20px rgba(201,168,76,0.4);display:none;align-items:center;justify-content:center;font-size:24px;cursor:grab;user-select:none;-webkit-user-select:none">📓</div>
+
+<div id="nb-modal" style="display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,0.7)" onclick="closeNotebook();document.getElementById('nb-fab').style.display='flex'">
+  <div id="nb-sheet" onclick="event.stopPropagation()" style="position:absolute;bottom:0;left:0;right:0;background:var(--bg);border-radius:24px 24px 0 0;border-top:1px solid var(--border);max-height:88vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1)">
+    <div style="text-align:center;padding:12px 0 0"><div style="width:40px;height:4px;background:var(--border2);border-radius:20px;margin:0 auto"></div></div>
+    <div style="padding:14px 16px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
+      <div><div style="font-family:var(--font-d);font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold)">WORKOUT LOG</div><div style="font-size:11px;color:var(--text3);font-family:var(--mono)" id="nb-date-lbl"></div></div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <div style="text-align:center"><div style="font-family:var(--font-d);font-size:20px;font-weight:700;color:var(--gold)" id="nb-ex-count">0</div><div style="font-size:9px;color:var(--text3);font-family:var(--mono)">exercises</div></div>
+        <div style="text-align:center"><div style="font-family:var(--font-d);font-size:20px;font-weight:700;color:var(--gold)" id="nb-set-count">0</div><div style="font-size:9px;color:var(--text3);font-family:var(--mono)">sets</div></div>
+        <button onclick="closeNotebook()" style="background:none;border:none;color:var(--text3);font-size:22px;cursor:pointer;padding:4px">✕</button>
+      </div>
+    </div>
+    <div style="padding:10px 16px;border-bottom:1px solid var(--border)">
+      <input type="text" id="nb-workout-name" placeholder="Workout name (e.g. Push Day, Legs...)" style="width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-family:var(--font-d);font-size:18px;font-weight:700;letter-spacing:1px;padding:10px 12px;outline:none" oninput="nbSave()">
+    </div>
+    <div id="nb-exercises" style="padding:12px 16px"></div>
+    <div style="padding:0 16px 10px">
+      <div style="display:flex;gap:6px;margin-bottom:8px">
+        <input type="text" id="nb-new-ex" placeholder="Add exercise..." style="flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-family:var(--font);font-size:13px;padding:9px 11px;outline:none">
+        <button onclick="nbAddExercise()" style="background:var(--gold);color:#000;border:none;border-radius:var(--r-sm);padding:9px 14px;font-weight:700;cursor:pointer;font-size:13px">+ ADD</button>
+      </div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center">
+        <div style="font-size:9px;color:var(--text3);font-family:var(--mono)">QUICK:</div>
+        <button onclick="nbQ('Bench Press')" style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:4px 10px;font-size:10px;color:var(--text2);cursor:pointer">Bench Press</button>
+        <button onclick="nbQ('Squat')" style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:4px 10px;font-size:10px;color:var(--text2);cursor:pointer">Squat</button>
+        <button onclick="nbQ('Deadlift')" style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:4px 10px;font-size:10px;color:var(--text2);cursor:pointer">Deadlift</button>
+        <button onclick="nbQ('Pull-ups')" style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:4px 10px;font-size:10px;color:var(--text2);cursor:pointer">Pull-ups</button>
+        <button onclick="nbQ('OHP')" style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:4px 10px;font-size:10px;color:var(--text2);cursor:pointer">OHP</button>
+        <button onclick="nbQ('Rows')" style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:4px 10px;font-size:10px;color:var(--text2);cursor:pointer">Rows</button>
+        <button onclick="nbQ('Dips')" style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:4px 10px;font-size:10px;color:var(--text2);cursor:pointer">Dips</button>
+        <button onclick="nbQ('Curls')" style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:4px 10px;font-size:10px;color:var(--text2);cursor:pointer">Curls</button>
+      </div>
+    </div>
+    <div style="padding:0 16px 10px">
+      <div style="font-size:10px;color:var(--text3);font-family:var(--mono);margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">WORKOUT NOTES</div>
+      <textarea id="nb-notes" rows="3" placeholder="How did it go? Any PRs? Notes for next time..." style="width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-family:var(--mono);font-size:12px;padding:10px 12px;outline:none;resize:none;line-height:1.6" oninput="nbSave()"></textarea>
+    </div>
+    <div style="padding:0 16px 24px">
+      <div style="font-size:10px;color:var(--text3);font-family:var(--mono);margin-bottom:8px;text-transform:uppercase;letter-spacing:.08em">PREVIOUS WORKOUTS</div>
+      <div id="nb-history" style="display:flex;gap:7px;overflow-x:auto;padding-bottom:4px"></div>
+    </div>
+  </div>
+</div>
+
+<div id="gym-finder-modal" style="display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,0.7)" onclick="document.getElementById('gym-finder-modal').style.display='none'">
+  <div onclick="event.stopPropagation()" style="position:absolute;bottom:0;left:0;right:0;background:var(--bg);border-radius:24px 24px 0 0;border-top:1px solid var(--border);max-height:85vh;overflow-y:auto">
+    <div style="text-align:center;padding:12px 0 0"><div style="width:40px;height:4px;background:var(--border2);border-radius:20px;margin:0 auto"></div></div>
+    <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
+      <div style="font-family:var(--font-d);font-size:22px;font-weight:800;letter-spacing:2px;color:var(--gold)">🏋️ GYM FINDER</div>
+      <button onclick="document.getElementById('gym-finder-modal').style.display='none'" style="background:none;border:none;color:var(--text3);font-size:22px;cursor:pointer">✕</button>
+    </div>
+    <div style="padding:12px 16px;border-bottom:1px solid var(--border)">
+      <div style="display:flex;gap:8px;margin-bottom:8px">
+        <input type="text" id="gym-search-inp" placeholder="Search gyms (e.g. Fitness First Dubai)..." style="flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-family:var(--font);font-size:13px;padding:10px 12px;outline:none" onkeydown="if(event.key==='Enter')searchPlaces('gym')">
+        <button onclick="searchPlaces('gym')" style="background:var(--gold);color:#000;border:none;border-radius:var(--r-sm);padding:10px 16px;font-weight:700;cursor:pointer;font-size:14px">🔍</button>
+      </div>
+      <button onclick="findNearby('gym','gym-finder-results')" style="width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text2);border-radius:var(--r-sm);padding:10px;font-size:12px;cursor:pointer">📍 Use my location</button>
+    </div>
+    <div id="gym-finder-results" style="padding:12px 16px 24px"><div style="text-align:center;color:var(--text3);font-size:13px;padding:20px">Search for a gym above or use your location</div></div>
+  </div>
+</div>
+
+<div id="masjid-finder-modal" style="display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,0.7)" onclick="document.getElementById('masjid-finder-modal').style.display='none'">
+  <div onclick="event.stopPropagation()" style="position:absolute;bottom:0;left:0;right:0;background:var(--bg);border-radius:24px 24px 0 0;border-top:1px solid var(--border);max-height:85vh;overflow-y:auto">
+    <div style="text-align:center;padding:12px 0 0"><div style="width:40px;height:4px;background:var(--border2);border-radius:20px;margin:0 auto"></div></div>
+    <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
+      <div style="font-family:var(--font-d);font-size:22px;font-weight:800;letter-spacing:2px;color:#4CAF7D">🕌 MASJID FINDER</div>
+      <button onclick="document.getElementById('masjid-finder-modal').style.display='none'" style="background:none;border:none;color:var(--text3);font-size:22px;cursor:pointer">✕</button>
+    </div>
+    <div style="padding:12px 16px;border-bottom:1px solid var(--border)">
+      <div style="display:flex;gap:8px;margin-bottom:8px">
+        <input type="text" id="masjid-search-inp" placeholder="Search mosques (e.g. Jumeirah Mosque)..." style="flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-family:var(--font);font-size:13px;padding:10px 12px;outline:none" onkeydown="if(event.key==='Enter')searchPlaces('masjid')">
+        <button onclick="searchPlaces('masjid')" style="background:rgba(76,175,125,0.15);color:#4CAF7D;border:1px solid rgba(76,175,125,0.3);border-radius:var(--r-sm);padding:10px 16px;font-weight:700;cursor:pointer;font-size:14px">🔍</button>
+      </div>
+      <button onclick="findNearby('mosque','masjid-finder-results')" style="width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text2);border-radius:var(--r-sm);padding:10px;font-size:12px;cursor:pointer">📍 Use my location</button>
+    </div>
+    <div id="masjid-finder-results" style="padding:12px 16px 24px"><div style="text-align:center;color:var(--text3);font-size:13px;padding:20px">Search for a mosque above or use your location</div></div>
+  </div>
+</div>
+</div>
+
+<div id="masjid-finder-modal" style="display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,0.7)" onclick="document.getElementById('masjid-finder-modal').style.display='none'">
+  <div onclick="event.stopPropagation()" style="position:absolute;bottom:0;left:0;right:0;background:var(--bg);border-radius:24px 24px 0 0;border-top:1px solid var(--border);max-height:85vh;overflow-y:auto">
+    <div style="text-align:center;padding:12px 0 0"><div style="width:40px;height:4px;background:var(--border2);border-radius:20px;margin:0 auto"></div></div>
+    <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
+      <div style="font-family:var(--font-d);font-size:22px;font-weight:800;letter-spacing:2px;color:#4CAF7D">🕌 MASJID FINDER</div>
+      <button onclick="document.getElementById('masjid-finder-modal').style.display='none'" style="background:none;border:none;color:var(--text3);font-size:22px;cursor:pointer">✕</button>
+    </div>
+    <div style="padding:12px 16px;border-bottom:1px solid var(--border)">
+      <button onclick="findNearby('mosque','masjid-finder-results')" style="width:100%;background:rgba(76,175,125,0.15);color:#4CAF7D;border:1px solid rgba(76,175,125,0.3);border-radius:var(--r-sm);padding:12px;font-weight:700;cursor:pointer;font-size:14px">📍 Find Nearest Masjid</button>
+    </div>
+    <div id="masjid-finder-results" style="padding:16px;text-align:center;color:var(--text3);font-size:13px">Tap the button to find mosques near you</div>
+  </div>
+</div>
+</body>
+</html>

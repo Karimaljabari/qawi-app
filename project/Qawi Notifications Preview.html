@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>QAWI — Notifications Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #0a0a0f; color: #F5F0E8;
+    font-family: 'DM Sans', system-ui, sans-serif; min-height: 100vh; }
+  * { box-sizing: border-box; }
+  ::-webkit-scrollbar { display: none; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 40px 24px 80px; }
+  h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+    font-size: 48px; letter-spacing: 6px; color: #C9A84C; margin: 0 0 4px;
+    line-height: 1; }
+  .sub-ar { font-family: 'Amiri', serif; color: #9a8655; font-size: 20px;
+    direction: rtl; margin-bottom: 24px; }
+  .intro { color: #B5AC9D; font-size: 14px; line-height: 1.6; max-width: 640px;
+    margin-bottom: 48px; }
+  .section-title { font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px; font-weight: 800; letter-spacing: 3px; color: #F5F0E8;
+    margin: 48px 0 4px; }
+  .section-sub { font-family: 'DM Mono', monospace; font-size: 10px;
+    color: #8A8070; letter-spacing: 0.2em; margin-bottom: 20px; }
+
+  /* iOS lock screen mockup */
+  .phones-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px; margin-bottom: 12px; }
+  .phone {
+    background: linear-gradient(180deg, #1a1d26 0%, #0a0a10 100%);
+    border-radius: 36px; padding: 14px; position: relative;
+    border: 1px solid #2a2d38; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    overflow: hidden;
+  }
+  .phone::before { /* notch */
+    content: ''; position: absolute; top: 14px; left: 50%;
+    transform: translateX(-50%); width: 100px; height: 28px;
+    background: #000; border-radius: 18px; z-index: 5;
+  }
+  .phone-bg { border-radius: 26px; min-height: 640px;
+    padding: 60px 14px 16px; position: relative;
+    background: linear-gradient(180deg, #1d1509 0%, #050302 65%);
+    overflow: hidden;
+  }
+  .phone-bg::before { /* subtle glow */
+    content: ''; position: absolute; top: -30%; left: -20%;
+    width: 140%; height: 80%; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.1), transparent 60%);
+    pointer-events: none;
+  }
+  .lock-time { text-align: center; font-family: 'Barlow Condensed', sans-serif;
+    font-size: 72px; font-weight: 200; color: #fff; line-height: 1;
+    letter-spacing: -2px; margin-bottom: 4px; position: relative; z-index: 2;
+  }
+  .lock-date { text-align: center; color: rgba(255,255,255,0.7);
+    font-size: 13px; font-weight: 500; margin-bottom: 40px; position: relative; z-index: 2;
+  }
+
+  /* Notification card — iOS style */
+  .notif {
+    background: rgba(30, 30, 40, 0.72);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border-radius: 16px; padding: 12px 14px;
+    display: flex; gap: 10px; margin-bottom: 8px;
+    border: 0.5px solid rgba(255,255,255,0.08);
+    position: relative; z-index: 2;
+    font-family: -apple-system, BlinkMacSystemFont, 'DM Sans', sans-serif;
+  }
+  .notif-icon {
+    width: 38px; height: 38px; border-radius: 9px; flex-shrink: 0;
+    background: linear-gradient(135deg, #C9A84C, #8a6f2f);
+    display: flex; align-items: center; justify-content: center;
+    color: #000; font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 18px; letter-spacing: 1px;
+    box-shadow: 0 3px 8px rgba(201,168,76,0.25);
+  }
+  .notif-body { flex: 1; min-width: 0; }
+  .notif-head { display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 2px; }
+  .notif-app { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.85);
+    letter-spacing: 0.3px; }
+  .notif-time { font-size: 11px; color: rgba(255,255,255,0.5); }
+  .notif-title { font-size: 14px; font-weight: 600; color: #fff;
+    margin-bottom: 2px; line-height: 1.25; }
+  .notif-msg { font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.3; }
+  .notif-ar { font-family: 'Amiri', serif; color: #C9A84C; direction: rtl;
+    font-size: 12px; margin-top: 4px; opacity: 0.9; }
+
+  /* Variant tints */
+  .notif.prayer .notif-icon { background: linear-gradient(135deg, #C9A84C, #7a5e1f); }
+  .notif.gym    .notif-icon { background: linear-gradient(135deg, #e07b5f, #8a3f2f); }
+  .notif.meals  .notif-icon { background: linear-gradient(135deg, #7ab87a, #3f6a3f); }
+  .notif.squad  .notif-icon { background: linear-gradient(135deg, #5fa8d6, #2f5f88); }
+  .notif.motiv  .notif-icon { background: linear-gradient(135deg, #b07fd6, #5f3f88); }
+  .notif.journal .notif-icon { background: linear-gradient(135deg, #d6a05f, #88582f); }
+
+  /* In-app banner */
+  .inapp-card {
+    background: #12131a; border: 1px solid #2a2d38;
+    border-radius: 14px; padding: 18px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .inapp-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+    color: #C9A84C; font-size: 20px; flex-shrink: 0;
+  }
+  .inapp-tag {
+    font-family: 'DM Mono', monospace; font-size: 9px;
+    letter-spacing: 0.2em; color: #C9A84C; margin-bottom: 4px;
+  }
+  .inapp-title { font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700; letter-spacing: 1px; color: #F5F0E8;
+    line-height: 1.2; margin-bottom: 4px; }
+  .inapp-msg { font-size: 12px; color: #9A9080; line-height: 1.5; }
+  .inapp-meta { display: flex; gap: 12px; margin-top: 8px; }
+  .inapp-meta span { font-family: 'DM Mono', monospace; font-size: 9px;
+    color: #6a6057; letter-spacing: 0.1em; }
+  .inapp-meta strong { color: #C9A84C; font-weight: 500; }
+
+  /* Category grid */
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px; }
+  .cat {
+    background: #12131a; border: 1px solid #2a2d38;
+    border-radius: 14px; padding: 18px;
+    border-top: 3px solid #C9A84C;
+  }
+  .cat-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .cat-emoji { font-size: 18px; }
+  .cat-name { font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px; font-weight: 800; letter-spacing: 2px; color: #F5F0E8; }
+  .cat-ar { font-family: 'Amiri', serif; color: #9a8655; font-size: 13px;
+    direction: rtl; margin-bottom: 10px; }
+  .cat-desc { font-size: 12px; color: #9A9080; line-height: 1.55; margin-bottom: 12px; }
+  .cat-ex { font-family: 'DM Mono', monospace; font-size: 10px;
+    color: #6a6057; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .cat-ex-list { display: flex; flex-direction: column; gap: 4px; }
+  .cat-ex-item { font-size: 11px; color: #B5AC9D; line-height: 1.4;
+    padding-left: 10px; border-left: 2px solid #2a2d38;
+    padding-top: 2px; padding-bottom: 2px; }
+
+  .cat.prayer { border-top-color: #C9A84C; }
+  .cat.gym    { border-top-color: #e07b5f; }
+  .cat.meals  { border-top-color: #7ab87a; }
+  .cat.squad  { border-top-color: #5fa8d6; }
+  .cat.motiv  { border-top-color: #b07fd6; }
+  .cat.journal { border-top-color: #d6a05f; }
+
+  /* Badge / dot variants */
+  .badge-row { display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start;
+    margin-top: 18px; }
+  .badge-ex {
+    background: #12131a; border: 1px solid #2a2d38;
+    border-radius: 12px; padding: 20px; flex: 1; min-width: 220px;
+    text-align: center;
+  }
+  .badge-bell {
+    position: relative; width: 44px; height: 44px;
+    margin: 0 auto 12px;
+    border-radius: 50%; background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+    color: #C9A84C; font-size: 22px;
+  }
+  .badge-bell .dot {
+    position: absolute; top: 2px; right: 2px;
+    min-width: 18px; height: 18px; border-radius: 9px;
+    background: #e07b5f; border: 2px solid #0a0a0f;
+    color: #fff; font-size: 10px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 4px;
+    font-family: 'DM Mono', monospace;
+  }
+  .badge-label { font-family: 'DM Mono', monospace; font-size: 10px;
+    color: #8A8070; letter-spacing: 0.15em; }
+
+  .footnote { margin-top: 40px; padding: 16px; background: #12131a;
+    border: 1px solid #2a2d38; border-left: 3px solid #C9A84C;
+    border-radius: 0 10px 10px 0; font-size: 12px; color: #B5AC9D;
+    line-height: 1.6;
+  }
+  .footnote strong { color: #C9A84C; font-family: 'DM Mono', monospace;
+    letter-spacing: 0.1em; font-size: 10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>NOTIFICATIONS</h1>
+  <div class="sub-ar">التنبيهات · كيف ستظهر</div>
+  <div class="intro">
+    QAWI sends notifications across six channels. Users control each one from the bell sheet.
+    Below: how they look on the lock screen, inside the app, and the full message catalog.
+  </div>
+
+  <!-- ============= LOCK SCREEN MOCKUPS ============= -->
+  <div class="section-title">ON THE LOCK SCREEN</div>
+  <div class="section-sub">// iOS-STYLE · STACKED OVER WALLPAPER</div>
+
+  <div class="phones-row">
+    <!-- Phone 1: Prayer focused -->
+    <div class="phone">
+      <div class="phone-bg">
+        <div class="lock-time">5:12</div>
+        <div class="lock-date">Friday · October 17</div>
+
+        <div class="notif prayer">
+          <div class="notif-icon">ﷺ</div>
+          <div class="notif-body">
+            <div class="notif-head">
+              <div class="notif-app">QAWI</div>
+              <div class="notif-time">now</div>
+            </div>
+            <div class="notif-title">Fajr · 5:18 AM</div>
+            <div class="notif-msg">6 minutes until prayer. Don't miss it.</div>
+            <div class="notif-ar">حان وقت الفجر</div>
+          </div>
+        </div>
+
+        <div class="notif prayer">
+          <div class="notif-icon">ﷺ</div>
+          <div class="notif-body">
+            <div class="notif-head">
+              <div class="notif-app">QAWI</div>
+              <div class="notif-time">5m</div>
+            </div>
+            <div class="notif-title">Time for Fajr</div>
+            <div class="notif-msg">Tap to mark as prayed.</div>
+          </div>
+        </div>
+
+        <div class="notif motiv">
+          <div class="notif-icon">☾</div>
+          <div class="notif-body">
+            <div class="notif-head">
+              <div class="notif-app">QAWI</div>
+              <div class="notif-time">4:55</div>
+            </div>
+            <div class="notif-title">Your streak: 27 days</div>
+            <div class="notif-msg">Keep the chain unbroken, brother.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 2: Mid-day -->
+    <div class="phone">
+      <div class="phone-bg">
+        <div class="lock-time">1:47</div>
+        <div class="lock-date">Tuesday · October 14</div>
+
+        <div class="notif gym">
+          <div class="notif-icon">◆</div>
+          <div class="notif-body">
+            <div class="notif-head">
+              <div class="notif-app">QAWI</div>
+              <div class="notif-time">now</div>
+            </div>
+            <div class="notif-title">Push day scheduled</div>
+            <div class="notif-msg">Chest · Shoulders · Triceps. Go earn it.</div>
+          </div>
+        </div>
+
+        <div class="notif meals">
+          <div class="notif-icon">◈</div>
+          <div class="notif-body">
+            <div class="notif-head">
+              <div class="notif-app">QAWI</div>
+              <div class="notif-time">12m</div>
+            </div>
+            <div class="notif-title">1,240 / 2,400 kcal left</div>
+            <div class="notif-msg">Log lunch before Asr.</div>
+          </div>
+        </div>
+
+        <div class="notif squad">
+          <div class="notif-icon">◉</div>
+          <div class="notif-body">
+            <div class="notif-head">
+              <div class="notif-app">QAWI</div>
+              <div class="notif-time">1h</div>
+            </div>
+            <div class="notif-title">Mustafa just hit the gym</div>
+            <div class="notif-msg">Day 18 of 30 this month. You're on 14.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 3: Evening -->
+    <div class="phone">
+      <div class="phone-bg">
+        <div class="lock-time">8:42</div>
+        <div class="lock-date">Sunday · October 12</div>
+
+        <div class="notif journal">
+          <div class="notif-icon">◈</div>
+          <div class="notif-body">
+            <div class="notif-head">
+              <div class="notif-app">QAWI</div>
+              <div class="notif-time">now</div>
+            </div>
+            <div class="notif-title">Close out your day</div>
+            <div class="notif-msg">Log your workout, meals & mood before Isha.</div>
+            <div class="notif-ar">قبل العشاء</div>
+          </div>
+        </div>
+
+        <div class="notif prayer">
+          <div class="notif-icon">ﷺ</div>
+          <div class="notif-body">
+            <div class="notif-head">
+              <div class="notif-app">QAWI</div>
+              <div class="notif-time">15m</div>
+            </div>
+            <div class="notif-title">Maghrib in 10 min</div>
+            <div class="notif-msg">Sun sets at 6:52 PM.</div>
+          </div>
+        </div>
+
+        <div class="notif squad">
+          <div class="notif-icon">◉</div>
+          <div class="notif-body">
+            <div class="notif-head">
+              <div class="notif-app">QAWI</div>
+              <div class="notif-time">2h</div>
+            </div>
+            <div class="notif-title">Broadcast from the Manager</div>
+            <div class="notif-msg">"Assalamu alaykum brothers — Jummah reminder..."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============= IN-APP BANNERS ============= -->
+  <div class="section-title">INSIDE THE APP</div>
+  <div class="section-sub">// BELL SHEET · RECENT ACTIVITY</div>
+
+  <div class="phones-row">
+    <div class="inapp-card">
+      <div class="inapp-icon">ﷺ</div>
+      <div style="flex:1">
+        <div class="inapp-tag">// ASR · PRAYER</div>
+        <div class="inapp-title">ASR IN 12 MINUTES</div>
+        <div class="inapp-msg">4:38 PM · Mark as prayed from here.</div>
+        <div class="inapp-meta"><span>CHANNEL <strong>PRAYER</strong></span><span>2m AGO</span></div>
+      </div>
+    </div>
+
+    <div class="inapp-card">
+      <div class="inapp-icon">◆</div>
+      <div style="flex:1">
+        <div class="inapp-tag">// GYM · REMINDER</div>
+        <div class="inapp-title">NO GYM LOGGED TODAY</div>
+        <div class="inapp-msg">You set a target of 16 sessions this month. You're on 10. Tap to open STRIVE.</div>
+        <div class="inapp-meta"><span>CHANNEL <strong>GYM</strong></span><span>1h AGO</span></div>
+      </div>
+    </div>
+
+    <div class="inapp-card">
+      <div class="inapp-icon">◈</div>
+      <div style="flex:1">
+        <div class="inapp-tag">// JOURNAL · SUNSET NUDGE</div>
+        <div class="inapp-title">LOG YOUR DAY BEFORE MAGHRIB</div>
+        <div class="inapp-msg">Workout, meals, water, mood — 4 fields left.</div>
+        <div class="inapp-meta"><span>CHANNEL <strong>JOURNAL</strong></span><span>3h AGO</span></div>
+      </div>
+    </div>
+
+    <div class="inapp-card">
+      <div class="inapp-icon">◉</div>
+      <div style="flex:1">
+        <div class="inapp-tag">// SQUAD · ACTIVITY</div>
+        <div class="inapp-title">MUSTAFA JUST LOGGED GYM</div>
+        <div class="inapp-msg">15 sessions this month. Your brothers are moving — match them.</div>
+        <div class="inapp-meta"><span>CHANNEL <strong>SQUAD</strong></span><span>4h AGO</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============= CATALOG ============= -->
+  <div class="section-title">THE FULL CATALOG</div>
+  <div class="section-sub">// 6 CHANNELS · ~25 MESSAGE TYPES · ALL USER-CONTROLLED</div>
+
+  <div class="cat-grid">
+    <!-- PRAYER -->
+    <div class="cat prayer">
+      <div class="cat-head">
+        <span class="cat-emoji">ﷺ</span>
+        <span class="cat-name">PRAYER</span>
+      </div>
+      <div class="cat-ar">الصلاة</div>
+      <div class="cat-desc">Daily azan notifications, tied to the user's city + calculation method. 5 prayers × up to 2 nudges each.</div>
+      <div class="cat-ex">EXAMPLES</div>
+      <div class="cat-ex-list">
+        <div class="cat-ex-item">"Fajr in 10 minutes · 5:18 AM"</div>
+        <div class="cat-ex-item">"Time for Dhuhr · 13:08"</div>
+        <div class="cat-ex-item">"Maghrib · Sun sets at 6:52 PM"</div>
+        <div class="cat-ex-item">"You haven't marked Asr as prayed"</div>
+        <div class="cat-ex-item">"Jummah in 1 hour — leave early"</div>
+      </div>
+    </div>
+
+    <!-- GYM -->
+    <div class="cat gym">
+      <div class="cat-head">
+        <span class="cat-emoji">◆</span>
+        <span class="cat-name">GYM</span>
+      </div>
+      <div class="cat-ar">صالة الرياضة</div>
+      <div class="cat-desc">Evening reminders, split-day hints, streak protection. Fires only on days you haven't logged.</div>
+      <div class="cat-ex">EXAMPLES</div>
+      <div class="cat-ex-list">
+        <div class="cat-ex-item">"Push day scheduled · chest / shoulders / tris"</div>
+        <div class="cat-ex-item">"You haven't logged the gym today"</div>
+        <div class="cat-ex-item">"2 hours till midnight — save the streak"</div>
+        <div class="cat-ex-item">"You hit your 16-day target for October 🔥"</div>
+      </div>
+    </div>
+
+    <!-- MEALS -->
+    <div class="cat meals">
+      <div class="cat-head">
+        <span class="cat-emoji">◈</span>
+        <span class="cat-name">MEALS</span>
+      </div>
+      <div class="cat-ar">وجبات</div>
+      <div class="cat-desc">Calorie + macro nudges at meal times, tied to the target you set in onboarding.</div>
+      <div class="cat-ex">EXAMPLES</div>
+      <div class="cat-ex-list">
+        <div class="cat-ex-item">"1,240 / 2,400 kcal left · log lunch"</div>
+        <div class="cat-ex-item">"Protein: 45/180g — you're short today"</div>
+        <div class="cat-ex-item">"Iftar in 20 min · plan your break"</div>
+        <div class="cat-ex-item">"Hit your daily target — nicely done"</div>
+      </div>
+    </div>
+
+    <!-- JOURNAL -->
+    <div class="cat journal">
+      <div class="cat-head">
+        <span class="cat-emoji">◈</span>
+        <span class="cat-name">JOURNAL</span>
+      </div>
+      <div class="cat-ar">اليومي</div>
+      <div class="cat-desc">Evening nudge to close out the day — workout, meals, water, mood, notes.</div>
+      <div class="cat-ex">EXAMPLES</div>
+      <div class="cat-ex-list">
+        <div class="cat-ex-item">"Close out your day · 4 fields left"</div>
+        <div class="cat-ex-item">"Log your mood before bed"</div>
+        <div class="cat-ex-item">"Hydration: 3/8 glasses today"</div>
+      </div>
+    </div>
+
+    <!-- SQUAD -->
+    <div class="cat squad">
+      <div class="cat-head">
+        <span class="cat-emoji">◉</span>
+        <span class="cat-name">SQUAD</span>
+      </div>
+      <div class="cat-ar">الإخوة / الأخوات</div>
+      <div class="cat-desc">Brothers'/Sisters' activity + manager broadcasts. Gender-filtered so no mixed feeds.</div>
+      <div class="cat-ex">EXAMPLES</div>
+      <div class="cat-ex-list">
+        <div class="cat-ex-item">"Mustafa just hit the gym · 15 sessions"</div>
+        <div class="cat-ex-item">"Zaid beat his squat PR · 140kg"</div>
+        <div class="cat-ex-item">"Broadcast from the Manager"</div>
+        <div class="cat-ex-item">"You're #3 on this week's leaderboard"</div>
+      </div>
+    </div>
+
+    <!-- MOTIVATION -->
+    <div class="cat motiv">
+      <div class="cat-head">
+        <span class="cat-emoji">☾</span>
+        <span class="cat-name">MOTIVATION</span>
+      </div>
+      <div class="cat-ar">تذكير</div>
+      <div class="cat-desc">Streak milestones, hadith quotes, duas for strength. Low frequency — once or twice a week.</div>
+      <div class="cat-ex">EXAMPLES</div>
+      <div class="cat-ex-list">
+        <div class="cat-ex-item">"Your streak: 27 days. Keep it unbroken."</div>
+        <div class="cat-ex-item">"The strong believer is better than the weak one — Muslim"</div>
+        <div class="cat-ex-item">"30 days without missing Fajr. Alhamdulillah."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============= BADGE STATES ============= -->
+  <div class="section-title">BELL BADGE</div>
+  <div class="section-sub">// UNREAD COUNT ON THE HOME SCREEN</div>
+
+  <div class="badge-row">
+    <div class="badge-ex">
+      <div class="badge-bell">🔔</div>
+      <div class="badge-label">ZERO · NO RING</div>
+    </div>
+    <div class="badge-ex">
+      <div class="badge-bell">🔔<div class="dot">3</div></div>
+      <div class="badge-label">1–9 · NUMERIC</div>
+    </div>
+    <div class="badge-ex">
+      <div class="badge-bell">🔔<div class="dot">12</div></div>
+      <div class="badge-label">10+ · STILL NUMERIC</div>
+    </div>
+    <div class="badge-ex">
+      <div class="badge-bell">🔔<div class="dot">99+</div></div>
+      <div class="badge-label">99+ CAP</div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    <strong>// QUIET HOURS ·</strong> No notifications fire between Isha and Fajr by default.
+    Prayer reminders are the only channel that ignores quiet hours (since Fajr itself happens then).
+    Every channel can be killed individually from the bell sheet → REMIND ME FOR.
+  </div>
+</div>
+</body>
+</html>

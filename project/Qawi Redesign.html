@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>QAWI — قوي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #0a0a0f; overflow-x: hidden;
+    font-family: 'DM Sans', system-ui, sans-serif; }
+  * { box-sizing: border-box; }
+  body::-webkit-scrollbar { display: none; }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+  input { font-family: inherit; }
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+  #stage { display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; padding: 20px; }
+  /* Tweaks panel */
+  .tweak-panel {
+    position: fixed; bottom: 18px; right: 18px; z-index: 999;
+    background: rgba(15, 16, 24, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 14px; padding: 14px 16px;
+    font-family: 'DM Sans', sans-serif;
+    color: #F5F0E8; min-width: 220px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    display: none;
+  }
+  .tweak-panel.show { display: block; }
+  .tweak-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; font-weight: 800; letter-spacing: 3px;
+    color: #C9A84C; margin-bottom: 10px;
+  }
+  .tweak-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+  .tweak-label {
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    color: #9A9080; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .tweak-opts { display: flex; gap: 4px; }
+  .tweak-btn {
+    flex: 1; padding: 7px 9px; border-radius: 6px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.15);
+    color: #9A9080; font-size: 10px; cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; letter-spacing: 1px;
+    transition: all .15s;
+  }
+  .tweak-btn.active {
+    background: rgba(201,168,76,0.15);
+    border-color: #C9A84C;
+    color: #C9A84C;
+  }
+  .tweak-btn:hover { border-color: rgba(201,168,76,0.5); }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div class="tweak-panel" id="tweak-panel">
+  <div class="tweak-title">TWEAKS</div>
+  <div class="tweak-row">
+    <div class="tweak-label">VARIANT</div>
+    <div class="tweak-opts" id="variant-opts"></div>
+  </div>
+  <div class="tweak-row">
+    <div class="tweak-label">SCREEN</div>
+    <div class="tweak-opts" id="screen-opts"></div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="ios-frame.jsx"></script>
+<script type="text/babel" src="qawi-countries.jsx"></script>
+<script type="text/babel" src="qawi-tokens.jsx"></script>
+<script type="text/babel" src="qawi-ornaments.jsx"></script>
+<script type="text/babel" src="qawi-landing.jsx"></script>
+<script type="text/babel" src="qawi-dashboard.jsx"></script>
+<script type="text/babel" src="qawi-notebook.jsx"></script>
+<script type="text/babel" src="qawi-prayer.jsx"></script>
+<script type="text/babel" src="qawi-squad.jsx"></script>
+<script type="text/babel" src="qawi-finders.jsx"></script>
+<script type="text/babel" src="qawi-bell.jsx"></script>
+<script type="text/babel" src="qawi-workouts.jsx"></script>
+<script type="text/babel" src="qawi-food-db.jsx"></script>
+<script type="text/babel" src="qawi-progress-photos.jsx"></script>
+<script type="text/babel" src="qawi-meals.jsx"></script>
+<script type="text/babel" src="qawi-onboard.jsx"></script>
+<script type="text/babel" src="qawi-manager.jsx"></script>
+<script type="text/babel" src="qawi-athkar.jsx"></script>
+<script type="text/babel" src="qawi-personalize.jsx"></script>
+
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "variant": "obsidian",
+  "screen": "landing"
+}/*EDITMODE-END*/;
+
+function App() {
+  const [variant, setVariant] = React.useState(
+    () => localStorage.getItem('qawi-variant') || TWEAK_DEFAULTS.variant
+  );
+  const [screen, setScreen] = React.useState(
+    () => localStorage.getItem('qawi-screen') || TWEAK_DEFAULTS.screen
+  );
+  const [state, setState] = React.useState({
+    streak: 12,
+    steps: 6420,
+    stepsGoal: 10000,
+    gymDays: new Set([1,3,5,7,8,10,12,14,15,17]),
+    gymTarget: 16,
+    prayed: 27,
+    todayPrayed: 2,
+    today: 19,
+    journal: {
+      19: { workout: '', exercises: [], meals: '', water: 3, mood: 'solid', notes: '' },
+    },
+  });
+  const [profile, setProfile] = React.useState(() => {
+    const saved = localStorage.getItem('qawi-profile');
+    return saved ? JSON.parse(saved) : null;
+  });
+  const [broadcasts, setBroadcasts] = React.useState([]);
+
+  // Personalization prefs — tabs visibility/order + hero pick
+  const DEFAULT_PREFS = {
+    tabs: [
+      { id: 'dash',    visible: true },
+      { id: 'salah',   visible: true },
+      { id: 'athkar',  visible: true },
+      { id: 'squad',   visible: true },
+      { id: 'manager', visible: false }, // admin-only, opt-in
+    ],
+    hero: 'prayer',
+  };
+  const [prefs, setPrefs] = React.useState(() => {
+    try {
+      const saved = localStorage.getItem('qawi-prefs');
+      if (!saved) return DEFAULT_PREFS;
+      const parsed = JSON.parse(saved);
+      // merge in any missing tab ids (e.g. new tab added post-install)
+      const knownIds = new Set(parsed.tabs?.map(x => x.id));
+      const missing = DEFAULT_PREFS.tabs.filter(x => !knownIds.has(x.id));
+      return {
+        ...DEFAULT_PREFS,
+        ...parsed,
+        tabs: [...(parsed.tabs || []), ...missing],
+      };
+    } catch { return DEFAULT_PREFS; }
+  });
+  React.useEffect(() => {
+    localStorage.setItem('qawi-prefs', JSON.stringify(prefs));
+  }, [prefs]);
+
+  // Notification channels — manager-editable
+  const DEFAULT_CHANNELS = {
+    prayer: {
+      on: true, label: 'PRAYER', labelAr: 'الصلاة', icon: '◐', color: 'gold',
+      desc: 'Azan reminders for all 5 daily prayers',
+      leadMins: 10,
+      quietHours: true,
+      templates: {
+        upcoming: 'Fajr in {mins} minutes · {time}',
+        now: '{prayer} · {time}',
+        missed: 'You missed {prayer}. Make it up when you can.',
+      },
+    },
+    gym: {
+      on: true, label: 'GYM', labelAr: 'صالة', icon: '⛌', color: 'amber',
+      desc: 'Workout reminders + streak protection',
+      time: '17:30',
+      streakProtect: true,
+      templates: {
+        scheduled: 'Push day scheduled · chest / shoulders / tris',
+        streakRisk: '{days}-day gym streak at risk. Go today.',
+        logged: 'Session logged. {streak} day streak.',
+      },
+    },
+    meals: {
+      on: true, label: 'MEALS', labelAr: 'وجبات', icon: '◊', color: 'green',
+      desc: 'Calorie + macro nudges at meal times',
+      times: ['09:00','13:00','19:30'],
+      templates: {
+        reminder: '{remaining} / {goal} kcal left · log {meal}',
+        macroLow: 'Low on protein today · {grams}g left',
+      },
+    },
+    journal: {
+      on: true, label: 'JOURNAL', labelAr: 'اليومي', icon: '✎', color: 'bronze',
+      desc: 'Evening close-out nudge at Maghrib',
+      triggerAt: 'maghrib',
+      templates: {
+        close: 'Close out your day · {fields} fields left',
+      },
+    },
+    squad: {
+      on: true, label: 'SQUAD', labelAr: 'الإخوة', icon: '◈', color: 'blue',
+      desc: 'Brothers/Sisters activity + manager broadcasts',
+      genderFiltered: true,
+      templates: {
+        activity: '{name} just hit the gym · {count} sessions',
+        broadcast: '{managerName}: {msg}',
+      },
+    },
+    motivation: {
+      on: true, label: 'MOTIVATION', labelAr: 'تذكير', icon: '✧', color: 'purple',
+      desc: 'Streak milestones, hadith, duas',
+      frequency: 'daily',
+      templates: {
+        milestone: '{days} days without missing Fajr. Alhamdulillah.',
+        hadith: 'The Prophet ﷺ said: "{quote}"',
+      },
+    },
+  };
+
+  const [channels, setChannels] = React.useState(() => {
+    const saved = localStorage.getItem('qawi-channels');
+    try { return saved ? { ...DEFAULT_CHANNELS, ...JSON.parse(saved) } : DEFAULT_CHANNELS; }
+    catch { return DEFAULT_CHANNELS; }
+  });
+  React.useEffect(() => {
+    localStorage.setItem('qawi-channels', JSON.stringify(channels));
+  }, [channels]);
+
+  React.useEffect(() => {
+    if (profile) localStorage.setItem('qawi-profile', JSON.stringify(profile));
+  }, [profile]);
+
+  React.useEffect(() => { localStorage.setItem('qawi-variant', variant); }, [variant]);
+  React.useEffect(() => { localStorage.setItem('qawi-screen', screen); }, [screen]);
+
+  const t = window.QAWI_VARIANTS[variant];
+
+  // Edit mode listener
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      if (!e.data) return;
+      if (e.data.type === '__activate_edit_mode') {
+        document.getElementById('tweak-panel').classList.add('show');
+      }
+      if (e.data.type === '__deactivate_edit_mode') {
+        document.getElementById('tweak-panel').classList.remove('show');
+      }
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    // Always show tweaks panel by default for discovery
+    document.getElementById('tweak-panel').classList.add('show');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  // Wire up Tweaks buttons
+  React.useEffect(() => {
+    const variantOpts = document.getElementById('variant-opts');
+    const screenOpts = document.getElementById('screen-opts');
+    variantOpts.innerHTML = '';
+    screenOpts.innerHTML = '';
+    [['obsidian','OBS'], ['midnight','MID'], ['blood','BLD']].forEach(([id, lbl]) => {
+      const b = document.createElement('button');
+      b.className = 'tweak-btn' + (variant === id ? ' active' : '');
+      b.textContent = lbl;
+      b.onclick = () => {
+        setVariant(id);
+        window.parent.postMessage({
+          type: '__edit_mode_set_keys', edits: { variant: id }
+        }, '*');
+      };
+      variantOpts.appendChild(b);
+    });
+    [['landing','HOME'], ['dash','STRIVE'], ['salah','SALAH'], ['athkar','ATHKAR'], ['squad','SQUAD'], ['sujood','SUJOOD'], ['manager','MGR']].forEach(([id, lbl]) => {
+      const b = document.createElement('button');
+      b.className = 'tweak-btn' + (screen === id ? ' active' : '');
+      b.textContent = lbl;
+      b.onclick = () => {
+        setScreen(id);
+        window.parent.postMessage({
+          type: '__edit_mode_set_keys', edits: { screen: id }
+        }, '*');
+      };
+      screenOpts.appendChild(b);
+    });
+  }, [variant, screen]);
+
+  const onNav = (id) => setScreen(id);
+  const onBack = () => setScreen('landing');
+  React.useEffect(() => { window.__qawiNav = onNav; }, []);
+  const [bellOpen, setBellOpen] = React.useState(false);
+
+  let body;
+  if (!profile) body = <OnboardScreen t={t} onDone={(p) => { setProfile(p); setScreen('landing'); }} />;
+  else if (screen === 'landing') body = <LandingScreen t={t} onNav={onNav} onBell={() => setBellOpen(true)} onPersonalize={() => setScreen('personalize')} profile={profile} prefs={prefs} />;
+  else if (screen === 'personalize') body = <PersonalizeScreen t={t} onBack={onBack} prefs={prefs} setPrefs={setPrefs} variant={variant} setVariant={setVariant} />;
+  else if (screen === 'dash') body = <DashboardScreen t={t} state={state} setState={setState} onBack={onBack} profile={profile} />;
+  else if (screen === 'salah' || screen === 'prayer') body = <PrayerScreen t={t} state={state} setState={setState} onBack={onBack} profile={profile} setProfile={setProfile} />;
+  else if (screen === 'squad') body = <SquadScreen t={t} state={state} setState={setState} onBack={onBack} profile={profile} />;
+  else if (screen === 'sweat') body = <FinderScreen t={t} kind="sweat" onBack={onBack} />;
+  else if (screen === 'sujood') body = <FinderScreen t={t} kind="sujood" onBack={onBack} />;
+  else if (screen === 'manager') body = <ManagerScreen t={t} onBack={onBack} gender={profile?.gender} broadcasts={broadcasts} setBroadcasts={setBroadcasts} channels={channels} setChannels={setChannels} />;
+  else if (screen === 'athkar') body = <AthkarScreen t={t} onBack={onBack} profile={profile} />;
+
+  return (
+    <IOSDevice dark={true} width={390} height={844}>
+      {body}
+      {bellOpen && <BellSheet t={t} onClose={() => setBellOpen(false)} />}
+    </IOSDevice>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('stage')).render(<App />);
+</script>
+</body>
+</html>

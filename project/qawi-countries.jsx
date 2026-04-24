@@ -1,0 +1,52 @@
+// qawi-countries.jsx — country list for onboarding
+
+window.QAWI_COUNTRIES = [
+  { code: 'US', name: 'United States', flag: '🇺🇸' },
+  { code: 'CA', name: 'Canada', flag: '🇨🇦' },
+  { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
+  { code: 'AE', name: 'United Arab Emirates', flag: '🇦🇪' },
+  { code: 'SA', name: 'Saudi Arabia', flag: '🇸🇦' },
+  { code: 'EG', name: 'Egypt', flag: '🇪🇬' },
+  { code: 'TR', name: 'Turkey', flag: '🇹🇷' },
+  { code: 'PK', name: 'Pakistan', flag: '🇵🇰' },
+  { code: 'IN', name: 'India', flag: '🇮🇳' },
+  { code: 'BD', name: 'Bangladesh', flag: '🇧🇩' },
+  { code: 'ID', name: 'Indonesia', flag: '🇮🇩' },
+  { code: 'MY', name: 'Malaysia', flag: '🇲🇾' },
+  { code: 'MA', name: 'Morocco', flag: '🇲🇦' },
+  { code: 'DZ', name: 'Algeria', flag: '🇩🇿' },
+  { code: 'TN', name: 'Tunisia', flag: '🇹🇳' },
+  { code: 'JO', name: 'Jordan', flag: '🇯🇴' },
+  { code: 'LB', name: 'Lebanon', flag: '🇱🇧' },
+  { code: 'PS', name: 'Palestine', flag: '🇵🇸' },
+  { code: 'SY', name: 'Syria', flag: '🇸🇾' },
+  { code: 'IQ', name: 'Iraq', flag: '🇮🇶' },
+  { code: 'KW', name: 'Kuwait', flag: '🇰🇼' },
+  { code: 'QA', name: 'Qatar', flag: '🇶🇦' },
+  { code: 'BH', name: 'Bahrain', flag: '🇧🇭' },
+  { code: 'OM', name: 'Oman', flag: '🇴🇲' },
+  { code: 'YE', name: 'Yemen', flag: '🇾🇪' },
+  { code: 'SD', name: 'Sudan', flag: '🇸🇩' },
+  { code: 'SO', name: 'Somalia', flag: '🇸🇴' },
+  { code: 'NG', name: 'Nigeria', flag: '🇳🇬' },
+  { code: 'KE', name: 'Kenya', flag: '🇰🇪' },
+  { code: 'ZA', name: 'South Africa', flag: '🇿🇦' },
+  { code: 'DE', name: 'Germany', flag: '🇩🇪' },
+  { code: 'FR', name: 'France', flag: '🇫🇷' },
+  { code: 'NL', name: 'Netherlands', flag: '🇳🇱' },
+  { code: 'BE', name: 'Belgium', flag: '🇧🇪' },
+  { code: 'ES', name: 'Spain', flag: '🇪🇸' },
+  { code: 'IT', name: 'Italy', flag: '🇮🇹' },
+  { code: 'SE', name: 'Sweden', flag: '🇸🇪' },
+  { code: 'NO', name: 'Norway', flag: '🇳🇴' },
+  { code: 'AU', name: 'Australia', flag: '🇦🇺' },
+  { code: 'NZ', name: 'New Zealand', flag: '🇳🇿' },
+  { code: 'BR', name: 'Brazil', flag: '🇧🇷' },
+  { code: 'MX', name: 'Mexico', flag: '🇲🇽' },
+  { code: 'AR', name: 'Argentina', flag: '🇦🇷' },
+];
+
+window.QAWI_COUNTRY_NAME = (code) => {
+  const c = window.QAWI_COUNTRIES.find(x => x.code === code);
+  return c ? c.name : code;
+};

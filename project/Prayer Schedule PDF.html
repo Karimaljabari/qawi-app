@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>QAWI · April Prayer Schedule — Detroit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  html, body { margin: 0; padding: 0; background: #f5f1e8; font-family: 'DM Sans', system-ui, sans-serif; color: #1a1510; }
+  .print-bar { position: fixed; top: 16px; right: 16px; display: none; gap: 8px; z-index: 100; }
+  .print-bar button {
+    padding: 10px 18px; background: #c9a84c; color: #0a0a0f; border: none;
+    border-radius: 8px; font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 800; letter-spacing: 2px; cursor: pointer;
+  }
+  .print-bar button.ghost {
+    background: transparent; color: #1a1510; border: 1.5px solid #1a1510;
+  }
+  .sheet {
+    width: 210mm; min-height: 297mm;
+    margin: 0 auto; padding: 18mm 16mm;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(201,168,76,0.08) 0%, transparent 40%),
+      radial-gradient(circle at 80% 90%, rgba(201,168,76,0.06) 0%, transparent 40%),
+      #faf6ec;
+    position: relative;
+    box-shadow: 0 2px 40px rgba(0,0,0,0.08);
+    box-sizing: border-box;
+  }
+  /* corner ornaments */
+  .corner { position: absolute; width: 36px; height: 36px; border: 1.5px solid #c9a84c; }
+  .corner.tl { top: 10mm; left: 10mm; border-right: none; border-bottom: none; }
+  .corner.tr { top: 10mm; right: 10mm; border-left: none; border-bottom: none; }
+  .corner.bl { bottom: 10mm; left: 10mm; border-right: none; border-top: none; }
+  .corner.br { bottom: 10mm; right: 10mm; border-left: none; border-top: none; }
+  .corner::before {
+    content: ''; position: absolute; width: 6px; height: 6px; background: #c9a84c; border-radius: 50%;
+  }
+  .corner.tl::before { top: -3px; left: -3px; }
+  .corner.tr::before { top: -3px; right: -3px; }
+  .corner.bl::before { bottom: -3px; left: -3px; }
+  .corner.br::before { bottom: -3px; right: -3px; }
+
+  /* Header */
+  .hdr { text-align: center; margin-bottom: 14mm; }
+  .logo-wrap {
+    display: inline-flex; flex-direction: column; align-items: center;
+    margin-bottom: 8px;
+  }
+  .logo-ar {
+    font-family: 'Amiri', Georgia, serif;
+    font-size: 72px; color: #8a6f2c;
+    line-height: 0.9; direction: rtl; font-weight: 700;
+    letter-spacing: -2px;
+  }
+  .logo-en {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 42px; font-weight: 900; letter-spacing: 14px;
+    color: #1a1510; margin-top: 2px;
+  }
+  .divider {
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; margin: 6px 0 12px;
+  }
+  .divider .line { flex: 0 0 60px; height: 1px; background: #c9a84c; }
+  .divider .diamond { width: 6px; height: 6px; background: #c9a84c; transform: rotate(45deg); }
+
+  .sub-ar {
+    font-family: 'Amiri', Georgia, serif;
+    font-size: 22px; color: #8a6f2c; direction: rtl; font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .sub-en {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px; font-weight: 700; letter-spacing: 6px;
+    color: #5a4a2c; text-transform: uppercase;
+  }
+
+  /* Table */
+  table {
+    width: 100%; border-collapse: collapse;
+    margin-bottom: 10mm;
+    box-shadow: 0 2px 18px rgba(138, 111, 44, 0.08);
+    background: #fffdf6;
+    border-radius: 4px; overflow: hidden;
+  }
+  thead th {
+    background: #1a1510; color: #c9a84c;
+    padding: 14px 6px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 2.5px;
+    border-bottom: 2px solid #c9a84c;
+  }
+  thead th .ar {
+    display: block; font-family: 'Amiri', serif;
+    font-size: 11px; letter-spacing: 0; color: #a88842;
+    font-weight: 400; direction: rtl; margin-top: 2px;
+  }
+  tbody td {
+    padding: 10px 6px; text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; color: #2a241c;
+    border-bottom: 1px solid #e8dfc8;
+  }
+  tbody td:first-child {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 14px; color: #8a6f2c;
+  }
+  tbody tr:nth-child(even) { background: #faf4e3; }
+  tbody tr.friday { background: #f2e6bd; }
+  tbody tr.friday td:first-child { color: #7a5a1c; }
+
+  /* Footer */
+  .foot {
+    text-align: center;
+    padding-top: 8mm;
+    border-top: 1px dashed #c9a84c;
+  }
+  .city {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px; font-weight: 800; letter-spacing: 5px;
+    color: #1a1510; margin-bottom: 3px;
+  }
+  .city-ar {
+    font-family: 'Amiri', serif; font-size: 16px;
+    color: #8a6f2c; direction: rtl; margin-bottom: 10px;
+  }
+  .meta {
+    display: flex; justify-content: center; gap: 24px;
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    color: #8a7858; letter-spacing: 1.5px;
+  }
+  .dua {
+    margin-top: 12px;
+    font-family: 'Amiri', serif; font-size: 15px;
+    color: #5a4a2c; direction: rtl; font-weight: 700;
+    line-height: 1.6;
+  }
+  .dua-en {
+    font-family: 'DM Sans', sans-serif; font-size: 10px;
+    color: #7a6948; font-style: italic; letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+
+  @media print {
+    .print-bar { display: none; }
+    .sheet { box-shadow: none; margin: 0; }
+    html, body { background: #faf6ec; }
+  }
+</style>
+</head>
+<body>
+
+<div class="print-bar">
+  <button class="ghost" onclick="window.close()">← Back</button>
+  <button onclick="window.print()">↓ SAVE PDF</button>
+</div>
+
+<div class="sheet">
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <!-- Header / Logo -->
+  <div class="hdr">
+    <div class="logo-wrap">
+      <div class="logo-ar">قوي</div>
+      <div class="logo-en">QAWI</div>
+    </div>
+    <div class="divider">
+      <div class="line"></div>
+      <div class="diamond"></div>
+      <div class="diamond"></div>
+      <div class="diamond"></div>
+      <div class="line"></div>
+    </div>
+    <div class="sub-ar">مواقيت الصلاة</div>
+    <div class="sub-en">Monthly Prayer Schedule</div>
+  </div>
+
+  <!-- Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>DAY<span class="ar">اليوم</span></th>
+        <th>FAJR<span class="ar">الفجر</span></th>
+        <th>SUNRISE<span class="ar">الشروق</span></th>
+        <th>DHUHR<span class="ar">الظهر</span></th>
+        <th>ASR<span class="ar">العصر</span></th>
+        <th>MAGHRIB<span class="ar">المغرب</span></th>
+        <th>ISHA<span class="ar">العشاء</span></th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <!-- Footer / City -->
+  <div class="foot">
+    <div class="city" id="city-en">DETROIT, UNITED STATES</div>
+    <div class="city-ar">ديترويت</div>
+    <div class="meta">
+      <span id="month-label">APRIL 2026</span>
+      <span>·</span>
+      <span id="meta-coords">—</span>
+      <span>·</span>
+      <span id="meta-method">METHOD · ISNA</span>
+    </div>
+    <div class="dua">رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ وَمِن ذُرِّيَّتِي</div>
+    <div class="dua-en">"My Lord, make me an establisher of prayer, and from my descendants."  — 14:40</div>
+  </div>
+</div>
+
+<script>
+  // Parse query params
+  const params = new URLSearchParams(window.location.search);
+  const city = params.get('city') || 'Detroit';
+  const country = params.get('country') || 'United States';
+  const method = params.get('method') || '2';
+
+  // Update DOM labels
+  document.getElementById('city-en').textContent = `${city.toUpperCase()}, ${country.toUpperCase()}`;
+  document.title = `QAWI · Prayer Schedule — ${city}`;
+
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  const monthName = now.toLocaleString('en-US', { month: 'long' }).toUpperCase();
+  document.getElementById('month-label').textContent = `${monthName} ${year}`;
+
+  const tbody = document.getElementById('tbody');
+  const pad = n => String(n).padStart(2, '0');
+  const days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  const strip = s => (s || '').split(' ')[0];
+
+  const url = `https://api.aladhan.com/v1/calendarByCity/${year}/${month}?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}&method=${method}`;
+
+  fetch(url)
+    .then(r => r.json())
+    .then(data => {
+      if (!data.data || !Array.isArray(data.data)) throw new Error('bad data');
+      // show coords in footer
+      if (data.data[0] && data.data[0].meta) {
+        const m = data.data[0].meta;
+        document.getElementById('meta-coords').textContent =
+          `${m.latitude.toFixed(1)}°N · ${m.longitude.toFixed(1)}°${m.longitude >= 0 ? 'E' : 'W'}`;
+        if (m.method && m.method.name) {
+          document.getElementById('meta-method').textContent = `METHOD · ${m.method.name.toUpperCase()}`;
+        }
+      }
+      data.data.forEach(d => {
+        const day = parseInt(d.date.gregorian.day, 10);
+        const dateObj = new Date(d.date.gregorian.date.split('-').reverse().join('-'));
+        const dow = dateObj.getDay();
+        const tm = d.timings;
+        const tr = document.createElement('tr');
+        if (dow === 5) tr.className = 'friday';
+        tr.innerHTML = `
+          <td>${pad(day)} · ${days[dow]}</td>
+          <td>${strip(tm.Fajr)}</td>
+          <td>${strip(tm.Sunrise)}</td>
+          <td>${strip(tm.Dhuhr)}</td>
+          <td>${strip(tm.Asr)}</td>
+          <td>${strip(tm.Maghrib)}</td>
+          <td>${strip(tm.Isha)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    })
+    .catch(e => {
+      // fallback: show error row
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td colspan="7" style="padding:40px;text-align:center;color:#a44;font-family:'DM Mono',monospace;font-size:11px;">
+        ⚠ Couldn't load prayer times for ${city}, ${country}. Check connection and city name.
+      </td>`;
+      tbody.appendChild(tr);
+    });
+</script>
+
+</body>
+</html>

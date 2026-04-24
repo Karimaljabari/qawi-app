@@ -1,0 +1,15 @@
+{
+  "name": "THE GRIND",
+  "short_name": "THE GRIND",
+  "description": "Personal gym tracker for Karim, Mustafa & Bassam",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070707",
+  "theme_color": "#070707",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/icon-192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon-512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any maskable" }
+  ],
+  "categories": ["health", "fitness"]
+}
