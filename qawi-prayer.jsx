@@ -643,7 +643,7 @@ function PrayerPdfModal({ t, onClose, city, country, method }) {
     }}>
       <div style={{
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        padding: '12px 16px', background: '#0a0a0f',
+        padding: 'max(env(safe-area-inset-top, 12px), 12px) 16px 12px', background: '#0a0a0f',
         borderBottom: `1px solid ${t.border}`,
       }}>
         <button onClick={onClose} style={{
