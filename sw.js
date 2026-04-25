@@ -1,10 +1,11 @@
-var CACHE = 'qawi-v2';
+var CACHE = 'qawi-v3';
 var STATIC = [
   '/',
   '/manifest.json',
   '/favicon.svg',
-  '/icon-192.svg',
-  '/icon-512.svg',
+  '/apple-touch-icon.png',
+  '/icon-192.png',
+  '/icon-512.png',
   '/qawi-tokens.jsx',
   '/qawi-countries.jsx',
   '/qawi-ornaments.jsx',
