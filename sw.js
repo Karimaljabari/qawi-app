@@ -1,4 +1,4 @@
-var CACHE = 'qawi-v1';
+var CACHE = 'qawi-v2';
 var STATIC = [
   '/',
   '/manifest.json',
