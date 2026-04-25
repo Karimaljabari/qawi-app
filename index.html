@@ -176,6 +176,16 @@ function App() {
   const onBack = () => setScreen('landing');
   React.useEffect(() => { window.__qawiNav = onNav; }, []);
 
+  // Read steps injected by iOS Shortcut via URL param ?steps=XXXX
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlSteps = parseInt(params.get('steps'), 10);
+    if (!isNaN(urlSteps) && urlSteps >= 0) {
+      setState(prev => ({ ...prev, steps: urlSteps }));
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, []);
+
   const [bellOpen, setBellOpen] = React.useState(false);
 
   let body;
