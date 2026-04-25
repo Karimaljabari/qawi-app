@@ -1,4 +1,4 @@
-var CACHE = 'qawi-v3';
+var CACHE = 'qawi-v4';
 var STATIC = [
   '/',
   '/manifest.json',
@@ -24,6 +24,8 @@ var STATIC = [
   '/qawi-manager.jsx',
   '/qawi-athkar.jsx',
   '/qawi-personalize.jsx',
+  '/qawi-widgets.jsx',
+  '/qawi-widget.js',
 ];
 
 self.addEventListener('install', function(e) {

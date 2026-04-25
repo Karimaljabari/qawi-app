@@ -1,7 +1,7 @@
 // qawi-landing.jsx — Minimal editorial landing.
 // Reads `prefs` ({ tabs, hero }) to decide what to show.
 
-function LandingScreen({ t, onNav, onBell, onPersonalize, profile, prefs }) {
+function LandingScreen({ t, onNav, onBell, onPersonalize, onWidgets, profile, prefs }) {
   const isF = profile?.gender === 'female';
   const city = profile?.city || 'Detroit';
   const country = profile?.country ? window.QAWI_COUNTRY_NAME(profile.country) : 'United States';
@@ -97,6 +97,20 @@ function LandingScreen({ t, onNav, onBell, onPersonalize, profile, prefs }) {
         </div>
 
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <button onClick={onWidgets} title="Widgets" style={{
+            width: 32, height: 32, borderRadius: '50%',
+            background: 'transparent', border: `1px solid ${t.border2}`,
+            color: t.accent, cursor: 'pointer',
+            display: 'grid', placeItems: 'center',
+          }}>
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+              <rect x="1" y="1" width="6" height="6" rx="1.5" stroke={t.accent} strokeWidth="1.3" fill="none"/>
+              <rect x="9" y="1" width="6" height="6" rx="1.5" stroke={t.accent} strokeWidth="1.3" fill="none"/>
+              <rect x="1" y="9" width="6" height="6" rx="1.5" stroke={t.accent} strokeWidth="1.3" fill="none"/>
+              <rect x="9" y="9" width="6" height="6" rx="1.5" stroke={t.accent} strokeWidth="1.3" fill="none"/>
+            </svg>
+          </button>
+
           <button onClick={onPersonalize} title="Personalize" style={{
             width: 32, height: 32, borderRadius: '50%',
             background: 'transparent', border: `1px solid ${t.border2}`,

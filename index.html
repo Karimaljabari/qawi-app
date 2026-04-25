@@ -101,6 +101,7 @@
 <script type="text/babel" src="qawi-squad.jsx"></script>
 <script type="text/babel" src="qawi-finders.jsx"></script>
 <script type="text/babel" src="qawi-onboard.jsx"></script>
+<script type="text/babel" src="qawi-widgets.jsx"></script>
 <script type="text/babel" src="qawi-manager.jsx"></script>
 <script type="text/babel" src="qawi-athkar.jsx"></script>
 <script type="text/babel" src="qawi-personalize.jsx"></script>
@@ -192,7 +193,7 @@ function App() {
   if (!profile)
     body = <OnboardScreen t={t} onDone={(p) => { setProfile(p); setScreen('landing'); }} />;
   else if (screen === 'landing')
-    body = <LandingScreen t={t} onNav={onNav} onBell={() => setBellOpen(true)} onPersonalize={() => setScreen('personalize')} profile={profile} prefs={prefs} />;
+    body = <LandingScreen t={t} onNav={onNav} onBell={() => setBellOpen(true)} onPersonalize={() => setScreen('personalize')} onWidgets={() => setScreen('widgets')} profile={profile} prefs={prefs} />;
   else if (screen === 'personalize')
     body = <PersonalizeScreen t={t} onBack={onBack} prefs={prefs} setPrefs={setPrefs} variant={variant} setVariant={setVariant} />;
   else if (screen === 'dash')
@@ -207,6 +208,8 @@ function App() {
     body = <ManagerScreen t={t} onBack={onBack} gender={profile?.gender} broadcasts={broadcasts} setBroadcasts={setBroadcasts} channels={channels} setChannels={setChannels} />;
   else if (screen === 'athkar')
     body = <AthkarScreen t={t} onBack={onBack} profile={profile} />;
+  else if (screen === 'widgets')
+    body = <WidgetsScreen t={t} onBack={onBack} />;
 
   return (
     <>
