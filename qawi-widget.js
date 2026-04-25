@@ -214,4 +214,4 @@ async function run() {
   Script.complete();
 }
 
-await run();
+run();
