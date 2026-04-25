@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prayer Schedule — QAWI</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Barlow+Condensed:wght@600;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #faf6ec; color: #1a1510; font-family: 'Barlow Condensed', sans-serif; padding: 32px 24px 48px; }
+
+  .header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 2px solid #C9A84C; }
+  .logo { font-size: 36px; font-weight: 900; letter-spacing: 4px; color: #1a1510; line-height: 1; }
+  .logo-ar { font-family: 'Amiri', serif; font-size: 28px; color: #C9A84C; line-height: 1; margin-top: 4px; }
+  .header-right { text-align: right; }
+  .month-label { font-size: 22px; font-weight: 800; letter-spacing: 2px; color: #1a1510; }
+  .city-label { font-size: 13px; font-weight: 600; letter-spacing: 2px; color: #7a6840; margin-top: 2px; font-family: 'DM Mono', monospace; }
+
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { background: #1a1510; color: #C9A84C; }
+  thead th { padding: 10px 8px; font-size: 11px; font-weight: 800; letter-spacing: 2px; text-align: center; }
+  thead th:first-child { text-align: left; padding-left: 12px; }
+
+  tbody tr { border-bottom: 1px solid rgba(201,168,76,0.18); }
+  tbody tr:nth-child(even) { background: rgba(201,168,76,0.05); }
+  tbody tr.today { background: rgba(201,168,76,0.18) !important; }
+  tbody tr.today td { font-weight: 700; color: #7a4a00; }
+
+  td { padding: 8px 8px; font-size: 13px; text-align: center; font-family: 'DM Mono', monospace; letter-spacing: 0.5px; }
+  td:first-child { text-align: left; padding-left: 12px; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 1px; color: #3a2a10; }
+  td.day-num { color: #9a7a40; font-size: 11px; font-weight: 500; }
+
+  .footer { margin-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: #9a7a40; font-family: 'DM Mono', monospace; letter-spacing: 1px; padding-top: 12px; border-top: 1px solid rgba(201,168,76,0.3); }
+
+  .loading { text-align: center; padding: 60px 20px; }
+  .loading-text { font-size: 20px; font-weight: 800; letter-spacing: 3px; color: #7a6840; animation: pulse 1.2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity:1 } 50% { opacity:0.3 } }
+
+  .error { text-align: center; padding: 60px 20px; color: #c44; }
+  .error-title { font-size: 20px; font-weight: 800; letter-spacing: 2px; margin-bottom: 8px; }
+  .error-sub { font-size: 13px; font-family: 'DM Mono', monospace; }
+
+  @media print {
+    body { padding: 16px; }
+    .no-print { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div id="loading" class="loading">
+  <div class="loading-text">LOADING SCHEDULE…</div>
+</div>
+
+<div id="content" style="display:none">
+  <div class="header">
+    <div>
+      <div class="logo">QAWI</div>
+      <div class="logo-ar">قوي</div>
+    </div>
+    <div class="header-right">
+      <div class="month-label" id="month-label"></div>
+      <div class="city-label" id="city-label"></div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>DAY</th>
+        <th>#</th>
+        <th>FAJR</th>
+        <th>SUNRISE</th>
+        <th>DHUHR</th>
+        <th>ASR</th>
+        <th>MAGHRIB</th>
+        <th>ISHA</th>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+
+  <div class="footer">
+    <span id="footer-method"></span>
+    <span>QAWI — قوي · karimaljabari.github.io/qawi-app</span>
+    <span id="footer-date"></span>
+  </div>
+</div>
+
+<div id="error" class="error" style="display:none">
+  <div class="error-title">UNABLE TO LOAD</div>
+  <div class="error-sub" id="error-msg">Check your connection and try again.</div>
+</div>
+
+<script>
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const METHOD_NAMES = { 2:'ISNA (North America)', 3:'Muslim World League', 4:'Umm al-Qura (Mecca)', 5:'Egyptian General', 8:'Gulf Region', 9:'Kuwait', 10:'Qatar', 12:'Union of Islamic Organizations', 16:'Dubai' };
+
+const params = new URLSearchParams(location.search);
+const city    = params.get('city')    || 'New York';
+const country = params.get('country') || 'US';
+const method  = parseInt(params.get('method') || '2', 10);
+
+const now = new Date();
+const year  = now.getFullYear();
+const month = now.getMonth() + 1;
+
+document.getElementById('month-label').textContent = MONTHS[month - 1].toUpperCase() + ' ' + year;
+document.getElementById('city-label').textContent  = city.toUpperCase() + ' · ' + country.toUpperCase();
+document.getElementById('footer-method').textContent = 'Method: ' + (METHOD_NAMES[method] || 'Standard');
+document.getElementById('footer-date').textContent = 'Printed ' + now.toLocaleDateString();
+
+async function load() {
+  try {
+    const url = `https://api.aladhan.com/v1/calendarByCity/${year}/${month}?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}&method=${method}`;
+    const res = await fetch(url);
+    const json = await res.json();
+
+    if (json.code !== 200 || !json.data) throw new Error(json.status || 'API error');
+
+    const tbody = document.getElementById('table-body');
+    json.data.forEach(day => {
+      const date   = new Date(day.date.gregorian.date.split('-').reverse().join('-'));
+      const dayNum = date.getDate();
+      const isToday = dayNum === now.getDate() && month === now.getMonth() + 1;
+      const t = day.timings;
+      const clean = s => s.replace(/\s*\(.*\)/, '').trim();
+
+      const tr = document.createElement('tr');
+      if (isToday) tr.className = 'today';
+      tr.innerHTML = `
+        <td>${DAYS[date.getDay()].toUpperCase()}</td>
+        <td class="day-num">${dayNum}</td>
+        <td>${clean(t.Fajr)}</td>
+        <td>${clean(t.Sunrise)}</td>
+        <td>${clean(t.Dhuhr)}</td>
+        <td>${clean(t.Asr)}</td>
+        <td>${clean(t.Maghrib)}</td>
+        <td>${clean(t.Isha)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  } catch(e) {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('error-msg').textContent = e.message || 'Network error. Check connection.';
+    document.getElementById('error').style.display = 'block';
+  }
+}
+
+load();
+</script>
+</body>
+</html>
