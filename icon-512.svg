@@ -1,4 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <rect width="512" height="512" rx="100" fill="#070707"></rect>
-  <text y="380" x="256" text-anchor="middle" font-size="340" font-family="Arial Black,sans-serif" fill="#3DFF8F">G</text>
+  <defs>
+    <linearGradient id="moon" x1="20%" y1="10%" x2="80%" y2="90%">
+      <stop offset="0%" stop-color="#F0D272"/>
+      <stop offset="100%" stop-color="#B8871A"/>
+    </linearGradient>
+    <radialGradient id="bg" cx="40%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#131320"/>
+      <stop offset="100%" stop-color="#09090f"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+
+  <!-- Subtle gold border -->
+  <rect width="512" height="512" rx="116" fill="none" stroke="#C9A84C" stroke-width="4" opacity="0.25"/>
+
+  <!-- Crescent moon -->
+  <circle cx="229" cy="278" r="149" fill="url(#moon)"/>
+  <circle cx="297" cy="243" r="139" fill="#09090f"/>
+
+  <!-- 5-pointed star -->
+  <polygon points="369,115 378.5,141 406,141 384,157 393.5,183 369,167 344.5,183 354,157 332,141 359.5,141" fill="url(#moon)"/>
 </svg>
